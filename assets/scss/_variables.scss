@@ -1,0 +1,31 @@
+$transitions: (
+  fast: .3s,
+  middle: .5s,
+  slow: .8s,
+  verySlow: 1s
+);
+
+$mainColors: (
+  main-1: #fb5c7d,
+  main-2: #2cd34a,
+  main-3: #0080ff,
+  light: #fdfdfd,
+  white: #fff,
+  black: #000,
+  gray: #5a6671
+);
+
+$indents: (
+  small: .3rem,
+  middle: .6rem,
+  big: .9rem,
+  veryBig: 1.5rem
+);
+
+$fontSizes: (
+  small: .8rem,
+  normal: 1rem,
+  big: 1.2rem,
+  veryBig: 1.5rem,
+  gigant: 2rem
+);
