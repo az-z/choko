@@ -1,21 +1,24 @@
 <template lang="pug">
 button(
-  :class="{'toggle': toggle}"
+  :class="{'toggle': showDropMenu}"
   @click="toggleBurger"
 ).burger
-  .line-1
-  .line-2
-  .line-3
+  .line-1(:class="{'bg-white': togglesBG}")
+  .line-2(:class="{'bg-white': togglesBG}")
+  .line-3(:class="{'bg-white': togglesBG}")
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  props: ['cb'],
-  data: function () {return{
-    toggle: false
-  }},
+  props: ['cb', 'showDropMenu'],
+  computed: {
+    ...mapGetters({
+      togglesBG: 'NavigateBar/Scenery/getTogglesBG'
+    })
+  },
   methods: {
     toggleBurger: function () {
-      this.toggle = !this.toggle
+      console.log('burger click');
       if(this.cb) this.cb()
     }
   }

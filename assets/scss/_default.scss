@@ -1,5 +1,9 @@
 * { margin: 0; padding: 0; box-sizing: border-box; outline: none;}
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Blogger Sans', sans-serif;
   font-size: 1rem;
@@ -93,12 +97,20 @@ button {
       color: $color;
     }
   }
+
   .color {
     color: $color; 
   }
+
   .bg {
     &-#{$name} {
-      background-color: $color;
+      background-color: $color !important;
+    }
+  }
+
+  .text{
+    &-#{$name} {
+      color: $color !important;
     }
   }
 }

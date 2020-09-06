@@ -1,5 +1,6 @@
 <template lang="pug">
 .baner.container
+  //- .baner__content
   h1.baner__title ФотоКлюч: автоматизация продаж ваших фотографий
   p.baner__text Работаете фотографом в детских садах, школах или на массовых мероприятиях?
   .baner__links
@@ -13,8 +14,12 @@
   padding-top: 8rem !important;
   text-align: center;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   &__title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     line-height: 3rem;
   }
 

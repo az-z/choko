@@ -1,0 +1,9 @@
+@mixin mainPageTitle {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  width: fit-content;
+  padding-bottom: 0.5rem;
+  margin: 7rem auto 4rem;
+  border-bottom: 3px solid map-get($mainColors, main-2);
+}

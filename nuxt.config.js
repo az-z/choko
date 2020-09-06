@@ -5,7 +5,7 @@ export default {
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
   */
-  mode: 'spa',
+  mode: 'universal',
   /*
   ** Nuxt target
   ** See https://nuxtjs.org/api/configuration-target
@@ -70,7 +70,7 @@ export default {
   styleResources: {
     // your settings here
     // sass: [],
-    scss: ['~/assets/scss/_variables.scss'],
+    scss: ['~/assets/scss/_variables.scss', '~/assets/scss/_mixins.scss'],
     // less: [],
     // stylus: []
   },
@@ -92,12 +92,23 @@ export default {
         access_token_endpoint: undefined,
         response_type: 'token',
         token_type: 'Bearer',
-        redirect_uri: undefined,
+        redirect_uri: 'http://localhost:3000/auth/',
         client_id: process.env.GOOGLE_CLIENT_ID,
         token_key: 'access_token',
         state: 'UNIQUE_AND_NON_GUESSABLE'
       }
-    }
+    },
+    // redirect: {
+    //   login: '/auth',
+    //   logout: '/auth',
+    //   home: '/',
+    //   // callback: '/callback'
+    // },
+    // strategies: {
+    //   google: {
+    //     client_id: process.env.GOOGLE_CLIENT_ID
+    //   }
+    // }
   },
   /*
   ** Content module configuration

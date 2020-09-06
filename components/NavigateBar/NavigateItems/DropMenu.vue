@@ -1,14 +1,31 @@
 <template lang="pug">
 .drop-menu(:class="{'show': showDropMenu}")
-  .drop-menu__body
+  .drop-menu__body(v-click-outside="hide")
     .drop-menu__items
-      nuxt-link(to="/").drop-menu__item Возможности
-      nuxt-link(to="/").drop-menu__item Цены
+      .drop-menu__item(@click="scrollTo('opportunities')") Возможности
+      .drop-menu__item(@click="scrollTo('prices')") Цены
       nuxt-link(to="/").drop-menu__item Войти
 </template>
 <script>
+import ClickOutside from 'vue-click-outside'
 export default {
-  props: ['showDropMenu']
+  props: ['showDropMenu', 'hideDropMenu'],
+  methods: {
+    scrollTo: (id) => {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' })
+    },
+    hide: function () {
+      // if (this.showDropMenu) this.hideDropMenu()
+    }
+  },
+  mounted () {
+    // prevent click outside event with popupItem.
+    this.popupItem = this.$el
+  },
+  // do not forget this section
+  directives: {
+    ClickOutside
+  }
 }
 </script>
 <style lang="scss" scoped>

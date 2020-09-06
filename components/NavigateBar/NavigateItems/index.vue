@@ -2,14 +2,15 @@
 #NavigateItems
   .desctop
     .items
-      nuxt-link(to="/").item Возможности
-      nuxt-link(to="/").item Цены
-      nuxt-link(to="/").item Войти
+      .item(@click="scrollTo('opportunities')" :class="{'text-white': togglesBG}") Возможности
+      .item(@click="scrollTo('prices')" :class="{'text-white': togglesBG}") Цены
+      nuxt-link(to="/" :class="{'text-white': togglesBG}").item Войти
   .mobile
-    Burger(:cb="toggleDropMenu")
-    DropMenu(:showDropMenu="showDropMenu")
+    Burger(:cb="toggleDropMenu" :showDropMenu="showDropMenu")
+    DropMenu(:showDropMenu="showDropMenu" :hideDropMenu="hideDropMenu")
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import Burger from './Burger'
 import DropMenu from './DropMenu'
 export default {
@@ -20,9 +21,20 @@ export default {
   data: function () {return{
     showDropMenu: false
   }},
+  computed: {
+    ...mapGetters({
+      togglesBG: 'NavigateBar/Scenery/getTogglesBG'
+    })
+  },
   methods: {
     toggleDropMenu: function () {
       this.showDropMenu = !this.showDropMenu
+    },
+    hideDropMenu: function () {
+      this.showDropMenu = false
+    },
+    scrollTo: (id) => {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
   }
 }
@@ -51,6 +63,10 @@ export default {
     font-weight: 500;
     text-transform: uppercase;
     padding: 0 .5rem;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 </style>

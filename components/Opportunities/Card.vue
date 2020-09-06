@@ -13,25 +13,29 @@ export default {
 <style lang="scss" scoped>
 .card {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin: 2rem auto;
+  flex-wrap: wrap;
+  padding: 1rem;
+  // box-shadow: 0 0 4px rgba(0,0,0, .4);
+  background-color: map-get($mainColors, white);
+
   &__icon {
-    width: 26%;
+    width: 100%;
     position: relative;
     display: block;
   }
 
   &__content {
-    width: 66%;
+    width: 100%;
     margin-left: auto;
   }
 
   &__title {
+    margin-top: 2rem;
     font-size: 1.5rem;
     font-weight: 900;
-  }
-
-  &__text {
+    text-align: center;
   }
 }
 </style>

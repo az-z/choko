@@ -1,22 +1,16 @@
 <template lang="pug">
 .default-layout(v-scroll:throttle="{fn: onScroll, throttle: 500 }")
-  NavigateBar(:bg="bg")
   Nuxt
 </template>
 <script>
-import NavigateBar from '~/components/NavigateBar'
+import { mapActions } from 'vuex'
 export default {
-  components: {
-    NavigateBar
-  },
-  data: function () {return{
-    possition: { scrollTop: 0, scrollLeft: 0 },
-    bg: false
-  }},
   methods: {
-    onScroll: function (e, possition) {
-      this.possition = possition
-      this.bg = possition.scrollTop < 55
+    ...mapActions({
+      toggleBG: 'NavigateBar/Scenery/toggleBG'
+    }),
+    onScroll: function (e, possition) { 
+      this.toggleBG(possition.scrollTop <= 1)
     }
   }
 }

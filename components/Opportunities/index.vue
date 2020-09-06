@@ -1,12 +1,13 @@
 <template lang="pug">
-.opportunities.container
+.opportunities.container(id="opportunities")
   .opportunities__title Возможности
-  Card(
-    v-for="(possibility, index) in opportunities" :key="index"
-    :icon="possibility.icon"
-    :title="possibility.title"
-    :text="possibility.text"
-  )
+  .opportunities__cards
+    Card(
+      v-for="(possibility, index) in opportunities" :key="index"
+      :icon="possibility.icon"
+      :title="possibility.title"
+      :text="possibility.text"
+    )
 </template>
 <script>
 import Card from './Card'
@@ -52,14 +53,26 @@ export default {
 </script>
 <style lang="scss" scoped>
 .opportunities {
+  width: fit-content;
+  margin: 0 auto;
+
   &__title {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 600;
-    width: fit-content;
-    padding-bottom: .5rem;
-    margin: 2rem auto;
-    border-bottom: 2px solid map-get($mainColors, main-2);
+    @include mainPageTitle;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1366px) {
+      padding: 0 4rem;
+      grid-template-columns: repeat(3, minmax(340px, 1fr));
+      grid-gap: 2rem;
+    }
   }
 }
 </style>

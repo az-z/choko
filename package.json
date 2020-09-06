@@ -17,6 +17,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/svg-sprite": "^0.4.12",
     "nuxt": "^2.14.0",
+    "vue-click-outside": "^1.1.0",
     "vue-scroll": "^2.1.13"
   },
   "devDependencies": {
