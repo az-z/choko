@@ -5,7 +5,7 @@ export default {
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
   */
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Nuxt target
   ** See https://nuxtjs.org/api/configuration-target
@@ -56,12 +56,12 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
-    '@nuxt/content',
+    // '@nuxt/content',
     '@nuxtjs/style-resources',
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
+    // '@nuxtjs/auth',
     '@nuxtjs/svg-sprite'
   ],
   svgSprite: {
@@ -81,23 +81,23 @@ export default {
   axios: {
     baseURL: process.env.BASE_URL
   },
-  auth: {
-    strategies: {
-      google: {
-        _scheme: 'oauth2',
-        authorization_endpoint: 'https://accounts.google.com/o/oauth2/auth',
-        userinfo_endpoint: 'https://www.googleapis.com/oauth2/v3/userinfo',
-        scope: ['openid', 'profile', 'email'],
-        access_type: undefined,
-        access_token_endpoint: undefined,
-        response_type: 'token',
-        token_type: 'Bearer',
-        redirect_uri: 'http://localhost:3000/auth/',
-        client_id: process.env.GOOGLE_CLIENT_ID,
-        token_key: 'access_token',
-        state: 'UNIQUE_AND_NON_GUESSABLE'
-      }
-    },
+  // auth: {
+  //   strategies: {
+  //     google: {
+  //       _scheme: 'oauth2',
+  //       authorization_endpoint: 'https://accounts.google.com/o/oauth2/auth',
+  //       userinfo_endpoint: 'https://www.googleapis.com/oauth2/v3/userinfo',
+  //       scope: ['openid', 'profile', 'email'],
+  //       access_type: undefined,
+  //       access_token_endpoint: undefined,
+  //       response_type: 'token',
+  //       token_type: 'Bearer',
+  //       redirect_uri: 'http://localhost:3000/auth/',
+  //       client_id: process.env.GOOGLE_CLIENT_ID,
+  //       token_key: 'access_token',
+  //       state: 'UNIQUE_AND_NON_GUESSABLE'
+  //     }
+  //   },
     // redirect: {
     //   login: '/auth',
     //   logout: '/auth',
@@ -109,12 +109,12 @@ export default {
     //     client_id: process.env.GOOGLE_CLIENT_ID
     //   }
     // }
-  },
+  // },
   /*
   ** Content module configuration
   ** See https://content.nuxtjs.org/configuration
   */
-  content: {},
+  // content: {},
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/

@@ -12,8 +12,9 @@
 <script>
 export default {
   methods: {
-    auth: function () {
-      this.$auth.loginWith('google')
+    auth: async function () {
+      const authCode = await this.$gAuth.getAuthCode()
+      const response = await this.$http.post('http://your-backend-server-api-to-use-authcode', { code: authCode, redirect_uri: 'postmessage' })
     }
   }
 }
