@@ -1,6 +1,7 @@
 <template lang="pug">
 .default-layout(v-scroll:throttle="{fn: onScroll, throttle: 500 }")
   Nuxt
+  notifications(group="foo" position="right bottom")
 </template>
 <script>
 import { mapActions } from 'vuex'

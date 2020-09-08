@@ -16,6 +16,7 @@ export default {
     Opportunities,
     Prices,
     NavigateBar
-  }
+  },
+  middleware: 'checkAuth'
 }
 </script>

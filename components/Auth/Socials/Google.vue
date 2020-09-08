@@ -10,11 +10,35 @@
       span.text-main-1 e
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
   methods: {
+    ...mapActions({
+      signin: 'Auth/signin'
+    }),
     auth: async function () {
-      const authCode = await this.$gAuth.getAuthCode()
-      const response = await this.$http.post('http://your-backend-server-api-to-use-authcode', { code: authCode, redirect_uri: 'postmessage' })
+      const googleUser = await this.$gAuth.signIn()
+      this.$axios.post(
+        '/api/auth/google',
+        { googleUser, redirect_uri: 'postmessage' }
+        ).then(response => {
+          this.signin(response.data.user)
+          this.$notify({
+            group: 'foo',
+            title: 'SUCCESS',
+            text: response.data.msg,
+            type: 'success'
+          })
+          this.$router.push('/')
+        }).catch(error => {
+          this.$notify({
+            group: 'foo',
+            title: 'ERROR',
+            text: error.response.data.msg,
+            type: 'error'
+          })
+        })
+
     }
   }
 }
