@@ -23,6 +23,7 @@ export default {
         { googleUser, redirect_uri: 'postmessage' }
         ).then(response => {
           this.signin(response.data.user)
+          this.$axios.setToken(response.data.token, 'Bearer')
           this.$notify({
             group: 'foo',
             title: 'SUCCESS',
