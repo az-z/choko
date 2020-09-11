@@ -1,7 +1,7 @@
 <template lang="pug">
 .google-auth
   button.google-auth__button.btn.btn-white(@click="auth")
-    svg-icon.google-auth__icon(name="google")
+    svg-icon(name="google").google-auth__icon
     .google-auth__text
       span.text-main-1 o
       span.text-google o
@@ -24,6 +24,7 @@ export default {
         ).then(response => {
           this.signin(response.data.user)
           this.$axios.setToken(response.data.token, 'Bearer')
+          localStorage.setItem('token', response.data.token)
           this.$notify({
             group: 'foo',
             title: 'SUCCESS',

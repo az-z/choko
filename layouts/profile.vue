@@ -5,6 +5,6 @@
 </template>
 <script>
 export default {
-  middleware: 'checkAuth'
+  middleware: 'verify'
 }
 </script>

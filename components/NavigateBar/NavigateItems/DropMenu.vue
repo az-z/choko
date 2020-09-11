@@ -34,21 +34,14 @@ export default {
   top: 4rem;
   right: -100%;
   transition: map-get($transitions, fast);
-  
   &.show {
     right: 5%;
   }
-
   &__body {
     background-color: #fff;
     box-shadow: 0 0 8px rgba(0,0,0, .4);
     border-radius: 8px;
   }
-
-  &__items {
-
-  }
-
   &__item {
     display: block;
     padding: .1rem 1rem;

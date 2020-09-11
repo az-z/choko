@@ -17,6 +17,5 @@ export default {
     Prices,
     NavigateBar
   },
-  middleware: 'checkAuth'
 }
 </script>

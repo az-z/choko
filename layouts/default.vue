@@ -6,6 +6,7 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
+  middleware: 'verify',
   methods: {
     ...mapActions({
       toggleBG: 'NavigateBar/Scenery/toggleBG'
