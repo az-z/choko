@@ -32,6 +32,10 @@ export default {
   css: [
     '~/assets/scss/main.scss'
   ],
+  router: {
+    linkActiveClass: 'active-link',
+    linkExactActiveClass: 'your-custom-exact-active-link',
+  },
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
