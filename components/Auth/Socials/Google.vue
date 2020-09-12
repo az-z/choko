@@ -1,6 +1,6 @@
 <template lang="pug">
 .google-auth
-  button.google-auth__button.btn.btn-white(@click="auth")
+  button.google-auth__button.btn.btn-outline-google(@click="auth")
     svg-icon(name="google").google-auth__icon
     .google-auth__text
       span.text-main-1 o
