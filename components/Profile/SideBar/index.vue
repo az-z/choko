@@ -1,8 +1,8 @@
 <template lang="pug">
 .sidebar
   //- .sidebar__logo Photo
-  .sidebar__user-wrapper
-    .sidebar__user(v-if="user")
+  .sidebar__user-wrapper(v-if="user")
+    .sidebar__user
       img(:src="user.picture").sidebar__img
     .sidebar__user-name {{ user.name }}
     .sidebar__user-email {{ user.email }}
