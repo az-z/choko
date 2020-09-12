@@ -31,10 +31,10 @@
           <svg-icon @mouseover="vk = 'fl'" @mouseleave="vk = 'st'" :name="`vk_${vk}`" class="icon-vk"></svg-icon>
         </div>
       </div>
+    </div>
       <div class="copyright">
         &copy; 2020 - Splendor inc.
       </div>
-    </div>
   </footer>
 </template>
 <script>
@@ -54,10 +54,22 @@ footer {
     .footer-list {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
+      .footer-picture {
+        text-align: center;
+      }
       .details, .info_name, .contacts_name {
         font-size: 1.7rem;
         font-weight: 500;
         color: #273F5B;
+      }
+      .details:after, .info_name:after, .contacts_name:after {
+        content: "";
+        display: block;
+        width: 50px;
+        height: 4px;
+        background-color: #0081FF;
+        margin: 1rem 0 .5rem;
+        border-radius: 12px;
       }
     }  
   }
@@ -78,5 +90,14 @@ footer {
 
 .copyright {
   text-align: center;
+  background-color: #FFFFFF;
+  display: block;
+  padding: 2rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100px;
+
 }
 </style>
