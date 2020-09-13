@@ -3,7 +3,7 @@
     <div class="container">
       <div class="footer-list">
         <div class="footer-picture">
-          <img src="/images/Footer-girl.jpg" alt="Picture" width="40%">
+          <img src="/images/Footer-girl.png" alt="Picture" width="40%">
         </div>
         <div class="all_details">
           <div class="details">Реквизиты</div>
@@ -29,6 +29,7 @@
             <a href="info:photo@ftkl.ua" class="email">photo@ftkl.ua</a>
           </div>
           <svg-icon @mouseover="vk = 'fl'" @mouseleave="vk = 'st'" :name="`vk_${vk}`" class="icon-vk"></svg-icon>
+          <svg-icon @mouseover="f = 'fla'" @mouseleave="f = 'sta'" :name="`f_${f}`" class="icon-f"></svg-icon>
         </div>
       </div>
     </div>
@@ -41,7 +42,7 @@
 export default {
   data() {
     return {
-      vk: "st"
+      vk: "st", f: "sta",
     }
   },
 }
@@ -84,9 +85,15 @@ footer {
   height: 32px;
 }
 
-.icon-vk:hover {
-  fill:blue;
+.icon-f {
+  fill:inherit;
+  stroke:inherit;
+  stroke-width:inherit;
+  transition: all .8s ease;
+  width: 32px;
+  height: 32px;
 }
+
 
 .copyright {
   text-align: center;
