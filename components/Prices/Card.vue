@@ -30,6 +30,8 @@ export default {
 .card {
   background-color: map-get($mainColors, light);
   margin: 2rem 0;
+  border-radius: 16px;
+  box-shadow: 0 0 32px rgba($color: #000000, $alpha: .15);
   &__title {
     @include block;
     font-weight: 500;
