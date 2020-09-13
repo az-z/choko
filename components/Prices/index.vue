@@ -57,13 +57,17 @@ export default {
 </script>
 <style lang="scss" scoped>
 .prices {
-  background-color: lighten(map-get($mainColors, main-3), $amount: 42);
+  background-color: map-get($mainColors, main-3);
   padding-top: 7rem;
   padding-bottom: 7rem;
 
   &__title {
     @include mainPageTitle;
     margin-top: 0;
+    color: #fff;
+    &::after {
+      background-color: map-get($mainColors, main-2);
+    }
   }
 
   &__cards {
