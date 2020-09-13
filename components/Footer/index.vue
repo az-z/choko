@@ -3,7 +3,7 @@
     <div class="container">
       <div class="footer-list">
         <div class="footer-picture">
-          <img src="/images/Footer-girl.jpg" alt="Picture" width="40%">
+          <img src="/images/Footer-girl.png" alt="Picture" width="40%">
         </div>
         <div class="all_details">
           <div class="details">Реквизиты</div>
@@ -29,19 +29,20 @@
             <a href="info:photo@ftkl.ua" class="email">photo@ftkl.ua</a>
           </div>
           <svg-icon @mouseover="vk = 'fl'" @mouseleave="vk = 'st'" :name="`vk_${vk}`" class="icon-vk"></svg-icon>
+          <svg-icon @mouseover="f = 'fla'" @mouseleave="f = 'sta'" :name="`f_${f}`" class="icon-f"></svg-icon>
         </div>
       </div>
+    </div>
       <div class="copyright">
         &copy; 2020 - Splendor inc.
       </div>
-    </div>
   </footer>
 </template>
 <script>
 export default {
   data() {
     return {
-      vk: "st"
+      vk: "st", f: "sta",
     }
   },
 }
@@ -54,10 +55,22 @@ footer {
     .footer-list {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
+      .footer-picture {
+        text-align: center;
+      }
       .details, .info_name, .contacts_name {
         font-size: 1.7rem;
         font-weight: 500;
         color: #273F5B;
+      }
+      .details:after, .info_name:after, .contacts_name:after {
+        content: "";
+        display: block;
+        width: 50px;
+        height: 4px;
+        background-color: #0081FF;
+        margin: 1rem 0 .5rem;
+        border-radius: 12px;
       }
     }  
   }
@@ -72,11 +85,26 @@ footer {
   height: 32px;
 }
 
-.icon-vk:hover {
-  fill:blue;
+.icon-f {
+  fill:inherit;
+  stroke:inherit;
+  stroke-width:inherit;
+  transition: all .8s ease;
+  width: 32px;
+  height: 32px;
 }
+
 
 .copyright {
   text-align: center;
+  background-color: #FFFFFF;
+  display: block;
+  padding: 2rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100px;
+
 }
 </style>
