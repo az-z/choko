@@ -29,7 +29,7 @@
             <a href="info:photo@ftkl.ua" class="email">photo@ftkl.ua</a>
           </div>
           <svg-icon @mouseover="vk = 'fl'" @mouseleave="vk = 'st'" :name="`vk_${vk}`" class="icon-vk"></svg-icon>
-          <svg-icon @mouseover="f = 'fla'" @mouseleave="f = 'sta'" :name="`f_${f}`" class="icon-f"></svg-icon>
+          <svg-icon  :name="`f_${f}`" class="icon-f"></svg-icon>
         </div>
       </div>
     </div>
@@ -75,7 +75,6 @@ footer {
     }  
   }
 }
-
 .icon-vk {
   fill:inherit;
   stroke:inherit;
@@ -84,17 +83,18 @@ footer {
   width: 32px;
   height: 32px;
 }
-
 .icon-f {
+  cursor: pointer;
   fill:inherit;
   stroke:inherit;
   stroke-width:inherit;
-  transition: all .8s ease;
+  transition: all map-get($transitions, fast) ease;
   width: 32px;
   height: 32px;
+  &:hover {
+    fill: map-get($mainColors, main-3);
+  }
 }
-
-
 .copyright {
   text-align: center;
   background-color: #FFFFFF;
