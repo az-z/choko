@@ -13,7 +13,9 @@
 import { mapGetters } from 'vuex'
 import Burger from './Burger'
 import DropMenu from './DropMenu'
+import MixinMoveTo from '~/mixins/moveTo'
 export default {
+  mixins: [MixinMoveTo],
   components: {
     Burger,
     DropMenu
@@ -32,9 +34,6 @@ export default {
     },
     hideDropMenu: function () {
       this.showDropMenu = false
-    },
-    scrollTo: (id) => {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
   }
 }
