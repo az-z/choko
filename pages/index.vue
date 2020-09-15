@@ -4,18 +4,21 @@
   Baner
   Opportunities
   Prices
+  Footer
 </template>
 <script>
 import NavigateBar from '~/components/NavigateBar'
 import Baner from '~/components/Banner'
 import Opportunities from '~/components/Opportunities'
 import Prices from '~/components/Prices'
+import Footer from '~/components/Footer'
 export default {
   components: {
     Baner,
     Opportunities,
     Prices,
-    NavigateBar
+    NavigateBar,
+    Footer
   },
 }
 </script>
