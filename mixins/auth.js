@@ -1,6 +1,14 @@
 export default {
+  data: function () {return{
+  }},
+  computed: {
+    signin: function () {
+      return this.$store.getters['Auth/getSignin']
+    }
+  },
   methods: {
     auth: async function () {
+      if (this.signin) return this.$router.push('profile')
       const googleUser = await this.$gAuth.signIn()
       this.$axios.post(
         '/api/auth/google',
@@ -15,7 +23,7 @@ export default {
             text: response.data.msg,
             type: 'success'
           })
-          this.$router.push('/')
+          this.$router.push('/profile')
         }).catch(error => {
           this.$notify({
             group: 'foo',
