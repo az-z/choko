@@ -13,7 +13,7 @@
       ) Пользователь
     li.sidebar__element
       nuxt-link(
-        :to="'/profile/user'"
+        :to="'/profile/gallery'"
       ) Галерея
     li.sidebar__element
       nuxt-link(
@@ -83,14 +83,32 @@ export default {
     display: flex;
     justify-content: center;
     a {
+      position: relative;
+      z-index: 5;
       display: block;
-      width: 110px;
+      width: 100%;
       color: map-get($mainColors, light);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       display: block;
       height: 32px;
+      text-align: center;
       &:hover {
         text-decoration: underline;
+      }
+      &.active-link {
+        color: map-get($mainColors, black) !important;
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: -8px;
+          left: 8px;
+          z-index: 4;
+          height: 48px;
+          background-color: map-get($mainColors, white);
+          width: 100%;
+          border-radius: 16px 0 0 16px;
+        } 
       }
     }   
     &:not(:first-child) {
