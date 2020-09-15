@@ -6,7 +6,7 @@
           <img src="/images/Footer-girl.png" alt="Picture" width="40%">
         </div>
         <div class="all_details">
-          <div class="details">Реквизиты</div>
+          <div class= "details">Реквизиты</div>
           <div class="bank_details">
             <p>OOO Фото-Софт</p>
             <p>ИНН: 7777777777</p>
@@ -22,14 +22,24 @@
         </div>
         <div class="contacts">
           <div class="contacts_name">Контакты</div>
-          <div class="phones">
-            <a href="tel:+380939876541" class="phone">+380939876541</a>
+          <div class="content_contacts">
+            <div class="phones">
+              <a href= "tel:+380937777777" class="phone">+380937777777</a>
+            </div>
+            <div class="email">
+              <a href="info:photo@ftkl.ua" class="email">photo@ftkl.ua</a>
+            </div>
+            <!--<svg-icon @mouseover="vk = 'fl'" @mouseleave="vk = 'st'" :name="`vk_${vk}`" class="icon-vk"></svg-icon>-->
+            <a href="https://www.facebook.com">
+              <svg-icon  :name="`f_${f}`" class="icon-f"></svg-icon>
+            </a>
+            <a href="https://www.instagram.com">
+              <svg-icon  :name="`i_${i}`" class="icon-i"></svg-icon>
+            </a>
+            <a href="https://www.youtube.com">
+              <svg-icon  :name="`y_${y}`" class="icon-y"></svg-icon>
+            </a>
           </div>
-          <div class="email">
-            <a href="info:photo@ftkl.ua" class="email">photo@ftkl.ua</a>
-          </div>
-          <svg-icon @mouseover="vk = 'fl'" @mouseleave="vk = 'st'" :name="`vk_${vk}`" class="icon-vk"></svg-icon>
-          <svg-icon  :name="`f_${f}`" class="icon-f"></svg-icon>
         </div>
       </div>
     </div>
@@ -42,7 +52,7 @@
 export default {
   data() {
     return {
-      vk: "st", f: "sta",
+      i: "st", f: "sta", y: "stan"
     }
   },
 }
@@ -62,6 +72,7 @@ footer {
         font-size: 1.7rem;
         font-weight: 500;
         color: #273F5B;
+        cursor: pointer;
       }
       .details:after, .info_name:after, .contacts_name:after {
         content: "";
@@ -75,14 +86,13 @@ footer {
     }  
   }
 }
-.icon-vk {
-  fill:inherit;
-  stroke:inherit;
-  stroke-width:inherit;
-  transition: all .8s ease;
-  width: 32px;
-  height: 32px;
+
+
+
+.email {
+  padding-bottom: 1rem;
 }
+
 .icon-f {
   cursor: pointer;
   fill:inherit;
@@ -95,6 +105,33 @@ footer {
     fill: map-get($mainColors, main-3);
   }
 }
+
+.icon-i {
+  cursor: pointer;
+  fill:inherit;
+  stroke:inherit;
+  stroke-width:inherit;
+  transition: all map-get($transitions, fast) ease;
+  width: 32px;
+  height: 32px;
+  &:hover {
+    fill: map-get($mainColors, main-2);
+  }
+}
+
+.icon-y {
+  cursor: pointer;
+  fill:inherit;
+  stroke:inherit;
+  stroke-width:inherit;
+  transition: all map-get($transitions, fast) ease;
+  width: 32px;
+  height: 32px;
+  &:hover {
+    fill: map-get($mainColors, main-5);
+  }
+}
+
 .copyright {
   text-align: center;
   background-color: #FFFFFF;
@@ -105,6 +142,5 @@ footer {
   right: 0;
   width: 100%;
   height: 100px;
-
 }
 </style>
