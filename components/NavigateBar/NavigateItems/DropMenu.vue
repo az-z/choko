@@ -4,16 +4,15 @@
     .drop-menu__items
       .drop-menu__item(@click="scrollTo('opportunities')") Возможности
       .drop-menu__item(@click="scrollTo('prices')") Цены
-      nuxt-link(to="/").drop-menu__item Войти
+      .drop-menu__item(@click="scrollTo('baner')") Войти
 </template>
 <script>
 import ClickOutside from 'vue-click-outside'
+import MixinMoveTo from '~/mixins/moveTo'
 export default {
+  mixins: [MixinMoveTo],
   props: ['showDropMenu', 'hideDropMenu'],
   methods: {
-    scrollTo: (id) => {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' })
-    },
     hide: function () {
       // if (this.showDropMenu) this.hideDropMenu()
     }

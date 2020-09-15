@@ -25,11 +25,11 @@ export default {
     width: 4px;
   }
   &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.507);
+    box-shadow: inset 0 0 6px map-get($mainColors, main-3);
   }
   &::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.637);
-    outline: 1px solid rgb(0, 0, 0);
+    // outline: 1px solid rgb(0, 0, 0);
   }
 }
 </style>

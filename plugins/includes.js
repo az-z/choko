@@ -14,3 +14,6 @@ Vue.use(GAuth, gauthOption)
  
 import vueNotification from 'vue-notification'
 Vue.use(vueNotification)
+
+import VueKinesis from 'vue-kinesis'
+Vue.use(VueKinesis)

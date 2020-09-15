@@ -1,9 +1,19 @@
 @mixin mainPageTitle {
-  text-align: center;
+  position: relative;
   font-size: 2rem;
   font-weight: 600;
   width: fit-content;
-  padding-bottom: 0.5rem;
   margin: 7rem auto 4rem;
-  border-bottom: 3px solid map-get($mainColors, main-2);
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 60%;
+    height: 3px;
+    background-color: map-get($mainColors, main-3);
+    border-radius: 1px;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }

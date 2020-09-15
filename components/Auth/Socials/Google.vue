@@ -1,6 +1,6 @@
 <template lang="pug">
 .google-auth
-  button.google-auth__button.btn.btn-white(@click="auth")
+  button.google-auth__button.btn.btn-outline-google(@click="auth")
     svg-icon(name="google").google-auth__icon
     .google-auth__text
       span.text-main-1 o
@@ -10,39 +10,9 @@
       span.text-main-1 e
 </template>
 <script>
-import { mapActions } from 'vuex'
+import MixinAuth from '~/mixins/auth'
 export default {
-  methods: {
-    ...mapActions({
-      signin: 'Auth/signin'
-    }),
-    auth: async function () {
-      const googleUser = await this.$gAuth.signIn()
-      this.$axios.post(
-        '/api/auth/google',
-        { googleUser, redirect_uri: 'postmessage' }
-        ).then(response => {
-          this.signin(response.data.user)
-          this.$axios.setToken(response.data.token, 'Bearer')
-          localStorage.setItem('token', response.data.token)
-          this.$notify({
-            group: 'foo',
-            title: 'SUCCESS',
-            text: response.data.msg,
-            type: 'success'
-          })
-          this.$router.push('/')
-        }).catch(error => {
-          this.$notify({
-            group: 'foo',
-            title: 'ERROR',
-            text: error.response.data.msg,
-            type: 'error'
-          })
-        })
-
-    }
-  }
+  mixins: [MixinAuth]
 }
 </script>
 <style lang="scss" scoped>

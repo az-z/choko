@@ -1,38 +1,62 @@
 <template lang="pug">
-.baner.container
-  //- .baner__content
-  h1.baner__title ФотоКлюч: автоматизация продаж ваших фотографий
-  p.baner__text Работаете фотографом в детских садах, школах или на массовых мероприятиях?
-  .baner__links
-    nuxt-link(to="/auth").btn.btn-main-2 Регистрация
-    nuxt-link(to="/auth").btn.btn-white Вход
+kinesis-container.baner.container#baner
+  .baner__info-block
+    .baner__title Работо с фото? Легко!
+    .baner__desription Работо с фото? Легко!
+    .baner__google
+      GoogleAuth
+  kinesis-element.baner__balloon
+    img(src="/images/vs.png").baner__balloon-img
 </template>
+<script>
+import GoogleAuth from '~/components/Auth/Socials/Google'
+export default {
+  components: {
+    GoogleAuth
+  }
+}
+</script>
 <style lang="scss" scoped>
 .baner {
-  background: linear-gradient(0.25turn, map-get($mainColors, main-3), map-get($mainColors, main-1));
-  color: map-get($mainColors, white);
-  padding-top: 8rem !important;
-  text-align: center;
+  position: relative;
+  background-image: url('/images/pririda-photo.jpg');
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  &__title {
-    font-size: 2rem;
-    line-height: 3rem;
+  background-size: cover;
+  &__balloon {
+    position: absolute;
+    top: 150px;
+    right: 250px;
+    width: 150px;
   }
-
-  &__text {
-    margin: 2rem 0;
+  &__balloon-img {
+    width: 100%;
+    height: 100%;
   }
-
-  &__links {
+  &__info-block {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    width: 280px;
+    height: 280px;
+    background-color: map-get($mainColors, light);
+    box-shadow: 0 0 32px rgba(0,0,0,.15);
+    border-radius: 16px;
+    padding: 1rem;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__title {
+    font-size: 1.2rem;
+    color: map-get($mainColors, black);
+    font-weight: 500;
+  }
+  &__description {
 
-    .btn {
-      margin: 0 auto;
-    }
+  }
+  &__google {
+    margin-top: auto;
   }
 }
 </style>

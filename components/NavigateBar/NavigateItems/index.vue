@@ -4,7 +4,7 @@
     .items
       .item(@click="scrollTo('opportunities')" :class="{'text-white': togglesBG}") Возможности
       .item(@click="scrollTo('prices')" :class="{'text-white': togglesBG}") Цены
-      nuxt-link(to="/" :class="{'text-white': togglesBG}").item Войти
+      .item(@click="scrollTo('baner')" :class="{'text-white': togglesBG}") Войти
   .mobile
     Burger(:cb="toggleDropMenu" :showDropMenu="showDropMenu")
     DropMenu(:showDropMenu="showDropMenu" :hideDropMenu="hideDropMenu")
@@ -13,7 +13,9 @@
 import { mapGetters } from 'vuex'
 import Burger from './Burger'
 import DropMenu from './DropMenu'
+import MixinMoveTo from '~/mixins/moveTo'
 export default {
+  mixins: [MixinMoveTo],
   components: {
     Burger,
     DropMenu
@@ -32,9 +34,6 @@ export default {
     },
     hideDropMenu: function () {
       this.showDropMenu = false
-    },
-    scrollTo: (id) => {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'end' })
     }
   }
 }
