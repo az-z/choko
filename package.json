@@ -16,6 +16,7 @@
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/svg-sprite": "^0.4.12",
+    "googleapis": "^59.0.0",
     "nuxt": "^2.14.0",
     "vue-click-outside": "^1.1.0",
     "vue-google-oauth2": "^1.5.5",

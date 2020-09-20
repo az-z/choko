@@ -1,6 +1,5 @@
 export default ({ $axios, store, redirect }) => {
   const token = localStorage.getItem('token')
-  console.log(token);
   if (!token) return ''
   $axios.setToken(token, 'bearer')
   $axios.get('/api/auth/verify').then(response => {

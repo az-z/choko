@@ -26,12 +26,17 @@ a {
 }
 
 input, textarea {
+  display: block;
+  width: 100%;
   border: 1px solid #222222;
   border-radius: 8px;
   background-color: map-get($mainColors, white);
   padding: map-get($indents, middle);
   transition: map-get($transitions, fast);
   outline: none !important;
+  &:focus {
+    box-shadow: 0 0 0 2px map-get($mainColors, main-3);
+  }
   &.valid {
     background-color: map-get($mainColors, main-2);
   }
@@ -115,9 +120,6 @@ button {
   }
 }
 
-
-
-
 ul {
   li {
     margin-left: map-get($indents, veryBig);
@@ -129,3 +131,51 @@ ul {
   }
 }
 
+.checkbox-formater {
+  opacity: 0;
+  position: absolute;
+  left: 999999;
+  & + label {
+    position: relative;
+    padding-left: 46px;
+    display: flex;
+    align-items: center;
+    &::before {
+      content: '';
+      display: block;
+      width: 38px;
+      height: 20px;
+      background-color: map-get($mainColors, white);
+      border: 1px solid map-get($mainColors, dark);
+      border-radius: 32px;
+      position: absolute;
+      left: 0;
+      transition: map-get($transitions, fast);
+    }
+    &::after {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 16px;
+      background-color: map-get($mainColors, dark);
+      border-radius: 32px;
+      position: absolute;
+      left: 4px;
+      transition: map-get($transitions, fast);
+    }
+  }
+  &:checked + label {
+    &::before {
+      border-color: map-get($mainColors, green);
+    }
+    &::after {
+      background-color: map-get($mainColors, green);
+      left: 20px;
+    }
+  }
+  &:focus + label {
+    &::before {
+      box-shadow: 0 0 0 2px map-get($mainColors, main-3);
+    }
+  }
+}
