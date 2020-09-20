@@ -8,7 +8,7 @@
     .sidebar__user-email {{ user.email }}
     .sidebar__active Активен
   ul.sidebar__link-list
-    //- li.sidebar__element
+    li.sidebar__element
       nuxt-link(
         :to="'/profile/user'"
       ) Пользователь

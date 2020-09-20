@@ -1,7 +1,7 @@
 <template lang="pug">
 .create-gallery-page
   h1.create-gallery-page__title Создание галереи
-  form(@submit.prevent="addGallery").create-gallery-page__form
+  form(@submit.prevent="create").create-gallery-page__form
     .create-gallery-page__form-group
       label( for="title" ).create-gallery-page__label Название
       input( type="text" id="title" name="title" v-model="form.title" ).create-gallery-page__input

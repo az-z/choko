@@ -25,7 +25,7 @@ export default {
     input: null
   }},
   mounted: function () {
-    this.input = `http://link.com/${this.gallery._id}`
+    this.input = `${window.location.origin}/${this.gallery._id}`
   }
 }
 </script>
