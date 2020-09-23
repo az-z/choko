@@ -18,7 +18,7 @@
     li.sidebar__element
       nuxt-link(
         :to="'/profile/user'"
-      ) Настройки
+      ) Настройки   
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -82,6 +82,7 @@ export default {
     margin: 0;
     display: flex;
     justify-content: center;
+    background-image: url(/static/images/Profile-folders/1.png);
     a {
       position: relative;
       z-index: 5;
