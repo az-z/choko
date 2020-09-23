@@ -1,6 +1,9 @@
 <template lang="pug">
 .galeries
-  OneGallery(
+  //- OneGallery(
+    v-for="(gallery, index) in galleries" :key="index"
+    :gallery="gallery")
+  Folder(
     v-for="(gallery, index) in galleries" :key="index"
     :gallery="gallery"
   )
@@ -8,9 +11,11 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import OneGallery from './OneGallery'
+import Folder from './Folder'
 export default {
   components: {
-    OneGallery
+    OneGallery,
+    Folder
   },
   computed: {
     ...mapGetters({
