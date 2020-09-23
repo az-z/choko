@@ -1,69 +1,50 @@
 <template lang="pug">
-.user User
-  .user__folder
-    .user__mainfolder
-    .user__mainfoldershadow
-    .user__bookmarkfolder
-    .user__contentfolder
+.user(v-if="user")
+  //- div {{user}}
+  h1.user__name {{ user.name }}
+  .user__header
+    img(:src="user.picture").user__img
+    .user__info
+      .user__email {{ user.email }}
+      nuxt-link(:to="`/public/${user._id}`") Публичная страница
+  .user__edite
+    form.user__form
+      .user__form-group
+        label(for="page").user__label Сайт
+        input(v-model="form.page")
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  layout: 'profile'
+  layout: 'profile',
+  data: function () {return{
+    form: {
+      page: null
+    }
+  }},
+  computed: {
+    ...mapGetters({
+      user: 'Auth/getUser'
+    })
+  }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .user {
-  &__folder {
-    position: relative;
-    margin-top: 2rem;
-    height: 270px;
-    width: 300px;
-    overflow: hidden;
-    &:hover {
-      .user__contentfolder {
-        transform: translateY(-10px) rotate(20deg);
-      }
-    }
+  &__header {
+    display: flex;
   }
-  &__mainfolder {
-    position: absolute;
-    bottom: 0;
-    width: 300px;
-    height: 220px;
-    box-shadow: 0 0 4px rgba(0,0,0,0.4);
-    border-radius: 0 1rem 1rem;
-    background-color: map-get($mainColorsFolder, yellow1);
-    z-index: 5;
+  &__img {
+    width: 128px;
+    height: 128px;
+    object-fit: cover;
+    border-radius: 16px;
   }
-  &__mainfoldershadow {
-    position: absolute;
-    width: 300px;
-    height: 210px;
-    bottom: 0;
-    box-shadow: 0 0 4px rgba(0,0,0,0.4);
-    border-radius: 0 1rem 1rem;
-    background-color: map-get($mainColorsFolder, green1);
-    z-index: 7;
+  &__info {
+    margin-left: 20px;
   }
-  &__bookmarkfolder {
-    position: absolute;
-    width: 120px;
-    height: 240px;
-    top: 0;
-    box-shadow: 0 0 4px rgba(0,0,0,0.4);
-    border-radius: 1rem;
-    background-color: map-get($mainColorsFolder, google);
-  }
-  &__contentfolder {
-    position: absolute;
-    width: 300px;
-    height: 210px;
-    bottom: 0;
-    box-shadow: 0 0 4px rgba(0,0,0,0.4);
-    border-radius: 1rem;
-    background-color: map-get($mainColorsFolder, white);
-    z-index: 6;
-    transition: .3s;
+  &__email {
+    font-size: 22px;
   }
 }
 </style>

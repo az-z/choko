@@ -1,6 +1,8 @@
 <template lang="pug">
 .google-auth
-  button.google-auth__button.btn.btn-outline-google(@click="auth")
+  button(
+    @click="auth"
+  ).google-auth__button.btn.btn-outline-google
     svg-icon(name="google").google-auth__icon
     .google-auth__text
       span.text-main-1 o
@@ -21,13 +23,11 @@ export default {
     display: flex;
     align-items: flex-start;
   }
-
   &__icon {
     display: block;
     width: 24px;
     height: 24px;
   }
-
   &__text {
     font-size: 1.5rem;
     // margin-top: 8px;

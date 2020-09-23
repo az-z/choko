@@ -6,6 +6,7 @@
       img(:src="user.picture").sidebar__img
     .sidebar__user-name {{ user.name }}
     .sidebar__user-email {{ user.email }}
+    .sidebar__active Активен
   ul.sidebar__link-list
     li.sidebar__element
       nuxt-link(
@@ -77,6 +78,16 @@ export default {
   &__link-list {
     width: 100%;
   }
+  &__active {
+    background-color: map-get($mainColors, main-2);
+    color: #fff;
+    font-size: map-get($fontSizes, small);
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 16px;
+    padding: 0 .5rem;
+    margin-top: map-get($indents, middle);
+  }
   &__element {
     list-style: none;
     margin: 0;
@@ -97,19 +108,20 @@ export default {
         text-decoration: underline;
       }
       &.active-link {
-        color: map-get($mainColors, black) !important;
-        &::before {
-          content: '';
-          display: block;
-          position: absolute;
-          top: -8px;
-          left: 8px;
-          z-index: 4;
-          height: 48px;
-          background-color: map-get($mainColors, white);
-          width: 100%;
-          border-radius: 16px 0 0 16px;
-        } 
+        text-decoration: underline;
+        // color: map-get($mainColors, black) !important;
+        // &::before {
+        //   content: '';
+        //   display: block;
+        //   position: absolute;
+        //   top: -8px;
+        //   left: 8px;
+        //   z-index: 4;
+        //   height: 48px;
+        //   background-color: map-get($mainColors, white);
+        //   width: 100%;
+        //   border-radius: 16px 0 0 16px;
+        // } 
       }
     }   
     &:not(:first-child) {
