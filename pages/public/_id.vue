@@ -10,7 +10,7 @@
     .public-page__gallery(
       v-for="(gallery, index) in user.galleries" :key="index"
     )
-      .public-page__title {{ gallery.title }}
+      nuxt-link(:to="`/gallery/${gallery._id}`").public-page__title {{ gallery.title }}
       .public-page__description {{ gallery.description }}
 .public-page-error(v-else)
   h1 Пользователь не найден
@@ -21,11 +21,9 @@ export default {
     user: null
   }),
   mounted: function () {
-  this.$axios.get('/api/auth/verify').then(response => {
-    this.user = response.data.user
-  }).catch(error => {
-    console.log('err');
-  })
+    this.$axios.get(`/api/auth/get-public-user/${this.$route.params.id}`).then(response => {
+      this.user = response.data.user
+    }).catch(error => console.error(error))
   }
 }
 </script>
