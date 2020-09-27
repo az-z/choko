@@ -17,6 +17,7 @@
 </template>
 <script>
 export default {
+  layout: 'public',
   data: () => ({
     user: null
   }),
@@ -29,7 +30,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .public-page {
-  padding: 60px 150px;
   &__header {
     display: flex;
   }

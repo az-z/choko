@@ -1,9 +1,10 @@
 <template lang="pug">
 .gallery
-  div {{ gallery }}
+  h1.gllery__title {{ gallery.title }}
 </template>
 <script>
 export default {
+  layout: 'public',
   data: function () {return{
     gallery: null
   }},

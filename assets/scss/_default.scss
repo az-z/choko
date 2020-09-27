@@ -34,6 +34,7 @@ input, textarea {
   padding: map-get($indents, middle);
   transition: map-get($transitions, fast);
   outline: none !important;
+  resize: none;
   &:focus {
     box-shadow: 0 0 0 2px map-get($mainColors, main-3);
   }

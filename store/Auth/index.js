@@ -5,7 +5,13 @@ export const state = () => ({
 
 export const getters = {
   getUser: state => state._USER,
-  getSignin: state => state._SIGNIN
+  getSignin: state => state._SIGNIN,
+  // getForm: state => ({
+  //   description: state._USER.description,
+  //   site: state._USER.site,
+  //   facebook: state._USER.facebook,
+  //   phoneNumber: state._USER.phoneNumber
+  // })
 }
 
 export const mutations = {
@@ -23,5 +29,6 @@ export const actions = {
   signout: ({ commit }) => {
     commit('REMOVE_USER')
     commit('SIGNOUT')
-  }
+  },
+  updateUser: ({ commit }, user) => commit('UPDATE_USER', user)
 }

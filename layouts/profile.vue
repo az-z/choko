@@ -4,6 +4,7 @@
   .content.bg-light
     nuxt
     notifications(group="foo" position="right bottom")
+    vue-confirm-dialog
 </template>
 <script>
 import SideBar from '~/components/Profile/SideBar'

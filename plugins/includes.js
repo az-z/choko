@@ -17,3 +17,11 @@ Vue.use(vueNotification)
 
 import VueKinesis from 'vue-kinesis'
 Vue.use(VueKinesis)
+
+import VueMask from 'v-mask'
+Vue.use(VueMask)
+
+import VueConfirmDialog from 'vue-confirm-dialog'
+ 
+Vue.use(VueConfirmDialog)
+Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
