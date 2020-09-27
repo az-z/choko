@@ -5,7 +5,6 @@
     v-for="(gallery, index) in galleries" :key="index"
     :gallery="gallery"
   )
-  
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
