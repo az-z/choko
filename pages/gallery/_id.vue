@@ -1,6 +1,8 @@
 <template lang="pug">
-.gallery
-  h1.gllery__title {{ gallery.title }}
+.gallery(v-if="gallery")
+  .gallery__header
+    h1.gallery__title {{ gallery.title }}
+    h2.gallery__user {{ gallery.creator.name }}
 </template>
 <script>
 export default {
@@ -15,3 +17,10 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.gallery {
+  &__header {
+    
+  }
+}
+</style>

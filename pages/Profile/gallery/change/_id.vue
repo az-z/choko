@@ -52,7 +52,7 @@ export default {
     },
     remove: function () {
        this.$confirm({
-          message: `Действитеьноудалить галерею: "${this.gallery.title}"`,
+          message: `Действитеьно удалить галерею: "${this.gallery.title}"?`,
           button: {
             no: 'Отменить',
             yes: 'Удалить'
