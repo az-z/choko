@@ -52,13 +52,13 @@ export default {
 
 .exchange_bar {
   margin-top: 1rem;
-  background-color:#9ed868;
+  background-color:#E2DEDC;
   border-radius: 1rem;
   display: flex;
   justify-content: right;
   padding: .5rem;
   align-items: center;
-  
+  box-shadow: 0 0 32px rgba(0,0,0, .3);
   
   .exchange__grid  {
     cursor: pointer;
@@ -66,8 +66,10 @@ export default {
     width: 27px;
     display: block;
     margin-left: auto;
- 
-
+    transition: 1.1scale;
+  }
+  .exchange__grid:hover {
+    transform: scale(1.1);
   }
   .exchange__folder {
     cursor: pointer;
@@ -76,6 +78,9 @@ export default {
     display: block;
     margin-left: 12px;
   }
+  .exchange__folder:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 32px rgba(17, 236, 9, 0.3);
+  }
 }
-
 </style>
