@@ -19,7 +19,7 @@ export const actions = {
       console.error(error)
     })
   },
-  addGallery: function ({ commit },{ notify, form, router }) {
+  addGallery: function ({ commit }, { notify, form, router }) {
     this.$axios.post('/gallery/add', form).then(response => {
       commit('ADD_GALLERY', response.data.gallery)
       notify({
