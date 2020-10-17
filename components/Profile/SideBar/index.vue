@@ -19,10 +19,14 @@
     li.sidebar__element
       nuxt-link(
         :to="'/profile/user'"
-      ) Настройки   
+      ) Настройки 
+    li.sidebar__element
+      button(
+        @click="logout"
+      ).btn.btn-outline-main-1 Выход  
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
@@ -34,6 +38,16 @@ export default {
       } else {
         return false;
       }
+    }
+  },
+  methods: {
+    ...mapActions({
+      signout: 'Auth/signout'
+    }),
+    logout: async function () {
+      await this.$gAuth.signOut()
+      this.signout()
+      this.$router.push('/')
     }
   }
 }

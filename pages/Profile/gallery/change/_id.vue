@@ -1,6 +1,6 @@
 <template lang="pug">
 .change-gallery-page(v-if="gallery")
-  h1.change-gallery-page__title Создание галереи
+  h1.change-gallery-page__title Редактирование галереи
   form(@submit.prevent="change").change-gallery-page__form
     .change-gallery-page__form-group
       label( for="title" ).change-gallery-page__label Название
@@ -32,7 +32,7 @@ export default {
   }},
   methods: {
     delete: function () {
-      this.$axios.delete(`/api/gallery/delete/${this.$route.params.id}`).then(response => {
+      this.$axios.delete(`/gallery/delete/${this.$route.params.id}`).then(response => {
         this.$notify({
           group: 'foo',
           title: 'System',
@@ -65,7 +65,7 @@ export default {
       })
     },
     change: function () {
-      this.$axios.put(`/api/gallery/change/${this.$route.params.id}`, this.gallery).then(response => {
+      this.$axios.put(`/gallery/change/${this.$route.params.id}`, this.gallery).then(response => {
         this.$notify({
           group: 'foo',
           title: 'System',
@@ -85,7 +85,7 @@ export default {
     }
   },
   mounted: function () {
-    this.$axios.get(`/api/gallery/get/${this.$route.params.id}`).then(response => {
+    this.$axios.get(`/gallery/get/${this.$route.params.id}`).then(response => {
       this.gallery = response.data.gallery
     }).catch(error => {
       this.$notify({

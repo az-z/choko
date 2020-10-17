@@ -30,5 +30,5 @@ export const actions = {
     commit('REMOVE_USER')
     commit('SIGNOUT')
   },
-  updateUser: ({ commit }, user) => commit('UPDATE_USER', user)
+  updateUser: ({ commit }, user) => commit('UPDATE_USER', user),
 }

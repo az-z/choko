@@ -55,7 +55,7 @@ export default {
       updateUser: 'Auth/updateUser'
     }),
     changeUser: function () {
-      this.$axios.put('/api/auth/user/change', this.form).then(response => {
+      this.$axios.put('/auth/user/change', this.form).then(response => {
         this.updateUser(response.data.user)
         this.$notify({
           group: 'foo',

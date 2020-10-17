@@ -22,7 +22,7 @@ export default {
     user: null
   }),
   mounted: function () {
-    this.$axios.get(`/api/auth/get-public-user/${this.$route.params.id}`).then(response => {
+    this.$axios.get(`/auth/get-public-user/${this.$route.params.id}`).then(response => {
       this.user = response.data.user
     }).catch(error => console.error(error))
   }

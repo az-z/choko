@@ -101,6 +101,14 @@ button {
     &-outline-#{$name} {
       border-color: $color;
       color: $color;
+      background-color: rgba(0,0,0,0);
+      &:hover {
+        background-color: $color;
+        color: #222;
+      }
+      &:focus {
+        box-shadow: 0 0 0 0.2rem rgba($color, .5)
+      }
     }
   }
 

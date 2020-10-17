@@ -13,7 +13,7 @@ export const mutations = {
 
 export const actions = {
   updateGalleries: function ({ commit }) {
-    this.$axios.get('/api/gallery/get/user/galleries').then(response => {
+    this.$axios.get('/gallery/get/user/galleries').then(response => {
       commit('UPDATE_GALLERIES', response.data.galleries)
     }).catch(error => {
       console.error(error)

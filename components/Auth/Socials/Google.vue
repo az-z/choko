@@ -22,6 +22,14 @@ export default {
   &__button {
     display: flex;
     align-items: flex-start;
+    .text-google {
+      transition: .3s;
+    }
+    &:hover {
+      .text-google {
+        color: #fff !important;
+      }
+    }
   }
   &__icon {
     display: block;

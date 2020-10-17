@@ -13,7 +13,7 @@ export default {
       const authCode = await this.$gAuth.getAuthCode()
       console.log('authCode: ', authCode)
       this.$axios.post(
-        '/api/auth/google',
+        '/auth/google',
         { googleUser, redirect_uri: 'postmessage' }
         ).then(response => {
           this.$store.dispatch('Auth/signin', response.data.user)

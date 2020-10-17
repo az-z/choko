@@ -12,7 +12,7 @@ import OneGallery from './OneGallery'
 import Folder from './Folder'
 export default {
   data: function () {return{
-    currentComponent: 'OneGallery'
+    currentComponent: 'Folder'
   }},
   components: {
     OneGallery,
