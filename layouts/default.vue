@@ -1,35 +1,23 @@
 <template lang="pug">
-.default-layout(v-scroll:throttle="{fn: onScroll, throttle: 500 }")
-  Nuxt
+v-app()
+  SideBar
+  v-main(color="red lighten-5")
+    v-container(fluid)
+      nuxt
+  v-footer(
+    app
+  )
+    span &copy; {{ new Date().getFullYear() }}
   notifications(group="foo" position="right bottom")
+  vue-confirm-dialog
 </template>
 <script>
-import { mapActions } from 'vuex'
+import SideBar from '~/components/Profile/SideBar'
 export default {
   middleware: 'verify',
-  methods: {
-    ...mapActions({
-      toggleBG: 'NavigateBar/Scenery/toggleBG'
-    }),
-    onScroll: function (e, possition) { 
-      this.toggleBG(possition.scrollTop <= 1)
-    }
+  components: {
+    SideBar
   }
 }
 </script>
-<style lang="scss" scoped>
-.default-layout {
-  max-height: 100vh;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px map-get($mainColors, main-3);
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.637);
-    // outline: 1px solid rgb(0, 0, 0);
-  }
-}
-</style>
+<style lang="scss" scoped></style>

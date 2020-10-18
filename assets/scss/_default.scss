@@ -1,190 +1,190 @@
-* { margin: 0; padding: 0; box-sizing: border-box; outline: none;}
+// * { margin: 0; padding: 0; box-sizing: border-box; outline: none;}
 
-html {
-  scroll-behavior: smooth;
-}
+// html {
+//   scroll-behavior: smooth;
+// }
 
-body {
-  font-family: 'Blogger Sans', sans-serif;
-  font-size: 1rem;
-  line-height: 1.875em;
-  color: map-get($mainColors, gray);
-  font-weight: 400;
-  overflow-x: hidden;
-}
+// body {
+//   font-family: 'Blogger Sans', sans-serif;
+//   font-size: 1rem;
+//   line-height: 1.875em;
+//   color: map-get($mainColors, gray);
+//   font-weight: 400;
+//   overflow-x: hidden;
+// }
 
-.container {
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 15px;
-  padding-left: 15px;
-  width: 100%;
-}
+// .container {
+//   margin-right: auto;
+//   margin-left: auto;
+//   padding-right: 15px;
+//   padding-left: 15px;
+//   width: 100%;
+// }
 
-a {
-  text-decoration: none;
-}
+// a {
+//   text-decoration: none;
+// }
 
-input, textarea {
-  display: block;
-  width: 100%;
-  border: 1px solid #222222;
-  border-radius: 8px;
-  background-color: map-get($mainColors, white);
-  padding: map-get($indents, middle);
-  transition: map-get($transitions, fast);
-  outline: none !important;
-  resize: none;
-  &:focus {
-    box-shadow: 0 0 0 2px map-get($mainColors, main-3);
-  }
-  &.valid {
-    background-color: map-get($mainColors, main-2);
-  }
-  &.invalid {
-    background-color: map-get($mainColors, main-1);
-  }
-}
+// input, textarea {
+//   display: block;
+//   width: 100%;
+//   border: 1px solid #222222;
+//   border-radius: 8px;
+//   background-color: map-get($mainColors, white);
+//   padding: map-get($indents, middle);
+//   transition: map-get($transitions, fast);
+//   outline: none !important;
+//   resize: none;
+//   &:focus {
+//     box-shadow: 0 0 0 2px map-get($mainColors, main-3);
+//   }
+//   &.valid {
+//     background-color: map-get($mainColors, main-2);
+//   }
+//   &.invalid {
+//     background-color: map-get($mainColors, main-1);
+//   }
+// }
 
-button {
-  cursor: pointer;
-}
+// button {
+//   cursor: pointer;
+// }
 
-.btn {
-  display: block;
-  border: 1px solid map-get($mainColors, gray);
-  border-radius: 32px;
-  background-color: map-get($mainColors, light);
-  color: map-get($mainColors, gray);
-  cursor: pointer;
-  padding: map-get($indents, middle) map-get($indents, veryBig);
-  transition: map-get($transitions, fast);
-  font-size: map-get($fontSizes, normal);
-  font-weight: 600;
-  outline: none !important;
-  &:hover {
-    box-shadow: 0 0 4px rgba(map-get($mainColors, black), .4);
-  }
-  &:active {
-    box-shadow: inset 0 0 4px rgba(map-get($mainColors, black), .4);
-  }
-  &:disabled {
-    border-color: darken(map-get($mainColors, gray), $amount: 20) !important;
-    background-color: map-get($mainColors, gray) !important;
-    color: map-get($mainColors, black) !important;
-    cursor: not-allowed !important;
-  }
-}
+// .btn {
+//   display: block;
+//   border: 1px solid map-get($mainColors, gray);
+//   border-radius: 32px;
+//   background-color: map-get($mainColors, light);
+//   color: map-get($mainColors, gray);
+//   cursor: pointer;
+//   padding: map-get($indents, middle) map-get($indents, veryBig);
+//   transition: map-get($transitions, fast);
+//   font-size: map-get($fontSizes, normal);
+//   font-weight: 600;
+//   outline: none !important;
+//   &:hover {
+//     box-shadow: 0 0 4px rgba(map-get($mainColors, black), .4);
+//   }
+//   &:active {
+//     box-shadow: inset 0 0 4px rgba(map-get($mainColors, black), .4);
+//   }
+//   &:disabled {
+//     border-color: darken(map-get($mainColors, gray), $amount: 20) !important;
+//     background-color: map-get($mainColors, gray) !important;
+//     color: map-get($mainColors, black) !important;
+//     cursor: not-allowed !important;
+//   }
+// }
 
-@each $name, $color in $mainColors {
-  .btn {
-    &-#{$name} {
-      border-color: $color;
-      background-color: $color;
-      @if $name == white {
-        color: map-get($mainColors, gray);
-      }
-      @else {
-        color: map-get($mainColors, white);
-      }
-      &:hover {
-        background-color: darken($color, 5);
-        border-color: darken($color, 5);
-      }
-      &:active {
-        border-color: $color;
-      }
-      &:focus {
-        box-shadow: 0 0 0 0.2rem rgba($color, .5)
-      }
-    }
-    &-outline-#{$name} {
-      border-color: $color;
-      color: $color;
-      background-color: rgba(0,0,0,0);
-      &:hover {
-        background-color: $color;
-        color: #222;
-      }
-      &:focus {
-        box-shadow: 0 0 0 0.2rem rgba($color, .5)
-      }
-    }
-  }
+// // @each $name, $color in $mainColors {
+// //   .btn {
+// //     &-#{$name} {
+// //       border-color: $color;
+// //       background-color: $color;
+// //       @if $name == white {
+// //         color: map-get($mainColors, gray);
+// //       }
+// //       @else {
+// //         color: map-get($mainColors, white);
+// //       }
+// //       &:hover {
+// //         background-color: darken($color, 5);
+// //         border-color: darken($color, 5);
+// //       }
+// //       &:active {
+// //         border-color: $color;
+// //       }
+// //       &:focus {
+// //         box-shadow: 0 0 0 0.2rem rgba($color, .5)
+// //       }
+// //     }
+// //     &-outline-#{$name} {
+// //       border-color: $color;
+// //       color: $color;
+// //       background-color: rgba(0,0,0,0);
+// //       &:hover {
+// //         background-color: $color;
+// //         color: #222;
+// //       }
+// //       &:focus {
+// //         box-shadow: 0 0 0 0.2rem rgba($color, .5)
+// //       }
+// //     }
+// //   }
 
-  .color {
-    color: $color; 
-  }
+// //   .color {
+// //     color: $color; 
+// //   }
 
-  .bg {
-    &-#{$name} {
-      background-color: $color !important;
-    }
-  }
+// //   .bg {
+// //     &-#{$name} {
+// //       background-color: $color !important;
+// //     }
+// //   }
 
-  .text{
-    &-#{$name} {
-      color: $color !important;
-    }
-  }
-}
+// //   .text{
+// //     &-#{$name} {
+// //       color: $color !important;
+// //     }
+// //   }
+// // }
 
-ul {
-  li {
-    margin-left: map-get($indents, veryBig);
-  }
-  &.no-circle {
-    li {
-      list-style: none;
-    }
-  }
-}
+// // ul {
+// //   li {
+// //     margin-left: map-get($indents, veryBig);
+// //   }
+// //   &.no-circle {
+// //     li {
+// //       list-style: none;
+// //     }
+// //   }
+// // }
 
-.checkbox-formater {
-  opacity: 0;
-  position: absolute;
-  left: 999999;
-  & + label {
-    position: relative;
-    padding-left: 46px;
-    display: flex;
-    align-items: center;
-    &::before {
-      content: '';
-      display: block;
-      width: 38px;
-      height: 20px;
-      background-color: map-get($mainColors, white);
-      border: 1px solid map-get($mainColors, dark);
-      border-radius: 32px;
-      position: absolute;
-      left: 0;
-      transition: map-get($transitions, fast);
-    }
-    &::after {
-      content: '';
-      display: block;
-      width: 16px;
-      height: 16px;
-      background-color: map-get($mainColors, dark);
-      border-radius: 32px;
-      position: absolute;
-      left: 4px;
-      transition: map-get($transitions, fast);
-    }
-  }
-  &:checked + label {
-    &::before {
-      border-color: map-get($mainColors, green);
-    }
-    &::after {
-      background-color: map-get($mainColors, green);
-      left: 20px;
-    }
-  }
-  &:focus + label {
-    &::before {
-      box-shadow: 0 0 0 2px map-get($mainColors, main-3);
-    }
-  }
-}
+// .checkbox-formater {
+//   opacity: 0;
+//   position: absolute;
+//   left: 999999;
+//   & + label {
+//     position: relative;
+//     padding-left: 46px;
+//     display: flex;
+//     align-items: center;
+//     &::before {
+//       content: '';
+//       display: block;
+//       width: 38px;
+//       height: 20px;
+//       background-color: map-get($mainColors, white);
+//       border: 1px solid map-get($mainColors, dark);
+//       border-radius: 32px;
+//       position: absolute;
+//       left: 0;
+//       transition: map-get($transitions, fast);
+//     }
+//     &::after {
+//       content: '';
+//       display: block;
+//       width: 16px;
+//       height: 16px;
+//       background-color: map-get($mainColors, dark);
+//       border-radius: 32px;
+//       position: absolute;
+//       left: 4px;
+//       transition: map-get($transitions, fast);
+//     }
+//   }
+//   &:checked + label {
+//     &::before {
+//       border-color: map-get($mainColors, green);
+//     }
+//     &::after {
+//       background-color: map-get($mainColors, green);
+//       left: 20px;
+//     }
+//   }
+//   &:focus + label {
+//     &::before {
+//       box-shadow: 0 0 0 2px map-get($mainColors, main-3);
+//     }
+//   }
+// }

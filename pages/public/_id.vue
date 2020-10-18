@@ -1,17 +1,39 @@
 <template lang="pug">
 .public-page(v-if="user")
-  .public-page__header
-    img(:src="user.picture").public-page__img
-    .public-page__info
-      .public-page__name {{ user.name }}
-      .public-page__email {{ user.email }}
-  .public-page__galleries
-    .public-page__tit Публичные галереи
-    .public-page__gallery(
-      v-for="(gallery, index) in user.galleries" :key="index"
+  v-container
+    v-row
+      v-col(
+        md="4"
+      )
+        v-card
+          v-img(
+            :src="user.picture"
+            rounded
+          )
+      v-col
+        v-card
+          v-card-title {{ user.name }}
+          .pa-4.subtitle {{ user.email }}
+    v-list(
+      v-if="user.galleries && user.galleries.length > 0"
     )
-      nuxt-link(:to="`/gallery/${gallery._id}`").public-page__title {{ gallery.title }}
-      .public-page__description {{ gallery.description }}
+      v-list-item(
+        v-for="(gallery, index) in user.galleries" :key="index"
+      )
+        v-list-item-avatar
+          v-img(
+            :src="gallery.images[0].path.small"
+          )
+        v-list-item-content
+          v-list-item-title(v-text="gallery.title")
+          v-list-item-subtitle(v-text="gallery.price + 'грн'")
+        v-list-item-action
+          v-row
+            v-btn(
+              icon
+              :to="`/gallery/${gallery._id}`"
+            )
+              v-icon(color="grey lighten-1") mdi-open-in-app
 .public-page-error(v-else)
   h1 Пользователь не найден
 </template>

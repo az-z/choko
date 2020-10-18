@@ -1,11 +1,28 @@
 <template lang="pug">
-.public
-  div Public layout
-  nuxt
+v-app
+  Navbar
+  v-main
+    nuxt
+  v-footer(
+    absolute
+    class="font-weight-medium"
+    dark
+  )
+    v-col(
+      class="text-center"
+      cols="12"
+    )
+      span {{ new Date().getFullYear() }} — 
+      strong  Vuetify
 </template>
-<style lang="scss" scoped>
-.public {
-  background-color: #f1f1f1;
-  padding: 60px 150px;
+<script>
+import Navbar from '~/components/public/Navbar'
+export default {
+  components: {
+    Navbar
+  }
 }
+</script>
+<style lang="scss" scoped>
+
 </style>

@@ -1,14 +1,24 @@
 <template lang="pug">
 .gallery(v-if="gallery")
-  .gallery__header
-    h1.gallery__title {{ gallery.title }}
-    h2.gallery__user {{ gallery.creator.name }}
-  .gallery__description {{ gallery.description }}
-  .gallery__content
-    h3.gallery__content-title Фотографии
-  .gallery__footer
-    .gallery_buttons
-      button.btn.btn-main-2 Заказать
+  v-container
+    .gallery__header
+      h1.gallery__title {{ gallery.title }}
+      h2.gallery__user {{ gallery.creator.name }}
+    .gallery__description {{ gallery.description }}
+    .gallery__content
+      h3.gallery__content-title Фотографии
+      v-row
+        v-col(
+          v-for="(image, index) in gallery.images" :key="index"
+          sm="1"
+          md="3"
+        )
+          v-card
+            v-img(
+              :src="image.path.small"
+            )
+    .gallery__footer
+      v-btn Заказать
 </template>
 <script>
 export default {
@@ -17,7 +27,7 @@ export default {
     gallery: null
   }},
   mounted: function () {
-    this.$axios.get(`/gallery/get/${this.$route.params.id}`).then(response => {
+    this.$axios.get(`/gallery/get/public/${this.$route.params.id}`).then(response => {
       this.gallery = response.data.gallery
     }).catch(error => console.error(error))
   }

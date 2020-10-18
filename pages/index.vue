@@ -13,6 +13,7 @@ import Opportunities from '~/components/Opportunities'
 import Prices from '~/components/Prices'
 import Footer from '~/components/Footer'
 export default {
+  layout: 'indexPage',
   components: {
     Baner,
     Opportunities,

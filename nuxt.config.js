@@ -1,5 +1,5 @@
 require('dotenv').config()
-
+import colors from 'vuetify/es5/util/colors'
 export default {
   /*
   ** Nuxt rendering mode
@@ -57,8 +57,26 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/vuetify',
   ],
+  vuetify: {
+    // customVariables: ['~/assets/scss/_variables.scss'],
+    theme: {
+      dark: false,
+      themes: {
+        dark: {
+          primary: colors.blue.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        }
+      }
+    }
+  },
   /*
   ** Nuxt.js modules
   */
@@ -129,5 +147,6 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    
   }
 }

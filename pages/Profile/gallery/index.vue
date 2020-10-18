@@ -1,11 +1,15 @@
 <template lang="pug">
 .gallery
-  ModalWindowChangeGallery(v-if="toggles.windows.change")
-  h1.gallery__title Галереи
-  .gallery__first-block
-    .gallery__block-create-gallery
-      nuxt-link(to="/profile/gallery/create").btn.btn-main-3 Создать новую галерею
-    Statistics
+  v-row.gallery__first-block
+    v-col.col-auto.gallery__block-create-gallery
+      v-btn(
+        dark                                                                                                                                                            
+        color="primary"                                                                                                                                                
+        to="/profile/gallery/create"                                                                                                                                        
+        nuxt 
+      ) Создать новую галерею
+    v-col
+      Statistics
   Galleries
 </template>
 <script>
@@ -14,7 +18,6 @@ import ModalWindowChangeGallery from '~/components/Profile/Gallery/Modals/Change
 import Galleries from '~/components/Profile/Gallery/Galleries'
 import Statistics from '~/components/Profile/Gallery/Statistics'
 export default {
-  layout: 'profile',
   components: {
     ModalWindowAddGallery,
     ModalWindowChangeGallery,
@@ -31,12 +34,4 @@ export default {
   }),
 }
 </script>
-<style lang="scss" scoped>
-.gallery {
-  position: relative;
-  &__first-block {
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

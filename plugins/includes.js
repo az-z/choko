@@ -25,3 +25,6 @@ import VueConfirmDialog from 'vue-confirm-dialog'
  
 Vue.use(VueConfirmDialog)
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
+
+import VueCoreImageUpload from 'vue-core-image-upload' 
+Vue.component('vue-core-image-upload', VueCoreImageUpload )

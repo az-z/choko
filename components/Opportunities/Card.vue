@@ -7,6 +7,7 @@
 </template>
 <script>
 export default {
+  name: 'OpportunitiesCard',
   props: ['icon', 'title', 'text']
 }
 </script>

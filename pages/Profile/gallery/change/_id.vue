@@ -1,33 +1,60 @@
 <template lang="pug">
 .change-gallery-page(v-if="gallery")
   h1.change-gallery-page__title Редактирование галереи
-  form(@submit.prevent="change").change-gallery-page__form
-    .change-gallery-page__form-group
-      label( for="title" ).change-gallery-page__label Название
-      input( type="text" id="title" name="title" v-model="gallery.title" ).change-gallery-page__input
-    .change-gallery-page__form-group
-      label( for="folder" ).change-gallery-page__label Ссылка на папку
-      input( type="text" id="folder" name="folder" v-model="gallery.folder" ).change-gallery-page__input
-    .change-gallery-page__form-group
-      label( for="price" ).change-gallery-page__label Цена за фото
-      input( type="text" id="price" name="price" v-model="gallery.price" ).change-gallery-page__input
-    .change-gallery-page__form-group
-      label( for="description" ).change-gallery-page__label Описание
-      input( type="text" id="description" name="description" v-model="gallery.description" ).change-gallery-page__input
-    .change-gallery-page__form-group
-      input( type="checkbox" id="activity" name="activity" v-model="gallery.activity" ).change-gallery-page__input.checkbox-formater
-      label( for="activity" ).change-gallery-page__label Активность
-    .change-gallery-page__buttons
-      button.btn.btn-main-2 Изменить
-      button(
-        type="button" @click="remove"
-      ).btn.btn-main-1.change-gallery-page__button-remove Удалить
+  v-form(v-model="valid" @submit.prevent="changeUser")
+    v-text-field(
+      v-model="gallery.title"
+      label="Название"
+    )
+    v-text-field(
+      v-model="gallery.price"
+      label="Цена за фото"
+    )
+    v-textarea(
+      v-model="gallery.description"
+      label="Описание"
+    )
+    v-switch(
+      v-model="gallery.activity"
+      :label="`Активность`"
+    )
+    v-file-input(
+      counter
+      multiple
+      show-size
+      small-chips
+      truncate-length="15"
+      v-model="gallery.files"
+      prepend-icon="mdi-camera"
+    )
+    v-row
+      v-col(
+        v-for="(img, index) in gallery.images" :key="index"
+        sm="4"
+        md="2"
+        lg="1"
+      )
+        v-card
+          v-img(
+            :src="img.path.original"
+            height="100"
+          )
+    v-btn(
+      color="green"
+      @click="change"
+      :loading="loading"
+    ) Изменить
+    v-btn(
+      color="red"
+      @click="remove"
+    ).ml-2 Удалить
 </template>
 <script>
 import { mapActions } from 'vuex'
 export default {
   layout: 'profile',
   data: function () {return{
+    loading: false,
     gallery: null
   }},
   methods: {
@@ -65,6 +92,7 @@ export default {
       })
     },
     change: function () {
+      this.loading = true
       this.$axios.put(`/gallery/change/${this.$route.params.id}`, this.gallery).then(response => {
         this.$notify({
           group: 'foo',
@@ -72,6 +100,7 @@ export default {
           text: response.data.msg,
           type: 'success'
         })
+        this.loading = false
         this.$router.push('/profile/gallery')
       }).catch(error => {
         this.$notify({
@@ -80,6 +109,7 @@ export default {
           text: error.response.data.msg,
           type: 'error'
         })
+        this.loading = false
         console.error(error)
       })
     }
@@ -99,16 +129,4 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-.change-gallery-page {
-  &__form-group {
-    margin-bottom: map-get($indents, big);
-  }
-  &__buttons {
-    display: flex;
-  }
-  &__button-remove {
-    margin-left: auto;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

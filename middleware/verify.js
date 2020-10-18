@@ -1,9 +1,8 @@
-export default ({ $axios, store, redirect }) => {
+export default async ({ $axios, store, redirect }) => {
   const token = localStorage.getItem('token')
   if (!token) return ''
   $axios.setToken(token, 'bearer')
-  $axios.get('/auth/verify').then(response => {
-    console.log(response)
+  await $axios.get('/auth/verify').then(response => {
     store.dispatch('Auth/signin', response.data.user)
   }).catch(error => {
     console.error(error)

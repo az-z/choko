@@ -18,7 +18,6 @@ export default {
   },
   methods: {
     toggleBurger: function () {
-      console.log('burger click');
       if(this.cb) this.cb()
     }
   }

@@ -1,11 +1,14 @@
 <template lang="pug">
-.prices.container(id="prices")
-  .prices__title Цены
-  .prices__cards
-    Card(
-      v-for="(card, index) in cards" :key="index"
-      :card="card"
-    )
+.prices(id="prices").blue
+  v-container
+    h2.prices__title.text-center.white--text Цены
+    v-row
+      v-col(
+        v-for="(card, index) in cards" :key="index"
+      )
+        Card(
+          :card="card"
+        )
 </template>
 <script>
 import Card from './Card'
@@ -21,7 +24,7 @@ export default {
           num: 0,
           color: 'purple'
         },
-        html: `<p class="text-main-2">14 дней бесплатно</p><p>Безлимитные галереи</p><p>Прямые платежи</p><p>Никакой комиссии</p>`,
+        html: `<ul><li class="text-main-2">14 дней бесплатно</li><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li></ul>`,
         button: {
           text: 'Попробовать',
           color: 'purple'
@@ -31,24 +34,24 @@ export default {
         title: 'Месяц',
         price: {
           num: 990,
-          color: 'yellow'
+          color: 'orange'
         },
-        html: `<p>Безлимитные галереи</p><p>Прямые платежи</p><p>Никакой комиссии</p><p>Приоритетная поддержка</p>`,
+        html: `<ul><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li><li>Приоритетная поддержка</li></ul>`,
         button: {
           text: 'Попробовать',
-          color: 'yellow'
+          color: 'orange'
         }
       },
       {
         title: 'Год',
         price: {
           num: 9700,
-          color: 'main-2'
+          color: 'green'
         },
-        html: `<p>Безлимитные галереи</p><p>Прямые платежи</p><p>Никакой комиссии</p><p>Приоритетная поддержка</p>`,
+        html: `<ul><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li><li>Приоритетная поддержка</li></ul>`,
         button: {
           text: 'Попробовать',
-          color: 'main-2'
+          color: 'green'
         }
       }
     ]
@@ -56,29 +59,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.prices {
-  background-color: map-get($mainColors, main-3);
-  padding-top: 7rem;
-  padding-bottom: 7rem;
 
-  &__title {
-    @include mainPageTitle;
-    margin-top: 0;
-    color: #fff;
-    &::after {
-      background-color: map-get($mainColors, main-2);
-    }
-  }
-
-  &__cards {
-    display: grid;
-    grid-template-columns: minmax(240px, 1fr);
-    @media (min-width: 1366px) {
-      grid-template-columns: repeat(3, minmax(340px, 1fr));
-      grid-gap: 2rem;
-      width: fit-content;
-      margin: 0 auto;
-    }
-  }
-}
 </style>

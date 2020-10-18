@@ -11,7 +11,6 @@ export default {
       // if (this.signin) return this.$router.push('profile')
       const googleUser = await this.$gAuth.signIn()
       const authCode = await this.$gAuth.getAuthCode()
-      console.log('authCode: ', authCode)
       this.$axios.post(
         '/auth/google',
         { googleUser, redirect_uri: 'postmessage' }
@@ -25,7 +24,7 @@ export default {
             text: response.data.msg,
             type: 'success'
           })
-          this.$router.push('profile')
+          this.$router.push('/profile/user')
         }).catch(error => {
           this.$notify({
             group: 'foo',

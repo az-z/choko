@@ -29,6 +29,7 @@ export const actions = {
   signout: ({ commit }) => {
     commit('REMOVE_USER')
     commit('SIGNOUT')
+    localStorage.removeItem('token')
   },
   updateUser: ({ commit }, user) => commit('UPDATE_USER', user),
 }

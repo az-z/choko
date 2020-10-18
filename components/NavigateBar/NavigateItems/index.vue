@@ -57,7 +57,7 @@ export default {
 
   .item {
     display: block;
-    color: map-get($mainColors, gray);
+    color: map-get($mainColors, white);
     padding: map-get($indents, middle);
     font-weight: 500;
     text-transform: uppercase;

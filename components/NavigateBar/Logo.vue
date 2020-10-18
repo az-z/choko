@@ -19,7 +19,7 @@ export default {
   align-items: center;
 }
 .logo {
-  color: map-get($mainColors, main-3);
+  color: map-get($mainColors, white);
   font-weight: 500;
   font-size: 1.25rem;
   margin-left: 8px;
