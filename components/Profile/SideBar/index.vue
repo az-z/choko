@@ -30,7 +30,7 @@
         v-list-item-icon
           v-icon.mr-1 mdi-image-multiple
           v-list-item-title Галереи
-      v-list-item(link to="/profile/order" nuxt)
+      v-list-item(link to="/profile/orders" nuxt)
         v-list-item-icon
           v-icon.mr-1 mdi-cash-register
           v-list-item-title Заказы
@@ -40,7 +40,7 @@
         span Выход
   v-app-bar(
     :clipped-left="clipped"
-    color="blue"
+    dark
     app
   )
     //- v-app-bar-nav-icon(@click.stop="drawer = !drawer")

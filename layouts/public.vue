@@ -4,7 +4,6 @@ v-app
   v-main
     nuxt
   v-footer(
-    absolute
     class="font-weight-medium"
     dark
   )

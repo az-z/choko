@@ -24,8 +24,9 @@
       show-size
       small-chips
       truncate-length="15"
-      v-model="gallery.files"
+      v-model="files"
       prepend-icon="mdi-camera"
+      @change="uploadFiles"
     )
     v-row
       v-col(
@@ -34,11 +35,24 @@
         md="2"
         lg="1"
       )
-        v-card
-          v-img(
-            :src="img.path.original"
-            height="100"
-          )
+        v-hover( v-slot="{ hover }" )
+          v-card
+            v-img(
+              v-if="img.path"
+              :src="img.path.original"
+              height="100"
+            )
+              v-app-bar(
+                flat
+                color="rgba(0, 0, 0, 0)"
+              )
+               v-spacer
+               v-btn(
+                 color="red"
+                 icon
+                 @click="removeImage(img._id)"
+               )
+                v-icon mdi-delete       
     v-btn(
       color="green"
       @click="change"
@@ -55,7 +69,10 @@ export default {
   layout: 'profile',
   data: function () {return{
     loading: false,
-    gallery: null
+    loadingFiles: false,
+    files: null,
+    gallery: null,
+    valid: null
   }},
   methods: {
     delete: function () {
@@ -112,6 +129,50 @@ export default {
         this.loading = false
         console.error(error)
       })
+    },
+    uploadFiles: function () {
+      this.loadingFiles = true
+      console.log('Files: ', this.files);
+      const fd = new FormData()
+      this.files.forEach(function (file) {
+        fd.append('images', file, file.name)
+      })
+      this.$axios.post('/gallery/add-images', fd).then(response => {
+        this.loadingFiles = false
+        this.$notify({
+          group: 'foo',
+          title: 'System',
+          text: response.data.msg,
+          type: 'success'
+        })
+        this.gallery.images = this.gallery.images.concat(response.data.images)
+      }).catch(error => {
+        this.loadingFiles = false
+        this.$notify({
+          group: 'foo',
+          title: 'System',
+          text: error.response.data.msg,
+          type: 'error'
+        })
+      })
+    },
+    removeImage: function (id) {
+      this.$axios.delete(`/gallery/remove/file/${this.$route.params.id}/${id}`).then(response => {
+        this.$notify({
+          group: 'foo',
+          type: 'success',
+          title: 'System',
+          text: response.data.msg
+        })
+        this.gallery.images = this.gallery.images.filter(element => element._id !== id)
+      }).catch(error => {
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          title: 'System',
+          text: error.response.data.msg
+        })
+      })
     }
   },
   mounted: function () {
@@ -126,7 +187,7 @@ export default {
       })
       console.error(error)
     })
-  }
+  },
 }
 </script>
 <style lang="scss" scoped></style>

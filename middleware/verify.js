@@ -6,6 +6,6 @@ export default async ({ $axios, store, redirect }) => {
     store.dispatch('Auth/signin', response.data.user)
   }).catch(error => {
     console.error(error)
-    return redirect('/')
+    // redirect('/')
   })
 }

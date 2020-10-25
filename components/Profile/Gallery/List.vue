@@ -6,23 +6,38 @@ v-list(
 )
   v-list-item(
     v-for="(gallery, index) in galleries" :key="index"
+    link
   )
-    v-list-item-avatar
+    v-list-item-avatar(
+      color="teal"
+    )
       v-img(
+        v-if="gallery.images"
         :src="gallery.images[0].path.original"
       )
+      span( v-else class="white--text headline" ) {{ gallery.title.substr(0,1) }}
     v-list-item-content
       v-list-item-title(v-text="gallery.title")
       v-list-item-subtitle(v-text="gallery.price + 'грн'")
     v-list-item-content
       v-list-item-title(v-text="gallery.description")
     v-list-item-action
+      input(
+        id="link-to-copy"
+        type="hidden"
+        :value="`${pathLink}gallery/${gallery._id}`"
+      )
       v-row
+        v-btn(
+          icon
+          @click="copy"
+        )
+          v-icon(color="green") mdi-content-copy
         v-btn(
           icon
           :to="`/profile/gallery/change/${gallery._id}`"
         )
-          v-icon(color="grey lighten-1") mdi-cog
+          v-icon(color="orange") mdi-cog
         v-btn(icon @click="remove(gallery.title, gallery._id)")
           v-icon(color="red") mdi-close-circle
 .overline(v-else) Нет галерей
@@ -73,6 +88,20 @@ export default {
           }
       })
     },
+    copy: function () {
+      const copyText = document.getElementById('link-to-copy')
+      copyText.type = 'text'
+      copyText.select()
+      copyText.setSelectionRange(0, 99999)
+      document.execCommand("copy")
+      copyText.type = 'hidden'
+      this.$notify({
+        title: 'System',
+        text: 'Ссылка добавлена в буфер обмена',
+        group: 'foo',
+        type: 'success'
+      })
+    }
   }
 }
 </script>

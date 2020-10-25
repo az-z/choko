@@ -19,11 +19,16 @@
     )
       v-list-item(
         v-for="(gallery, index) in user.galleries" :key="index"
+        :to="`/gallery/${gallery._id}`" link
       )
-        v-list-item-avatar
+        v-list-item-avatar(
+          color="teal"
+        )
           v-img(
+            v-if="gallery.images"
             :src="gallery.images[0].path.small"
           )
+          span( v-else class="white--text headline" ) {{ gallery.title.substr(0,1) }}
         v-list-item-content
           v-list-item-title(v-text="gallery.title")
           v-list-item-subtitle(v-text="gallery.price + 'грн'")
@@ -33,7 +38,7 @@
               icon
               :to="`/gallery/${gallery._id}`"
             )
-              v-icon(color="grey lighten-1") mdi-open-in-app
+              v-icon(color="blue") mdi-open-in-app
 .public-page-error(v-else)
   h1 Пользователь не найден
 </template>

@@ -1,5 +1,5 @@
 <template lang="pug">
-v-app()
+v-app( color="light" )
   SideBar
   v-main(color="red lighten-5")
     v-container(fluid)
