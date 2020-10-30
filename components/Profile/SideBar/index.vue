@@ -35,9 +35,14 @@
           v-icon.mr-1 mdi-cash-register
           v-list-item-title Заказы
     template(v-slot:append)
-      v-btn(@click="logout")
-        v-icon.mr-1 mdi-exit-to-app
-        span Выход
+      v-list(
+        nav
+        dance
+      )
+        v-list-item(@click="logout")
+          v-list-item-icon
+            v-icon.mr-1 mdi-exit-to-app
+            v-list-item-title Выход
   v-app-bar(
     :clipped-left="clipped"
     dark

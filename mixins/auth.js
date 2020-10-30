@@ -11,10 +11,7 @@ export default {
       // if (this.signin) return this.$router.push('profile')
       const googleUser = await this.$gAuth.signIn()
       const authCode = await this.$gAuth.getAuthCode()
-      this.$axios.post(
-        '/auth/google',
-        { googleUser, redirect_uri: 'postmessage' }
-        ).then(response => {
+      this.$axios.post('/auth/google', { googleUser, redirect_uri: 'postmessage' }).then(response => {
           this.$store.dispatch('Auth/signin', response.data.user)
           this.$axios.setToken(response.data.token, 'Bearer')
           localStorage.setItem('token', response.data.token)

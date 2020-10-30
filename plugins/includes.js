@@ -28,3 +28,6 @@ Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
 
 import VueCoreImageUpload from 'vue-core-image-upload' 
 Vue.component('vue-core-image-upload', VueCoreImageUpload )
+
+import VueFilterDateFormat from '@vuejs-community/vue-filter-date-format';
+Vue.use(VueFilterDateFormat);

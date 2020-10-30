@@ -2,6 +2,13 @@
 v-app.default-layout(v-scroll:throttle="{fn: onScroll, throttle: 500 }")
   Nuxt
   notifications(group="foo" position="right bottom")
+    template(slot="body" slot-scope="props")
+      v-alert(
+        :type="props.item.type"
+        border="left"
+      )
+        .title {{props.item.title}}
+        div(v-html="props.item.text")
 </template>
 <script>
 import { mapActions } from 'vuex'

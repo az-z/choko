@@ -33,17 +33,94 @@
                 span( v-if="image.picked" ) Убрать
   .gallery__footer
     v-container
-      v-btn(
-        color="green"
-        @click="addOrder"
-      ) Заказать
+      v-dialog(
+        v-model="dialog"
+        persistent
+        max-width="600px" 
+      )
+        template( v-slot:activator="{ on, attrs }" )
+          v-btn(
+            color="green"
+            large
+            class="white--text"
+            v-bind="attrs"
+            v-on="on"
+          ) Заказать
+        v-card
+          v-card-title
+            span.headline Заполните данные для заказа
+          v-card-text
+            v-container
+              v-row
+                v-col(
+                  cols="12"
+                  sm="6"
+                )
+                  v-text-field(
+                    label="Ваше имя*"
+                    v-model="form.name"
+                    required
+                  )
+                v-col(
+                  cols="12"
+                  sm="6"
+                )
+                  v-text-field(
+                    label="Ваша фамилия"
+                    v-model="form.lastname"
+                  )
+                v-col(
+                  cols="12"
+                )
+                  v-text-field(
+                    label="Ваш e-mail"
+                    v-model="form.email"
+                    required
+                  )
+                v-col(
+                  cols="12"
+                )
+                  v-text-field(
+                    label="Ваш номер телефона"
+                    v-model="form.phone"
+                    required
+                  )
+                //- v-col(
+                  cols="12"
+                //- )
+                  v-select(
+                    :items="['0-17', '18-29', '30-54', '54+']"
+                    label="Age*"
+                    required
+                  )
+            samll После оформления и оплаты заказ вам прейдет ссылка на орегеналы фотографий
+          v-card-actions
+            v-spacer
+            v-btn(
+              color="blue darken-1"
+              text
+              @click="dialog = false"
+            ) Закрыть
+            v-btn(
+              color="blue darken-1"
+              text
+              @click="addOrder"
+            ) Оформить заказ
 </template>
 <script>
 export default {
   layout: 'public',
   data: function () {return{
     gallery: null,
-    order: []
+    dialog: false,
+    order: [],
+    form: {
+      name: null,
+      lastname: null,
+      email: null,
+      phone: null,
+      summ: null
+    }
   }},
   mounted: function () {
     this.$axios.get(`/gallery/get/public/${this.$route.params.id}`).then(response => {
