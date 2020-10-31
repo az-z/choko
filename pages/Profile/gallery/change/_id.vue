@@ -57,10 +57,12 @@
       color="green"
       @click="change"
       :loading="loading"
+      class="white--text" 
     ) Изменить
     v-btn(
       color="red"
       @click="remove"
+      class="white--text" 
     ).ml-2 Удалить
 </template>
 <script>

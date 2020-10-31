@@ -3,7 +3,7 @@
   v-container
     v-row
       v-col(
-        md="4"
+        md="3"
       )
         v-card
           v-img(
@@ -13,32 +13,47 @@
       v-col
         v-card
           v-card-title {{ user.name }}
-          .pa-4.subtitle {{ user.email }}
-    v-list(
-      v-if="user.galleries && user.galleries.length > 0"
-    )
-      v-list-item(
-        v-for="(gallery, index) in user.galleries" :key="index"
-        :to="`/gallery/${gallery._id}`" link
+          v-card-text
+            .subtitle {{ user.email }}
+            div {{ user.description }}
+          v-card-actions
+            v-btn(
+              link
+              :href="user.site"
+            ) Сайт фоторгафа
+            v-btn(
+              link
+              color="blue" 
+              :href="user.facebook"
+            )
+              v-icon( color="white"  ) mdi-facebook
+              span.white--text Facebook 
+    v-row
+      v-col(
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
       )
-        v-list-item-avatar(
-          color="teal"
+        v-card(
+          v-for="(gallery, index) in user.galleries" :key="index"
+          max-height="350px" 
+          nuxt
+          :to="`/gallery/${gallery._id}`"
         )
           v-img(
-            v-if="gallery.images"
-            :src="gallery.images[0].path.small"
+            :src="gallery.images[0] ? gallery.images[0].path.small : '/images/mo-img.jpg'" alt="altText"
+            height="150px" 
           )
-          span( v-else class="white--text headline" ) {{ gallery.title.substr(0,1) }}
-        v-list-item-content
-          v-list-item-title(v-text="gallery.title")
-          v-list-item-subtitle(v-text="gallery.price + 'грн'")
-        v-list-item-action
-          v-row
+          v-card-title {{ gallery.title }}
+          v-card-text
+            .subtitle-1 Цена за фото: {{ gallery.price }} грн
+            div {{ gallery.description }}
+          v-card-actions
             v-btn(
-              icon
-              :to="`/gallery/${gallery._id}`"
-            )
-              v-icon(color="blue") mdi-open-in-app
+              class="white--text"
+              color="primary"  
+            ) Открыть 
 .public-page-error(v-else)
   h1 Пользователь не найден
 </template>
