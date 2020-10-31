@@ -34,43 +34,85 @@
             ) {{ order.status ? 'Оплачен' : 'Не оплачен' }}
           td {{ new Date(order.date) | dateFormat('DD.MM.YYYY')}}
           td {{ order.summ }}
-          td {{ order.name }} {{ order.lastname }}
+          td 
+            div {{ order.name }} {{ order.lastname }}
+            small.greay--text {{ order.email }}
           td
-            v-btn(
-              icon
-              small
+            Detail(
+              :order="order"
+              :updateOrders="updateOrders"
             )
-              v-icon(color="primary") mdi-open-in-app
-            v-btn(
-              icon
-              small
+            v-menu(
+              bottom left offset-y
             )
-              v-icon(color="orange") mdi-cog
-            v-btn(
-              icon
-              small
-            )
-              v-icon(color="red") mdi-delete
+              template(
+                v-slot:activator="{ on, attrs }"
+              )
+                v-btn(
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                )
+                  v-icon mdi-dots-vertical
+              v-list
+                v-subheader Быстрые действия
+                v-list-item(
+                  @click="removeOrder(order._id)"
+                )
+                  v-list-item-icon
+                    v-icon(
+                      color="red"
+                    ) mdi-delete
+                  v-list-item-content Удалить заказ
 .overline(v-else) Нет заказов
 </template>
 <script>
+import Detail from '~/components/Orders/Detail'
 export default {
   name: 'orders',
+  components: {
+    Detail
+  },
   data: function () {return{
     orders: null
   }},
-  mounted: function () {
-    this.$axios.get('order/get-user-orders').then(response => {
-      this.orders = response.data.orders
-      this.$forceUpdate()
-    }).catch(error => {
-      this.$notify({
-        group: 'foo',
-        type: 'error',
-        title: 'System',
-        text: error.response.const.msg
+  methods: {
+    removeOrder: async function (id) {
+      try {
+        const response = await this.$axios.$delete(`order/remove/${id}`)
+        this.$notify({
+          group: 'foo',
+          type: 'success',
+          title: 'System',
+          text: response.msg
+        })
+        this.updateOrders()
+      } catch (error) {
+        console.error(error)
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          title: 'System',
+          text: error.response ? error.response.data.msg : 'Что-то пошло не так'
+        })
+      }
+    },
+    updateOrders: function () {
+      this.$axios.get('order/get-user-orders').then(response => {
+        this.orders = response.data.orders
+        this.$forceUpdate()
+      }).catch(error => {
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          title: 'System',
+          text: error.response.const.msg
+        })
       })
-    })
+    }
+  },
+  mounted: function () {
+    this.updateOrders()
   }
 }
 </script>

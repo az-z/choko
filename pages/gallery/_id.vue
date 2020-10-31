@@ -7,7 +7,7 @@
     .gallery__description {{ gallery.description }}
     .gallery__price-wrapper
       .gallery__price Цена за фото: {{ gallery.price }} грн
-      .gallery__summ {{ gallery.price * order.length }} грн  
+      .gallery__summ {{ form.summ }} грн  
     .gallery__content
       h3.gallery__content-title Фотографии
       v-row
@@ -49,63 +49,64 @@
         v-card
           v-card-title
             span.headline Заполните данные для заказа
-          v-card-text
-            v-container
-              v-row
-                v-col(
-                  cols="12"
-                  sm="6"
-                )
-                  v-text-field(
-                    label="Ваше имя*"
-                    v-model="form.name"
-                    required
+          v-form( v-model="valid" ref="form" )
+            v-card-text
+              v-container
+                v-row
+                  v-col(
+                    cols="12"
+                    sm="6"
                   )
-                v-col(
-                  cols="12"
-                  sm="6"
-                )
-                  v-text-field(
-                    label="Ваша фамилия"
-                    v-model="form.lastname"
+                    v-text-field(
+                      label="Ваше имя*"
+                      v-model="form.name"
+                      required
+                      :rules="nameRules"
+                    )
+                  v-col(
+                    cols="12"
+                    sm="6"
                   )
-                v-col(
-                  cols="12"
-                )
-                  v-text-field(
-                    label="Ваш e-mail"
-                    v-model="form.email"
-                    required
+                    v-text-field(
+                      label="Ваша фамилия"
+                      v-model="form.lastname"
+                    )
+                  v-col(
+                    cols="12"
                   )
-                v-col(
-                  cols="12"
-                )
-                  v-text-field(
-                    label="Ваш номер телефона"
-                    v-model="form.phone"
-                    required
+                    v-text-field(
+                      label="Ваш e-mail*"
+                      v-model="form.email"
+                      required
+                      :rules="emailRules"
+                    )
+                  v-col(
+                    cols="12"
                   )
-                //- v-col(
-                  cols="12"
-                //- )
-                  v-select(
-                    :items="['0-17', '18-29', '30-54', '54+']"
-                    label="Age*"
-                    required
-                  )
-            samll После оформления и оплаты заказ вам прейдет ссылка на орегеналы фотографий
-          v-card-actions
-            v-spacer
-            v-btn(
-              color="blue darken-1"
-              text
-              @click="dialog = false"
-            ) Закрыть
-            v-btn(
-              color="blue darken-1"
-              text
-              @click="addOrder"
-            ) Оформить заказ
+                    v-text-field(
+                      label="Ваш номер телефона"
+                      v-model="form.phone"
+                      required
+                      v-mask="'+38 (0##) ##-##-###'"
+                    )
+              div
+                small После оформления и оплаты заказ вам прейдет ссылка на орегеналы фотографий
+              div
+                div( v-if="order.length == 0" ).red--text Для оформления заказа добавте хотябы одну фотографию*
+                strong( v-else ).green--text {{ order.length }} фото в заказе
+            v-card-actions
+              v-spacer
+              v-btn(
+                color="blue darken-1"
+                text
+                @click="dialog = false"
+              ) Закрыть
+              v-btn(
+                color="blue darken-1"
+                text
+                :disabled="!order.length"
+                @click="addOrder"
+              ) Оформить заказ
 </template>
 <script>
 export default {
@@ -119,8 +120,16 @@ export default {
       lastname: null,
       email: null,
       phone: null,
-      summ: null
-    }
+      summ: 0
+    },
+    valid: false,
+    nameRules: [
+      v => !!v || 'Имя обязательно'
+    ],
+    emailRules: [
+      v => !!v || 'E-mail обязателен',
+      v => /.+@.+\..+/.test(v) || 'Введите коректный E-mail',
+    ],
   }},
   mounted: function () {
     this.$axios.get(`/gallery/get/public/${this.$route.params.id}`).then(response => {
@@ -132,10 +141,14 @@ export default {
       if( !this.gallery.images[index].picked ) this.order.push(this.gallery.images[index]._id)
       else this.order = this.order.filter(element => element !== this.gallery.images[index]._id)
       this.gallery.images[index].picked = !this.gallery.images[index].picked
+      this.form.summ = this.gallery.price * this.order.length
       this.$forceUpdate()
     },
     addOrder: function () {
+      this.$refs.form.validate()
+      if (!this.valid) return '' 
       const form = {
+        ...this.form,
         images: this.order,
         user: this.gallery.creator._id,
         gallery: this.gallery._id
@@ -147,6 +160,7 @@ export default {
           title: 'System',
           text: response.data.msg
         })
+        this.dialog = false
       }).catch(error => {
         this.$notify({
           group: 'foo',
