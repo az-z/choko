@@ -92,6 +92,7 @@ export default {
         })
         this.form.images = response.data.images
       }).catch(error => {
+        console.error(error)
         this.loadingFiles = false
         this.$notify({
           group: 'foo',

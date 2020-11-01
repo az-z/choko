@@ -1,5 +1,5 @@
 <template lang="pug">
-v-card(elevation="2" shaped)
+v-card(elevation="2" )
   v-card-title(
     :class="`${card.price.color}--text`"
   ).justify-center {{ card.title }}
@@ -12,7 +12,7 @@ v-card(elevation="2" shaped)
     v-btn(
       large
       block
-      :color="`${card.button.color} lighten-2`"
+      :color="`${card.button.color} lighten-2`" 
       @click="auth"
     ) {{ card.button.text }}
 </template>

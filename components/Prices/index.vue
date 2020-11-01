@@ -1,10 +1,15 @@
 <template lang="pug">
-.prices(id="prices").blue
+.prices(
+  id="prices"
+  class="primary"
+)
   v-container
     h2.prices__title.text-center.white--text Цены
     v-row
       v-col(
         v-for="(card, index) in cards" :key="index"
+        close="12"
+        md="4" 
       )
         Card(
           :card="card"

@@ -5,13 +5,7 @@ export const state = () => ({
 
 export const getters = {
   getUser: state => state._USER,
-  getSignin: state => state._SIGNIN,
-  // getForm: state => ({
-  //   description: state._USER.description,
-  //   site: state._USER.site,
-  //   facebook: state._USER.facebook,
-  //   phoneNumber: state._USER.phoneNumber
-  // })
+  getSignin: state => state._SIGNIN
 }
 
 export const mutations = {

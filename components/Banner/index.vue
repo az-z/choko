@@ -1,14 +1,18 @@
 <template lang="pug">
 kinesis-container.baner#baner
-  v-container
-    v-card.baner__info-block.text-center
-      v-card-title Работа с фото? Легко!
-      v-card-text Все в пешей доступности ;)
-      v-spacer
-      v-card-actions
-        GoogleAuth
-    kinesis-element.baner__balloon
-      img(src="/images/vs.png").baner__balloon-img
+  v-parallax(
+    src="/images/pririda-photo.jpg"
+    :height="800" 
+  )  
+    v-container
+      v-card.baner__info-block.text-center
+        v-card-title Работа с фото? Легко!
+        v-card-text Все в пешей доступности ;)
+        v-spacer
+        v-card-actions
+          GoogleAuth
+      kinesis-element.baner__balloon
+        img(src="/images/vs.png").baner__balloon-img
 </template>
 <script>
 import GoogleAuth from '~/components/Auth/Socials/Google'
@@ -21,7 +25,6 @@ export default {
 <style lang="scss" scoped>
 .baner {
   position: relative;
-  background-image: url('/images/pririda-photo.jpg');
   height: 100vh;
   background-size: cover;
   &__balloon {
