@@ -1,17 +1,17 @@
 <template lang="pug">
 .orders(v-if="orders && orders.length > 0")
-  small Последние 10 заказов
+  small {{ $t('orders.smallInfo') }}
   v-simple-table
     template( v-slot:default )
       thead
         tr
           th.text-left #
-          th.text-left Превью
-          th.text-left Статус 
-          th.text-left Оформлен
-          th.text-left Сумма(грн)
-          th.text-left Заказчик
-          th.text-left Действия
+          th.text-left {{ $t('orders.table.preview') }}
+          th.text-left {{ $t('orders.table.status') }}
+          th.text-left {{ $t('orders.table.date') }}
+          th.text-left {{ $t('orders.table.summ') }}
+          th.text-left {{ $t('orders.table.customer') }}
+          th.text-right {{ $t('orders.table.actions') }}
       tbody
         tr(
           v-for="(order, index) in orders" :key="index"
@@ -30,14 +30,15 @@
           td
             v-chip(
               :color="order.status ? 'green' : 'red'"
+              outlined
               class="white--text" 
-            ) {{ order.status ? 'Оплачен' : 'Не оплачен' }}
-          td {{ new Date(order.date) | dateFormat('DD.MM.YYYY')}}
+            ) {{ order.status ? $t('orders.statuses.paid') : $t('orders.statuses.noPaid') }}
+          td {{ new Date(order.date) | dateFormat('DD.MM.YYYY') }}
           td {{ order.summ }}
           td 
             div {{ order.name }} {{ order.lastname }}
             small.greay--text {{ order.email }}
-          td
+          td.text-right
             Detail(
               :order="order"
               :updateOrders="updateOrders"
@@ -55,7 +56,7 @@
                 )
                   v-icon mdi-dots-vertical
               v-list
-                v-subheader Быстрые действия
+                v-subheader {{ $t('orders.fastActions.title') }}
                 v-list-item(
                   @click="removeOrder(order._id)"
                 )
@@ -63,8 +64,8 @@
                     v-icon(
                       color="red"
                     ) mdi-delete
-                  v-list-item-content Удалить заказ
-.overline(v-else) Нет заказов
+                  v-list-item-content {{ $t('orders.buttons.remove') }}
+.overline(v-else) {{ $t('orders.noItems') }}
 </template>
 <script>
 import Detail from '~/components/Orders/Detail'

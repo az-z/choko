@@ -15,7 +15,7 @@ v-footer(
       class="my-2"
     ) {{ link }}
     v-col(
-      class="primary lighten-2 py-4 text-center white--text"
+      class="grey darken-2 py-4 text-center white--text"
       cols="12"
     )
       span {{ new Date().getFullYear() }} —
@@ -24,14 +24,7 @@ v-footer(
 <script>
 export default {
   data: () => ({
-    links: [
-      'Home',
-      'About Us',
-      'Team',
-      'Services',
-      'Blog',
-      'Contact Us',
-    ],
+    links: [],
   }),
 }
 </script>

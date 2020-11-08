@@ -1,7 +1,7 @@
 <template lang="pug">
 v-row(v-if="galleries && galleries.length > 0")
   v-col(
-    xs="12" sm="6" lg="4" xl="3"
+    cols="12" md="6" lg="4" xl="3"
     v-for="(gallery, index) in galleries" :key="index"
   )
     v-card
@@ -20,22 +20,22 @@ v-row(v-if="galleries && galleries.length > 0")
         div {{ gallery.description }}
       v-card-actions
         input(
-          id="link-to-copy"
+          :id="`link-to-copy-${index}`"
           type="hidden"
           :value="`${pathLink}gallery/${gallery._id}`"
         )
         v-btn(
           color="green"
           text
-          :to="`/profile/gallery/change/${gallery._id}`"                                                                                                                                        
+          :to="localePath(`/profile/gallery/change/${gallery._id}`)"                                                                                                                                        
           nuxt 
-        ) Изменить
+        ) {{ $t('buttons.change') }}
         v-btn(
           color="orange"
           text
           nuxt
-          @click="copy"
-        ) Ссылка
+          @click="copy(index)"
+        ) {{ $t('buttons.link') }}
 .overline(v-else) Нет галерей
 </template>
 <script>
@@ -52,8 +52,8 @@ export default {
     }
   },
   methods: {
-    copy: function () {
-      const copyText = document.getElementById('link-to-copy')
+    copy: function (index) {
+      const copyText = document.getElementById(`link-to-copy-${index}`)
       copyText.type = 'text'
       copyText.select()
       copyText.setSelectionRange(0, 99999)

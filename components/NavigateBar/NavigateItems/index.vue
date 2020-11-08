@@ -2,9 +2,18 @@
 #NavigateItems
   .desctop
     .items
-      .item(@click="scrollTo('opportunities')" :class="{'text-white': togglesBG}") Возможности
-      .item(@click="scrollTo('prices')" :class="{'text-white': togglesBG}") Цены
-      .item(@click="scrollTo('baner')" :class="{'text-white': togglesBG}") Войти
+      .item(
+        @click="scrollTo('opportunities')"
+        :class="{'text-white': togglesBG}"
+      ) {{ $t('navigateBar.mainPage.capabilities') }}
+      .item(
+        @click="scrollTo('prices')"
+        :class="{'text-white': togglesBG}"
+      ) {{ $t('navigateBar.mainPage.prices') }}
+      .item(
+        @click="auth"
+        :class="{'text-white': togglesBG}"
+      ) {{ $t('navigateBar.mainPage.enter') }}
   .mobile
     Burger(:cb="toggleDropMenu" :showDropMenu="showDropMenu")
     DropMenu(:showDropMenu="showDropMenu" :hideDropMenu="hideDropMenu")
@@ -14,8 +23,9 @@ import { mapGetters } from 'vuex'
 import Burger from './Burger'
 import DropMenu from './DropMenu'
 import MixinMoveTo from '~/mixins/moveTo'
+import MixinAuth from '~/mixins/auth'
 export default {
-  mixins: [MixinMoveTo],
+  mixins: [MixinMoveTo, MixinAuth],
   components: {
     Burger,
     DropMenu

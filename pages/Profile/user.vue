@@ -14,31 +14,45 @@
         )
         span(v-else).white--text.headline {{ user.name }}
     v-col
-      .white--text.headline {{ user.name }}
-      v-btn(:to="`/public/${user._id}`" exact nuxt) Публичная страница
+      .headline {{ user.name }}
+      v-btn(
+        color="primary" 
+        :href="`/public/${user.login}`"
+        target="blank"
+        nuxt
+      ) {{ $t('profile.buttons.publicPage') }}
   .user__edite
     v-form(v-model="valid" @submit.prevent="changeUser")
       v-textarea(
         v-model="form.description"
-        label="О себе"
+        :label="$t('forms.user.about')"
+      )
+      v-text-field(
+        v-model="form.login"
+        :label="$t('forms.user.login')"
       )
       v-text-field(
         v-model="form.site"
-        label="Сайт"
+        :label="$t('forms.user.site')"
       )
       v-text-field(
         v-model="form.facebook"
         label="Facebook"
       )
       v-text-field(
+        v-model="form.instagram"
+        label="Instagram"
+      )
+      v-text-field(
         v-model="form.phoneNumber"
-        label="Номер телефона"
+        :label="$t('forms.user.phone')"
         v-mask="'+38 (###) ###-##-##'"
       )
       v-btn(
         @click="changeUser"
         :loading="loading"
-      ) Сохранить
+        color="success darken-2" 
+      ) {{ $t('buttons.save') }}
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
@@ -51,7 +65,9 @@ export default {
       facebook: null,
       description: null,
       site: null,
-      phoneNumber: null
+      phoneNumber: null,
+      login: null,
+      instagram: null
     },
   }},
   computed: {
@@ -66,27 +82,36 @@ export default {
       this.form.description = newVal.description
       this.form.site = newVal.site
       this.form.phoneNumber = newVal.phoneNumber
+      this.form.login = newVal.login
+      this.form.instagram = newVal.instagram
     }
   },
   methods: {
     ...mapActions({
       updateUser: 'Auth/updateUser'
     }),
-    changeUser: function () {
+    changeUser: async function () {
       this.loading = true
-      this.$axios.put('/auth/user/change', this.form).then(response => {
-        this.updateUser(response.data.user)
+      try {
+        const response = await this.$axios.$put('/auth/user/change', this.form)
+        this.updateUser(response.user)
         this.$notify({
           group: 'foo',
           title: 'System',
-          text: response.data.msg,
+          text: response.msg,
           type: 'success'
         })
         this.loading = false
-      }).catch(error => {
-        this.loading = false
+      } catch (error) {        
         console.error(error)
-      })
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          title: 'System',
+          text: error.response ? error.response.data.msg : 'Что-то пошло не так'
+        })
+        this.loading = false
+      }
     }
   },
   mounted: function () {
@@ -94,6 +119,8 @@ export default {
     this.form.description = this.user.description
     this.form.site = this.user.site
     this.form.phoneNumber = this.user.phoneNumber
+    this.form.login = this.user.login
+    this.form.instagram = this.user.instagram
   }
 }
 </script>

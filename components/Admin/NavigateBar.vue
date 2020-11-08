@@ -5,6 +5,7 @@ v-app-bar(app clipped-left dark)
 <script>
 import Logo from '~/components/NavigateBar/Logo'
 export default {
+  name: 'AdminNavbar',
   components: {
     Logo
   }

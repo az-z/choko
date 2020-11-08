@@ -1,15 +1,18 @@
 <template lang="pug">
 .prices(
   id="prices"
-  class="primary"
+  class="grey lighten-3"
 )
   v-container
-    h2.prices__title.text-center.white--text Цены
+    h2.display-2.mb-6.text-center {{ $t('landing.prices.title') }}
     v-row
-      v-col(
+      v-col(  
         v-for="(card, index) in cards" :key="index"
-        close="12"
-        md="4" 
+        cols="12"
+        sm="6"
+        md="6" 
+        lg="4"
+        xl="4"
       )
         Card(
           :card="card"
@@ -24,38 +27,59 @@ export default {
   data: function () {return{
     cards: [
       {
-        title: 'Триал',
+        title: {
+          ru: 'Триал',
+          ua: 'Триал'
+        },
         price: {
           num: 0,
           color: 'purple'
         },
-        html: `<ul><li class="text-main-2">14 дней бесплатно</li><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li></ul>`,
+        html: {
+          ru: `<ul><li class="green--text">14 дней бесплатно</li><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li></ul>`,
+          ua: '<ul><li class="green--text">14 днів безкоштовно</li><li>Безлімітні галереї</li><li>Прямі платежі</li><li>Ніякої комісії</li></ul>'
+        },
+        color: 'purple',
         button: {
-          text: 'Попробовать',
+          text: this.$t('buttons.try'),
           color: 'purple'
         }
       },
       {
-        title: 'Месяц',
+        title: {
+          ru: 'Месяц',
+          ua: 'Місяць'
+        },
         price: {
           num: 990,
           color: 'orange'
         },
-        html: `<ul><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li><li>Приоритетная поддержка</li></ul>`,
+        html: {
+          ru: `<ul><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li><li>Приоритетная поддержка</li></ul>`,
+          ua: '<ul><li>Безлімітні галереї</li><li>Прямі платежі</li><li>Ніякої комісії</li><li>Пріоритетна підтримка</li></ul>'
+        },
+        color: 'orange',
         button: {
-          text: 'Попробовать',
+          text: this.$t('buttons.try'),
           color: 'orange'
         }
       },
       {
-        title: 'Год',
+        title: {
+          ru: 'Год',
+          ua: 'Рік'
+        },
         price: {
           num: 9700,
           color: 'green'
         },
-        html: `<ul><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li><li>Приоритетная поддержка</li></ul>`,
+        html: {
+          ru: `<ul><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li><li>Приоритетная поддержка</li></ul>`,
+          ua: '<ul><li>Безлімітні галереї</li><li>Прямі платежі</li><li>Ніякої комісії</li><li>Пріоритетна підтримка</li></ul>'
+        },
+        color: 'green',
         button: {
-          text: 'Попробовать',
+          text: this.$t('buttons.try'),
           color: 'green'
         }
       }
@@ -63,6 +87,4 @@ export default {
   }}
 }
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

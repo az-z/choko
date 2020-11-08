@@ -6,8 +6,10 @@ kinesis-container.baner#baner
   )  
     v-container
       v-card.baner__info-block.text-center
-        v-card-title Работа с фото? Легко!
-        v-card-text Все в пешей доступности ;)
+        v-card-title {{ $t('landing.authBlock.title') }}
+        v-card-text
+          span {{ $t('landing.authBlock.subTitle') }}
+          v-icon.ml-1 mdi-emoticon-wink-outline
         v-spacer
         v-card-actions
           GoogleAuth
@@ -47,9 +49,6 @@ export default {
     font-size: 1.2rem;
     color: map-get($mainColors, black);
     font-weight: 500;
-  }
-  &__description {
-
   }
   &__google {
     margin-top: auto;

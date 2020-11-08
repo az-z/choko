@@ -9,8 +9,8 @@ span
         v-on="on"
         @click="dialog = true"
       )
-        v-icon(color="primary") mdi-open-in-app
-    span Детальная настройка
+        v-icon mdi-open-in-app
+    span {{ $t('orders.modal.tooltip') }}
   v-dialog(
     v-model="dialog"
     fullscreen
@@ -30,20 +30,20 @@ span
           @click="dialog = false"
         )
           v-icon mdi-close
-        v-toolbar-title Редактирование заказа
+        v-toolbar-title {{ $t('orders.modal.title') }}
         v-chip(
           :color="order.status ? 'green' : 'red'"
           class="white--text ml-2" 
-        ) {{ order.status ? 'Оплачен' : 'Не оплачен' }}
+        ) {{ order.status ? $t('orders.statuses.paid') : $t('orders.statuses.noPaid') }}
         v-spacer
         v-toolbar-items
           v-btn(
             dark
             text
             @click="changeOrder"
-          ) Сохранить
+          ) {{ $t('buttons.save') }}
       v-card-title
-        span Заказ id: {{ order._id }}
+        span {{ $t('orders.modal.orderId') }} {{ order._id }}
         input(
             :id="order._id"
             type="hidden"
@@ -59,7 +59,7 @@ span
           v-col(
             cols="12"
           )
-            .subtitle-1 Заказ оформлен: {{ new Date(order.date) | dateFormat('DD.MM.YYYY') }}
+            .subtitle-1 {{ $t('orders.modal.date') }} {{ new Date(order.date) | dateFormat('DD.MM.YYYY') }}
           v-col(
             cols="12"
             sm="6"
@@ -75,7 +75,7 @@ span
                   reverse-transition="fade-transition"
                   transition="fade-transition"
                 )
-            small {{ order.images.length }} фото, цена за фото: {{ order.summ / order.images.length }} грн
+            small {{ order.images.length }} {{ $t('orders.modal.smallInner') }} {{ order.summ / order.images.length }} грн
           v-col(
             cols="12"
             sm="6"
@@ -88,12 +88,12 @@ span
               v-text-field(
                 v-model="form.name"
                 :rules="nameRules"
-                label="Имя"
+                :label="$t('forms.orders.name')"
                 required
               )
               v-text-field(
                 v-model="form.lastname"
-                label="Фамилия"
+                :label="$t('forms.orders.lastName')"
                 required
               )
               v-text-field(
@@ -104,19 +104,19 @@ span
               )
               v-text-field(
                 v-model="form.phone"
-                label="Номер телефона"
+                :label="$t('forms.orders.phone')"
                 required
                 v-mask="'+38 (0##) ##-##-###'"
               )
               v-switch(
                 v-model="form.status"
-                label="Оплата"
+                :label="$t('forms.orders.paid')"
                 color="success"
               )
           v-col(
             cols="12"
           )
-            strong Сумма заказа: {{ order.summ }} грн
+            strong {{ $t('orders.modal.summ') }} {{ order.summ }} грн
 </template>
 
 <script>

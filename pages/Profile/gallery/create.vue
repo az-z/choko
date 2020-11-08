@@ -17,7 +17,7 @@
     )
     v-switch(
       v-model="form.activity"
-      :label="`Активность`"
+      :label="`Публичность`"
     )
     v-file-input(
       counter
@@ -27,7 +27,6 @@
       truncate-length="15"
       v-model="files"
       prepend-icon="mdi-camera"
-      @change="uploadFiles"
       accept=".jpg, .jpeg, .png"
       :loading="loadingFiles"
     )
@@ -68,39 +67,41 @@ export default {
     ...mapActions({
       addGallery: 'Galleries/addGallery'
     }),
-    create: function () {
+    create: async function () {
+      await this.uploadFiles()
       this.addGallery({ notify: this.$notify, form: this.form, router: this.$router })
     },
     showDetails (data) {
      if(data.picked === 'picked') {
      }
     },
-    uploadFiles: function () {
+    uploadFiles: async function () {
       this.loadingFiles = true
       console.log('Files: ', this.files);
       const fd = new FormData()
       this.files.forEach(function (file) {
         fd.append('images', file, file.name)
       })
-      this.$axios.post('/gallery/add-images', fd).then(response => {
+      try {
+        const response = await this.$axios.$post('/gallery/add-images', fd) 
         this.loadingFiles = false
+        this.form.images = response.images
         this.$notify({
           group: 'foo',
           title: 'System',
-          text: response.data.msg,
+          text: response.msg,
           type: 'success'
         })
-        this.form.images = response.data.images
-      }).catch(error => {
-        console.error(error)
+      } catch (error) {
         this.loadingFiles = false
+        console.error(error)
         this.$notify({
           group: 'foo',
           title: 'System',
-          text: error.response.data.msg,
+          text: error.respnse ? error.response.data.msg : 'Что-то пошло не так',
           type: 'error'
         })
-      })
+      }
     }
   },
   created: function() {

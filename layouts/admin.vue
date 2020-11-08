@@ -37,8 +37,6 @@ v-app(v-else)
           indeterminate
           color="primary"
         )
-
-  
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'

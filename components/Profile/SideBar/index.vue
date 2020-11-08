@@ -1,94 +1,66 @@
 <template lang="pug">
-.sidebar
-  v-navigation-drawer(
-    v-model="drawer"
-    :mini-variant="miniVariant"
-    :clipped="clipped"
-    permanent
-    app
+v-navigation-drawer(
+  v-model="drawer"
+  :mini-variant="miniVariant"
+  clipped
+  permanent
+  app
+)
+  v-list(
+    dense
   )
-    v-list
-      v-list-item.px-2
-        v-list-item-avatar
-          v-img(:src="user.picture")
-      v-list-item(
-        link
-        to="/profile/user"
-        router
-        exact
-        nuxt
-      )
-        v-list-item-content
-          v-list-item-title.title {{ user.name }}
-          v-list-item-subtitle {{ user.email }}
-    v-divider
+    v-list-item(
+      to="/profile/user"
+      nuxt
+    ).px-2
+      v-list-item-avatar
+        v-img(:src="user.picture")
+      v-list-item-content
+        v-list-item-title.title {{ user.name }}
+        v-list-item-subtitle {{ user.email }}
+  v-divider
+  v-list(
+    nav
+    dense
+  )
+    v-list-item(:to="localePath('/profile/gallery')" nuxt)
+      v-list-item-icon
+        v-icon.mr-1 mdi-image-multiple
+      v-list-item-title {{ $t('sidebar.galleries') }}
+    v-list-item(:to="localePath('/profile/orders')" nuxt)
+      v-list-item-icon
+        v-icon.mr-1 mdi-cash-register
+      v-list-item-title {{ $t('sidebar.orders') }}
+  template(v-slot:append)
     v-list(
       nav
-      dense
+      dance
     )
-      v-list-item(link to="/profile/gallery" nuxt)
+      v-list-item(@click="logout")
         v-list-item-icon
-          v-icon.mr-1 mdi-image-multiple
-          v-list-item-title Галереи
-      v-list-item(link to="/profile/orders" nuxt)
-        v-list-item-icon
-          v-icon.mr-1 mdi-cash-register
-          v-list-item-title Заказы
-    template(v-slot:append)
-      v-list(
-        nav
-        dance
-      )
-        v-list-item(@click="logout")
-          v-list-item-icon
-            v-icon.mr-1 mdi-exit-to-app
-            v-list-item-title Выход
-  v-app-bar(
-    :clipped-left="clipped"
-    dark
-    app
-  )
-    //- v-app-bar-nav-icon(@click.stop="drawer = !drawer")
-    v-btn(
-      icon
-      @click.stop="miniVariant = !miniVariant"
-    )
-      v-icon mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}
-    v-btn(
-      icon
-      @click.stop="clipped = !clipped"
-    )
-      v-icon mdi-application
-    //- v-btn(
-      icon
-      @click.stop="fixed = !fixed")
-        v-icon mdi-minus
-    //- v-toolbar-title(v-text="title")
-    v-spacer
-    v-btn(
-      icon
-      @click.stop="rightDrawer = !rightDrawer"
-    )
+          v-icon.mr-1 mdi-exit-to-app
+          v-list-item-title {{ $t('sidebar.exit') }}
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Logo from '~/components/NavigateBar/Logo'
 export default {
+  props: {
+    miniVariant: {
+      type: Boolean,
+      required: true
+    }
+  },
+  components: {
+    Logo
+  },
   data: () => ({
-    clipped: true,
-    miniVariant: true,
     drawer: false
   }),
   computed: {
     ...mapGetters({
       user: 'Auth/getUser'
     }),
-    isRouteActive: function() {
-      if (this.$nuxt.$route.path=="/") {
-        return true;
-      } else {
-        return false;
-      }
-    }
   },
   methods: {
     ...mapActions({

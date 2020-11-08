@@ -18,25 +18,36 @@
             div {{ user.description }}
           v-card-actions
             v-btn(
-              link
               :href="user.site"
-            ) Сайт фоторгафа
+              target="blank"
+              nuxt
+              color="primary darken-2" 
+            ) {{ $t('public.profile.buttons.site') }}
             v-btn(
-              link
-              color="blue" 
-              :href="user.facebook"
+              color="blue"
+              :href="`http://facebook.com/${user.facebook}`"
+              target="blank" 
+              nuxt
             )
               v-icon( color="white"  ) mdi-facebook
               span.white--text Facebook 
+            v-btn(
+              color="purple"
+              :href="`http://instagram.com/${user.instagram}`"
+              target="blank" 
+              nuxt
+            )
+              v-icon( color="white"  ) mdi-instagram
+              span.white--text Instagram
     v-row
       v-col(
+        v-for="(gallery, index) in user.galleries" :key="index"
         cols="12"
         sm="6"
         md="4"
         lg="3"
       )
         v-card(
-          v-for="(gallery, index) in user.galleries" :key="index"
           max-height="350px" 
           nuxt
           :to="`/gallery/${gallery._id}`"
@@ -47,15 +58,15 @@
           )
           v-card-title {{ gallery.title }}
           v-card-text
-            .subtitle-1 Цена за фото: {{ gallery.price }} грн
+            .subtitle-1 {{ $t('public.profile.gallery.price') }} {{ gallery.price }} грн
             div {{ gallery.description }}
           v-card-actions
             v-btn(
               class="white--text"
               color="primary"  
-            ) Открыть 
+            ) {{ $t('buttons.open') }}
 .public-page-error(v-else)
-  h1 Пользователь не найден
+  h1 {{ $t('public.profile.noUser') }}
 </template>
 <script>
 export default {

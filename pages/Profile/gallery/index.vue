@@ -7,7 +7,7 @@
         color="primary"                                                                                                                                                
         to="/profile/gallery/create"                                                                                                                                        
         nuxt 
-      ) Создать новую галерею
+      ) {{ $t('buttons.createNewGallery') }}
     v-col
       Statistics
   Galleries

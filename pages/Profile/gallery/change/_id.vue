@@ -1,22 +1,22 @@
 <template lang="pug">
 .change-gallery-page(v-if="gallery")
-  h1.change-gallery-page__title Редактирование галереи
+  h1.change-gallery-page__title {{ $t('galleries.change.title') }}
   v-form(v-model="valid" @submit.prevent="changeUser")
     v-text-field(
       v-model="gallery.title"
-      label="Название"
+      :label="$t('forms.galleries.title')"
     )
     v-text-field(
       v-model="gallery.price"
-      label="Цена за фото"
+      :label="$t('forms.galleries.price')"
     )
     v-textarea(
       v-model="gallery.description"
-      label="Описание"
+      :label="$t('forms.galleries.description')"
     )
     v-switch(
       v-model="gallery.activity"
-      :label="`Активность`"
+      :label="$t('forms.galleries.public')"
     )
     v-file-input(
       counter
@@ -58,12 +58,12 @@
       @click="change"
       :loading="loading"
       class="white--text" 
-    ) Изменить
+    ) {{ $t('buttons.save') }}
     v-btn(
       color="red"
       @click="remove"
       class="white--text" 
-    ).ml-2 Удалить
+    ).ml-2 {{ $t('buttons.delete') }}
 </template>
 <script>
 import { mapActions } from 'vuex'

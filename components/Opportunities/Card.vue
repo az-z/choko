@@ -1,9 +1,9 @@
 <template lang="pug">
 .card
-  svg-icon(:name="icon").card__icon
+  svg-icon(:name="icon" width="128px" height="150px").card__icon
   .card__content
-    .card__title {{ title }}
-    .card__text {{ text }} 
+    .card__title {{ title[$i18n.locale] }}
+    .card__text {{ text[$i18n.locale] }} 
 </template>
 <script>
 export default {

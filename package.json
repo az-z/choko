@@ -19,6 +19,7 @@
     "@vuejs-community/vue-filter-date-format": "^1.6.2",
     "googleapis": "^59.0.0",
     "nuxt": "^2.14.0",
+    "nuxt-i18n": "^6.15.4",
     "v-mask": "^2.2.3",
     "vue-click-outside": "^1.1.0",
     "vue-confirm-dialog": "^1.0.2",

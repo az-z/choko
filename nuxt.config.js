@@ -83,23 +83,34 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    // '@nuxtjs/pwa',
-    // Doc: https://github.com/nuxt/content
-    // '@nuxt/content',
     '@nuxtjs/style-resources',
     '@nuxtjs/axios',
-    // '@nuxtjs/auth',
+    'nuxt-i18n',
     '@nuxtjs/svg-sprite'
   ],
+  i18n: {
+    locales: [
+      {
+        code: 'ua',
+        file: 'uk-UK.js',
+        name: 'Українська'
+      },
+      {
+        code: 'ru',
+        file: 'ru-RU.js',
+        name: 'Русский'
+      }
+    ],
+    lazy: true,
+    detectBrowserLanguage: true,
+    langDir: 'locale/',
+    defaultLocale: 'ru'
+  },
   svgSprite: {
     input: '~/assets/svg/'
   },
   styleResources: {
-    // your settings here
-    // sass: [],
-    scss: ['~/assets/scss/_variables.scss', '~/assets/scss/_mixins.scss'],
-    // less: [],
-    // stylus: []
+    scss: ['~/assets/scss/_variables.scss', '~/assets/scss/_mixins.scss']
   },
   /*
   ** Axios module configuration
@@ -109,44 +120,6 @@ export default {
     baseURL: process.env.BASE_URL,
     timeout: 0
   },
-  // auth: {
-  //   strategies: {
-  //     google: {
-  //       _scheme: 'oauth2',
-  //       authorization_endpoint: 'https://accounts.google.com/o/oauth2/auth',
-  //       userinfo_endpoint: 'https://www.googleapis.com/oauth2/v3/userinfo',
-  //       scope: ['openid', 'profile', 'email'],
-  //       access_type: undefined,
-  //       access_token_endpoint: undefined,
-  //       response_type: 'token',
-  //       token_type: 'Bearer',
-  //       redirect_uri: 'http://localhost:3000/auth/',
-  //       client_id: process.env.GOOGLE_CLIENT_ID,
-  //       token_key: 'access_token',
-  //       state: 'UNIQUE_AND_NON_GUESSABLE'
-  //     }
-  //   },
-    // redirect: {
-    //   login: '/auth',
-    //   logout: '/auth',
-    //   home: '/',
-    //   // callback: '/callback'
-    // },
-    // strategies: {
-    //   google: {
-    //     client_id: process.env.GOOGLE_CLIENT_ID
-    //   }
-    // }
-  // },
-  /*
-  ** Content module configuration
-  ** See https://content.nuxtjs.org/configuration
-  */
-  // content: {},
-  /*
-  ** Build configuration
-  ** See https://nuxtjs.org/api/configuration-build/
-  */
   build: {
     
   }

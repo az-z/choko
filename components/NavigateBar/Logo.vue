@@ -1,7 +1,10 @@
 <template lang="pug">
 #logo
-  svg-icon(name="lens" :class="{'fill-white': togglesBG}").logo-icon
-  nuxt-link.logo(to="/" :class="{'text-white': togglesBG}") keytophoto.ua
+  nuxt-link.logo(to="/" :class="{'text-white': togglesBG}")
+    v-img(
+      src="/logo_white.png"
+      width="80"
+    )
 </template>
 <script>
 import { mapGetters } from 'vuex'

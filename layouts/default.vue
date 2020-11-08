@@ -1,6 +1,12 @@
 <template lang="pug">
 v-app( color="light" )
-  SideBar
+  SideBar(
+    :miniVariant="miniVariant"
+  )
+  Navbar(
+    :toggleMiniVariant="toggleMiniVariant"
+    :miniVariant="miniVariant"
+  )
   v-main(color="red lighten-5")
     v-container(fluid)
       nuxt
@@ -20,10 +26,20 @@ v-app( color="light" )
 </template>
 <script>
 import SideBar from '~/components/Profile/SideBar'
+import Navbar from '~/components/Profile/Navbar'
 export default {
   middleware: 'verify',
   components: {
-    SideBar
+    SideBar,
+    Navbar
+  },
+  data: () => ({
+    miniVariant: false
+  }),
+  methods: {
+    toggleMiniVariant: function () {
+      this.miniVariant = !this.miniVariant
+    }
   }
 }
 </script>

@@ -23,14 +23,14 @@ v-list(
       v-list-item-title(v-text="gallery.description")
     v-list-item-action
       input(
-        id="link-to-copy"
+        :id="`link-to-copy-${index}`"
         type="hidden"
         :value="`${pathLink}gallery/${gallery._id}`"
       )
       v-row
         v-btn(
           icon
-          @click="copy"
+          @click="copy(index)"
         )
           v-icon(color="green") mdi-content-copy
         v-btn(
@@ -49,6 +49,11 @@ export default {
     galleries: {
       type: Array,
       required: true
+    }
+  },
+  computed: {
+    pathLink: function () {
+      return `${window.location.protocol}//${window.location.host}/`
     }
   },
   methods: {
@@ -88,8 +93,8 @@ export default {
           }
       })
     },
-    copy: function () {
-      const copyText = document.getElementById('link-to-copy')
+    copy: function (index) {
+      const copyText = document.getElementById(`link-to-copy-${index}`)
       copyText.type = 'text'
       copyText.select()
       copyText.setSelectionRange(0, 99999)

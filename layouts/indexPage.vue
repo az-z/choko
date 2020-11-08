@@ -1,6 +1,9 @@
 <template lang="pug">
 v-app.default-layout(v-scroll:throttle="{fn: onScroll, throttle: 500 }")
-  Nuxt
+  NavigateBarIndex
+  v-main
+    Nuxt
+  Footer
   notifications(group="foo" position="right bottom")
     template(slot="body" slot-scope="props")
       v-alert(
@@ -12,8 +15,14 @@ v-app.default-layout(v-scroll:throttle="{fn: onScroll, throttle: 500 }")
 </template>
 <script>
 import { mapActions } from 'vuex'
+import NavigateBarIndex from '~/components/NavigateBar'
+import Footer from '~/components/Footer'
 export default {
   middleware: 'verify',
+  components: {
+    NavigateBarIndex,
+    Footer
+  },
   methods: {
     ...mapActions({
       toggleBG: 'NavigateBar/Scenery/toggleBG'

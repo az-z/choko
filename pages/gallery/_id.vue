@@ -6,14 +6,15 @@
       h2.gallery__user {{ gallery.creator.name }}
     .gallery__description {{ gallery.description }}
     .gallery__price-wrapper
-      .gallery__price Цена за фото: {{ gallery.price }} грн
-      .gallery__summ {{ form.summ }} грн  
+      .gallery__price {{ $t('public.gallery.price') }} {{ gallery.price }} грн
+      .gallery__summ {{ form.summ }} грн
     .gallery__content
-      h3.gallery__content-title Фотографии
+      h3.gallery__content-title {{ $t('public.gallery.photosTitle') }}
       v-row
         v-col(
           v-for="(image, index) in gallery.images" :key="index"
-          sm="1"
+          cols="12"
+          sm="6"
           md="3"
         )
           v-card
@@ -28,9 +29,9 @@
                 block
               )
                 v-icon( left v-if="!image.picked" ) mdi-check
-                span( v-if="!image.picked" ) Добавить
+                span( v-if="!image.picked" ) {{ $t('buttons.add') }}
                 v-icon( left v-show="image.picked" ) mdi-close
-                span( v-if="image.picked" ) Убрать
+                span( v-if="image.picked" ) {{ $t('buttons.remove') }}
   .gallery__footer
     v-container
       v-dialog(
@@ -45,10 +46,10 @@
             class="white--text"
             v-bind="attrs"
             v-on="on"
-          ) Заказать
+          ) {{ $t('buttons.placing') }}
         v-card
           v-card-title
-            span.headline Заполните данные для заказа
+            span.headline {{ $t('forms.placingOrder.title') }}
           v-form( v-model="valid" ref="form" )
             v-card-text
               v-container
@@ -58,7 +59,7 @@
                     sm="6"
                   )
                     v-text-field(
-                      label="Ваше имя*"
+                      :label="$t('forms.placingOrder.name')"
                       v-model="form.name"
                       required
                       :rules="nameRules"
@@ -68,14 +69,14 @@
                     sm="6"
                   )
                     v-text-field(
-                      label="Ваша фамилия"
+                      :label="$t('forms.placingOrder.lastName')"
                       v-model="form.lastname"
                     )
                   v-col(
                     cols="12"
                   )
                     v-text-field(
-                      label="Ваш e-mail*"
+                      label="E-mail*"
                       v-model="form.email"
                       required
                       :rules="emailRules"
@@ -84,29 +85,29 @@
                     cols="12"
                   )
                     v-text-field(
-                      label="Ваш номер телефона"
+                      :label="$t('forms.placingOrder.phone')"
                       v-model="form.phone"
                       required
                       v-mask="'+38 (0##) ##-##-###'"
                     )
               div
-                small После оформления и оплаты заказ вам прейдет ссылка на орегеналы фотографий
+                small {{ $t('forms.placingOrder.description') }}
               div
-                div( v-if="order.length == 0" ).red--text Для оформления заказа добавте хотябы одну фотографию*
-                strong( v-else ).green--text {{ order.length }} фото в заказе
+                div( v-if="order.length == 0" ).red--text {{ $t('forms.placingOrder.validate.length') }}
+                strong( v-else ).green--text {{ order.length }} {{ $t('forms.placingOrder.pgotos') }}
             v-card-actions
               v-spacer
               v-btn(
                 color="blue darken-1"
                 text
                 @click="dialog = false"
-              ) Закрыть
+              ) {{ $t('buttons.close') }}
               v-btn(
                 color="blue darken-1"
                 text
                 :disabled="!order.length"
                 @click="addOrder"
-              ) Оформить заказ
+              ) {{ $t('buttons.placingOrder') }}
 </template>
 <script>
 export default {
@@ -124,11 +125,11 @@ export default {
     },
     valid: false,
     nameRules: [
-      v => !!v || 'Имя обязательно'
+      v => !!v || this.$t('forms.placingOrder.validate.nameReq')
     ],
     emailRules: [
-      v => !!v || 'E-mail обязателен',
-      v => /.+@.+\..+/.test(v) || 'Введите коректный E-mail',
+      v => !!v || this.$t('forms.placingOrder.validate.emailReq'),
+      v => /.+@.+\..+/.test(v) || this.$t('forms.placingOrder.validate.emailInvalid')
     ],
   }},
   mounted: function () {
