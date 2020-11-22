@@ -5,19 +5,23 @@
     v-text-field(
       v-model="form.title"
       label="Название"
+      name="title"
     )
     v-text-field(
       v-model="form.price"
       label="Цена за фото"
       :rules="priceRules"
+      name="price"
     )
     v-textarea(
       v-model="form.description"
       label="Описание"
+      name="description"
     )
     v-switch(
       v-model="form.activity"
       :label="`Публичность`"
+      name="public"
     )
     v-file-input(
       counter
@@ -26,6 +30,7 @@
       small-chips
       truncate-length="15"
       v-model="files"
+      name="photos"
       prepend-icon="mdi-camera"
       accept=".jpg, .jpeg, .png"
       :loading="loadingFiles"

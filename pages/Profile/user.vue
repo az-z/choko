@@ -13,7 +13,9 @@
           :alt="user.name"
         )
         span(v-else).white--text.headline {{ user.name }}
-    v-col
+    v-col(
+      cols="auto"
+    )
       .headline {{ user.name }}
       v-btn(
         color="primary" 
@@ -21,6 +23,17 @@
         target="blank"
         nuxt
       ) {{ $t('profile.buttons.publicPage') }}
+    v-col(
+      cols="auto"
+    )
+      v-chip(
+        :color="user.active.status ? 'success' : 'error'"
+        outlined
+      )
+        span( v-if="user.active.status && !user.active.trial" ) Активен
+        span( v-if="user.active.status && user.active.trial" ) Триал
+        span( v-if="user.active.to" ).ml-1 до: {{ new Date(user.active.to) | dateFormat('DD.MM.YYYY') }}
+        span( v-if="!user.active.status" ) Не активе
   .user__edite
     v-form(v-model="valid" @submit.prevent="changeUser")
       v-textarea(
@@ -29,6 +42,9 @@
       )
       v-text-field(
         v-model="form.login"
+        @input="checkLogin"
+        :error="!loginPermit"
+        :messages="loginMsg"
         :label="$t('forms.user.login')"
       )
       v-text-field(
@@ -51,6 +67,7 @@
       v-btn(
         @click="changeUser"
         :loading="loading"
+        :disabled ="!valid"
         color="success darken-2" 
       ) {{ $t('buttons.save') }}
 </template>
@@ -61,6 +78,7 @@ export default {
   data: function () {return{
     valid: false,
     loading: false,
+    loginPermit: true,
     form: {
       facebook: null,
       description: null,
@@ -68,13 +86,16 @@ export default {
       phoneNumber: null,
       login: null,
       instagram: null
-    },
+    }
   }},
   computed: {
     ...mapGetters({
       user: 'Auth/getUser',
       // newForm: 'Auth/getForm'
-    })
+    }),
+    loginMsg: function () {
+      return this.loginPermit ? 'Логин доступен' : 'Логин недоступен'
+    }
   },
   watch: {
     user: function (newVal) {
@@ -111,6 +132,21 @@ export default {
           text: error.response ? error.response.data.msg : 'Что-то пошло не так'
         })
         this.loading = false
+      }
+    },
+    checkLogin: async function () {
+      try {
+        const resonse = await this.$axios.$get(`/auth/checklogin/${this.form.login}`)
+        this.loginPermit = true
+      } catch (error) {
+        console.error(error)
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          title: 'System',
+          text: error.response ? error.response.data.msg : 'Что-то пошло не так'
+        })
+        this.loginPermit = false
       }
     }
   },

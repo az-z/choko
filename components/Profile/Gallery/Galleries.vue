@@ -22,7 +22,7 @@ import List from './List'
 export default {
   data: function () {return{
     currentComponent: 'Folder',
-    picked: 'Cards'
+    picked: 'List'
   }},
   components: {
     Cards,

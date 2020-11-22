@@ -1,3 +1,15 @@
 {
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "workbench.colorTheme": "Default Dark+",
+  "editor.semanticHighlighting.enabled": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.preferredDarkColorTheme": "Visual Studio Dark",
+  "workbench.preferredHighContrastColorTheme": "Visual Studio Dark",
+  "workbench.preferredLightColorTheme": "Visual Studio Dark",
+  "material-icon-theme.activeIconPack": "vue_vuex",
+  "material-icon-theme.folders.color": "#f1f1f1",
+  "material-icon-theme.hidesExplorerArrows": true,
+  "material-icon-theme.opacity": 0.5,
+  "material-icon-theme.showUpdateMessage": true,
+  "files.autoSave": "onWindowChange"
 }
