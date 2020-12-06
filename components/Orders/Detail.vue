@@ -60,11 +60,11 @@ span
             cols="12"
           )
             .subtitle-1 {{ $t('orders.modal.date') }} {{ new Date(order.date) | dateFormat('DD.MM.YYYY') }}
-          v-col(
+          //- v-col(
             cols="12"
             sm="6"
             md="4"
-          )
+          //- )
             v-card
               v-carousel(
                 height="300"
@@ -77,9 +77,7 @@ span
                 )
             small {{ order.images.length }} {{ $t('orders.modal.smallInner') }} {{ order.summ / order.images.length }} грн
           v-col(
-            cols="12"
-            sm="6"
-            md="8" 
+            cols="12" 
           )
             v-form(
               v-model="valid"
@@ -117,8 +115,14 @@ span
             cols="12"
           )
             strong {{ $t('orders.modal.summ') }} {{ order.summ }} грн
+          v-col(
+            v-for="(image, index) in order.images" :key="index"
+            cols="12" md="2"
+          )
+            v-card
+              v-img( :src="image.path.original" )
+              v-card-text {{ image.originalName }}
 </template>
-
 <script>
 export default {
   name: 'Detail',

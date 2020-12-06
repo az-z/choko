@@ -7,7 +7,6 @@
         color="primary"                                                                                                                                                
         :to="user.active.status ? `/profile/gallery/create` : ''"                                                                                                                                        
         nuxt
-        :disabled="user.active.status"
         @click="!user.active.status ? needActivate() : ''"
       ) {{ $t('buttons.createNewGallery') }}
     v-col

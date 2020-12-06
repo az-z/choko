@@ -3,13 +3,13 @@
   v-container
     .gallery__header
       h1.gallery__title {{ gallery.title }}
-      h2.gallery__user {{ gallery.creator.name }}
+      .gallery__price-wrapper
+        .gallery__length.mr-4 {{ order.length }} фото в заказе
+        .gallery__price {{ $t('public.gallery.price') }} {{ gallery.price }} грн
+        .gallery__summ Сумма: {{ form.summ }} грн
     .gallery__description {{ gallery.description }}
-    .gallery__price-wrapper
-      .gallery__price {{ $t('public.gallery.price') }} {{ gallery.price }} грн
-      .gallery__summ Сумма: {{ form.summ }} грн
     .gallery__content
-      h3.gallery__content-title {{ $t('public.gallery.photosTitle') }}
+      //- h3.gallery__content-title {{ $t('public.gallery.photosTitle') }}
       v-row
         v-col(
           v-for="(image, index) in gallery.images" :key="index"
@@ -32,9 +32,9 @@
                 span( v-if="!image.picked" ) {{ $t('buttons.add') }}
                 v-icon( left v-show="image.picked" ) mdi-close
                 span( v-if="image.picked" ) {{ $t('buttons.remove') }}
-  v-divider
-  v-container 
-    .gallery__price-wrapper
+  //- v-divider
+  //- v-container 
+    //- .gallery__price-wrapper
       .gallery__price {{ $t('public.gallery.price') }} {{ gallery.price }} грн
       .gallery__summ Сумма: {{ form.summ }} грн
   .gallery__footer
@@ -61,13 +61,20 @@
                 v-row
                   v-col(
                     cols="12"
+                  )
+                    v-text-field(
+                      label="E-mail*"
+                      v-model="form.email"
+                      required
+                      :rules="emailRules"
+                    )
+                  v-col(
+                    cols="12"
                     sm="6"
                   )
                     v-text-field(
                       :label="$t('forms.placingOrder.name')"
                       v-model="form.name"
-                      required
-                      :rules="nameRules"
                     )
                   v-col(
                     cols="12"
@@ -76,15 +83,6 @@
                     v-text-field(
                       :label="$t('forms.placingOrder.lastName')"
                       v-model="form.lastname"
-                    )
-                  v-col(
-                    cols="12"
-                  )
-                    v-text-field(
-                      label="E-mail*"
-                      v-model="form.email"
-                      required
-                      :rules="emailRules"
                     )
                   v-col(
                     cols="12"
@@ -99,7 +97,7 @@
                 small {{ $t('forms.placingOrder.description') }}
               div
                 div( v-if="order.length == 0" ).red--text {{ $t('forms.placingOrder.validate.length') }}
-                strong( v-else ).green--text {{ order.length }} {{ $t('forms.placingOrder.pgotos') }}
+                strong( v-else ).green--text {{ order.length }} {{ $t('forms.placingOrder.photos') }}
             v-card-actions
               v-spacer
               v-btn(
@@ -187,20 +185,31 @@ export default {
 <style lang="scss" scoped>
 .gallery {
   &__header {
+    background-color: #fff;
+    position: fixed;
+    top: 64px;
+    z-index: 10;
+    left: 0; right: 0;
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 10px;
+    border-bottom: 1px solid #d3d3d3;
   }
   &__user {
     margin-left: auto;
   }
   &__description {
+    width: 100%;
     padding: .5rem;
-    margin-top: .5rem;
+    margin-top: 84px;
     margin-bottom: .5rem;
     border-radius: 20px;
     background-color: #fff;
   }
   &__price-wrapper {
     display: flex;
+    margin-left: auto;
   }
   &__summ {
     margin-left: 32px;
