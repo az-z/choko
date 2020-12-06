@@ -50,7 +50,7 @@
         v-card(
           max-height="350px" 
           nuxt
-          :to="`/gallery/${gallery._id}`"
+          :to="`/gallery/${user.login}/${gallery._id}`"
         )
           v-img(
             :src="gallery.images[0] ? gallery.images[0].path.small : '/images/mo-img.jpg'" alt="altText"

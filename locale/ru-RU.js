@@ -9,6 +9,7 @@ export default {
   sidebar: {
     galleries: "Галерея",
     orders: "Заказы",
+    status: "Статусы",
     exit: "Выход"
   },
   buttons: {

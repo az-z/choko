@@ -7,7 +7,7 @@
     .gallery__description {{ gallery.description }}
     .gallery__price-wrapper
       .gallery__price {{ $t('public.gallery.price') }} {{ gallery.price }} грн
-      .gallery__summ {{ form.summ }} грн
+      .gallery__summ Сумма: {{ form.summ }} грн
     .gallery__content
       h3.gallery__content-title {{ $t('public.gallery.photosTitle') }}
       v-row
@@ -32,6 +32,11 @@
                 span( v-if="!image.picked" ) {{ $t('buttons.add') }}
                 v-icon( left v-show="image.picked" ) mdi-close
                 span( v-if="image.picked" ) {{ $t('buttons.remove') }}
+  v-divider
+  v-container 
+    .gallery__price-wrapper
+      .gallery__price {{ $t('public.gallery.price') }} {{ gallery.price }} грн
+      .gallery__summ Сумма: {{ form.summ }} грн
   .gallery__footer
     v-container
       v-dialog(
@@ -108,6 +113,8 @@
                 :disabled="!order.length"
                 @click="addOrder"
               ) {{ $t('buttons.placingOrder') }}
+v-container( v-else )
+  .h2 {{ msg }}
 </template>
 <script>
 export default {
@@ -116,6 +123,7 @@ export default {
     gallery: null,
     dialog: false,
     order: [],
+    msg: null,
     form: {
       name: null,
       lastname: null,
@@ -135,7 +143,9 @@ export default {
   mounted: function () {
     this.$axios.get(`/gallery/get/public/${this.$route.params.id}`).then(response => {
       this.gallery = response.data.gallery
-    }).catch(error => console.error(error))
+    }).catch(error => {
+      this.msg = error.response.data.msg
+    })
   },
   methods: {
     pick: function (index) {

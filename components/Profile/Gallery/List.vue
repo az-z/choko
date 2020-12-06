@@ -25,7 +25,7 @@ v-list(
       input(
         :id="`link-to-copy-${index}`"
         type="hidden"
-        :value="`${pathLink}gallery/${gallery._id}`"
+        :value="`${pathLink}gallery/${user.login}/${gallery._id}`"
       )
       v-row
         v-btn(
@@ -43,7 +43,7 @@ v-list(
 .overline(v-else) Нет галерей
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {
     galleries: {
@@ -52,6 +52,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      user: 'Auth/getUser'
+    }),
     pathLink: function () {
       return `${window.location.protocol}//${window.location.host}/`
     }

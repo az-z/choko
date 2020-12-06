@@ -22,7 +22,7 @@ v-row(v-if="galleries && galleries.length > 0")
         input(
           :id="`link-to-copy-${index}`"
           type="hidden"
-          :value="`${pathLink}gallery/${gallery._id}`"
+          :value="`${pathLink}gallery/${user.login}/${gallery._id}`"
         )
         v-btn(
           color="green"
@@ -39,6 +39,7 @@ v-row(v-if="galleries && galleries.length > 0")
 .overline(v-else) Нет галерей
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: {
     galleries: {
@@ -47,6 +48,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      user: 'Auth/getUser'
+    }),
     pathLink: function () {
       return `${window.location.protocol}//${window.location.host}/`
     }

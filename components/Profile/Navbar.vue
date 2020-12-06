@@ -12,6 +12,15 @@ v-app-bar(
   )
     v-icon mdi-{{ `${miniVariant ? 'menu' : 'close'}` }}
   Logo
+  v-chip(
+    :color="user.active.status ? 'success' : 'error'"
+    outlined
+    class="ml-4" 
+  )
+    span( v-if="user.active.status && !user.active.trial" ) Активен
+    span( v-if="user.active.status && user.active.trial" ) Триал
+    span( v-if="user.active.to && user.active.status" ).ml-1 до: {{ new Date(user.active.to) | dateFormat('DD.MM.YYYY') }}
+    span( v-if="!user.active.status" ) Не активе
   v-spacer
   LanguageSwitcher
   v-btn(
@@ -23,6 +32,7 @@ v-app-bar(
     v-icon(color="white") mdi-theme-light-dark
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import LanguageSwitcher from '~/components/LangSwitcher'
 export default {
   name: 'ProfileNavigateBar',
@@ -38,6 +48,11 @@ export default {
   },
   components: {
     LanguageSwitcher
+  },
+  computed: {
+    ...mapGetters({
+      user: 'Auth/getUser'
+    })
   },
   methods: {
     swithThime: function () {

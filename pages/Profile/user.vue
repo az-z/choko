@@ -23,9 +23,9 @@
         target="blank"
         nuxt
       ) {{ $t('profile.buttons.publicPage') }}
-    v-col(
+    //- v-col(
       cols="auto"
-    )
+    //- )
       v-chip(
         :color="user.active.status ? 'success' : 'error'"
         outlined
