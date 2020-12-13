@@ -1,6 +1,10 @@
 <template lang="pug">
 .change-gallery-page(v-if="gallery")
   h1.change-gallery-page__title {{ $t('galleries.change.title') }}
+  v-row( class="align-center"  )
+    v-col( cols="auto" ) Ссылка
+    v-col( cols="auto" )
+      v-btn( nuxt text :href="`${pathLink}gallery/${user.login}/${gallery._id}`" ) {{ `${pathLink}gallery/${user.login}/${gallery._id}` }}
   v-form(v-model="valid" @submit.prevent="changeUser")
     v-text-field(
       v-model="gallery.title"
@@ -66,7 +70,7 @@
     ).ml-2 {{ $t('buttons.delete') }}
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   layout: 'profile',
   data: function () {return{
@@ -76,6 +80,14 @@ export default {
     gallery: null,
     valid: null
   }},
+  computed: {
+    ...mapGetters({
+      user: 'Auth/getUser'
+    }),
+    pathLink: function () {
+      return `${window.location.protocol}//${window.location.host}/`
+    }
+  },
   methods: {
     delete: function () {
       this.$axios.delete(`/gallery/delete/${this.$route.params.id}`).then(response => {

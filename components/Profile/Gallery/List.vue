@@ -6,7 +6,8 @@ v-list(
 )
   v-list-item(
     v-for="(gallery, index) in galleries" :key="index"
-    link
+    :to="`/profile/gallery/change/${gallery._id}`"
+    nuxt
   )
     v-list-item-avatar(
       color="teal"
@@ -30,7 +31,7 @@ v-list(
       v-row
         v-btn(
           icon
-          @click="copy(index)"
+          @click.prevent="copy(index)"
         )
           v-icon(color="green") mdi-content-copy
         v-btn(
@@ -38,7 +39,7 @@ v-list(
           :to="`/profile/gallery/change/${gallery._id}`"
         )
           v-icon(color="orange") mdi-cog
-        v-btn(icon @click="remove(gallery.title, gallery._id)")
+        v-btn(icon @click.prevent="remove(gallery.title, gallery._id)")
           v-icon(color="red") mdi-close-circle
 .overline(v-else) Нет галерей
 </template>

@@ -1,6 +1,6 @@
 <template lang="pug">
 v-app( v-if="!loading" )
-  Sidebar
+  SideBar
   Navbar
   v-main
     nuxt

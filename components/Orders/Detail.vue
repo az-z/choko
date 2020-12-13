@@ -115,15 +115,18 @@ span
             cols="12"
           )
             strong {{ $t('orders.modal.summ') }} {{ order.summ }} грн
+          v-col( cols="12" )
+            v-btn( nuxt :href="`${pathLink}gallery/${user.login}/${this.order.gallery}`" target="_blank" ) Папка
           v-col(
             v-for="(image, index) in order.images" :key="index"
             cols="12" md="2"
           )
             v-card
-              v-img( :src="image.path.original" )
+              v-img( height="200px"  :src="image.path.original" )
               v-card-text {{ image.originalName }}
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Detail',
   props: {
@@ -149,6 +152,9 @@ export default {
     ],
   }},
   computed: {
+    ...mapGetters({
+      user: 'Auth/getUser'
+    }),
     pathLink: function () {
       return `${window.location.protocol}//${window.location.host}/`
     }

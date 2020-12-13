@@ -1,5 +1,5 @@
 <template lang="pug">
-v-navigation-drawer(app clipped permanent)
+v-navigation-drawer(app v-model="model"  clipped permanent)
   v-list-item(
     nuxt
     to="/admin"
@@ -35,3 +35,10 @@ v-navigation-drawer(app clipped permanent)
     //-     v-icon mdi-cash-register
     //-   v-list-item-content Заказы
 </template>
+<script>
+export default {
+  data: () => ({
+    model: true
+  })
+}
+</script>

@@ -1,5 +1,8 @@
 <template lang="pug">
 .gallery(v-if="gallery")
+  v-dialog( v-model="showImage" )
+    v-card
+      v-img( v-if="showImageItem" :src="showImageItem.path.small" )
   v-container
     .gallery__header
       h1.gallery__title {{ gallery.title }}
@@ -20,7 +23,9 @@
           v-card
             v-img(
               :src="image.path.small"
+              @click="showModalImage(image)"
             )
+            v-card-text {{ image.originalName }}
             v-card-actions
               v-btn(
                 @click="pick(index)"
@@ -32,11 +37,6 @@
                 span( v-if="!image.picked" ) {{ $t('buttons.add') }}
                 v-icon( left v-show="image.picked" ) mdi-close
                 span( v-if="image.picked" ) {{ $t('buttons.remove') }}
-  //- v-divider
-  //- v-container 
-    //- .gallery__price-wrapper
-      .gallery__price {{ $t('public.gallery.price') }} {{ gallery.price }} грн
-      .gallery__summ Сумма: {{ form.summ }} грн
   .gallery__footer
     v-container
       v-dialog(
@@ -122,6 +122,8 @@ export default {
     dialog: false,
     order: [],
     msg: null,
+    showImage: false,
+    showImageItem: null,
     form: {
       name: null,
       lastname: null,
@@ -153,14 +155,18 @@ export default {
       this.form.summ = this.gallery.price * this.order.length
       this.$forceUpdate()
     },
+    showModalImage: function (image) {
+      this.showImage = true
+      this.showImageItem = image
+    },
     addOrder: function () {
       this.$refs.form.validate()
-      if (!this.valid) return '' 
+      if (!this.valid) return ''
       const form = {
         ...this.form,
         images: this.order,
         user: this.gallery.creator._id,
-        gallery: this.gallery._id
+        gallery: this.$route.params.id
       }
       this.$axios.post('order/create', form).then(response => {
         this.$notify({

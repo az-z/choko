@@ -185,7 +185,7 @@ export default {
     fetchUSers: async function () {
       try {
         const usersResponse = await this.$axios.$get(`/admin/users/get/all?period=${this.timeInterval}`);
-        this.users = usersResponse.users;
+        this.users = [...usersResponse.users]
         this.$notify({
           group: "foo",
           type: "success",
