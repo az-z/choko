@@ -31,10 +31,25 @@ v-navigation-drawer(
       v-list-item-icon
         v-icon.mr-1 mdi-cash-register
       v-list-item-title {{ $t('sidebar.orders') }}
-    v-list-item(:to="localePath('/profile/statuses')" nuxt)
+    v-list-item( :to="localePath('/profile/statuses')" nuxt )
       v-list-item-icon
         v-icon.mr-1 mdi-cash
       v-list-item-title {{ $t('sidebar.status') }}
+    v-list-group(
+      v-model="paymentGroup"
+      prepend-icon="mdi-currency-usd" 
+    )
+      template( v-slot:activator )
+        v-list-item-content
+          v-list-item-title Тип оплаты
+      v-list-item( class="pl-4"  :to="localePath('/profile/payment/cash')" nuxt )
+        v-list-item-icon
+          v-icon mdi-cash-100
+        v-list-item-title Наличные
+      v-list-item( class="pl-4"  :to="localePath('/profile/payment/liqpay')" nuxt )
+        v-list-item-icon
+          v-icon mdi-credit-card-outline
+        v-list-item-title На карту
   template(v-slot:append)
     v-list(
       nav
@@ -59,7 +74,8 @@ export default {
     Logo
   },
   data: () => ({
-    drawer: false
+    drawer: false,
+    paymentGroup: false
   }),
   computed: {
     ...mapGetters({

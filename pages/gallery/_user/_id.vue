@@ -52,7 +52,11 @@
             v-bind="attrs"
             v-on="on"
           ) {{ $t('buttons.placing') }}
-        v-card
+        v-card( v-if="htmlPayment" )
+          v-card-title Оплатить онлайн
+          v-card-text
+            div(v-html="htmlPayment" )
+        v-card( v-else )
           v-card-title
             span.headline {{ $t('forms.placingOrder.title') }}
           v-form( v-model="valid" ref="form" )
@@ -139,6 +143,7 @@ export default {
       v => !!v || this.$t('forms.placingOrder.validate.emailReq'),
       v => /.+@.+\..+/.test(v) || this.$t('forms.placingOrder.validate.emailInvalid')
     ],
+    htmlPayment: null
   }},
   mounted: function () {
     this.$axios.get(`/gallery/get/public/${this.$route.params.id}`).then(response => {
@@ -159,7 +164,7 @@ export default {
       this.showImage = true
       this.showImageItem = image
     },
-    addOrder: function () {
+    addOrder: async function () {
       this.$refs.form.validate()
       if (!this.valid) return ''
       const form = {
@@ -168,22 +173,31 @@ export default {
         user: this.gallery.creator._id,
         gallery: this.$route.params.id
       }
-      this.$axios.post('order/create', form).then(response => {
+      try {
+        const response = await this.$axios.$post('order/create', form)
+        if (this.gallery.payment === 'liqpay') {
+          const payload = {
+            orderId: response.order._id,
+            summ: this.form.summ
+          }
+          const responseHtml = await this.$axios.$post('order/html', payload )
+          this.htmlPayment = responseHtml.html
+        }
         this.$notify({
           group: 'foo',
           type: 'success',
           title: 'System',
-          text: response.data.msg
+          text: response.msg
         })
-        this.dialog = false
-      }).catch(error => {
+        this.dialog = this.gallery.payment === 'liqpay' ? true : false
+      } catch (error) {
         this.$notify({
           group: 'foo',
           type: 'error',
           title: 'System',
-          text: error.response.data.msg
-        })
-      })
+          text: error.response ? error.response.data.msg : 'Что-то пошло не так'
+        })        
+      }
     }
   }
 }

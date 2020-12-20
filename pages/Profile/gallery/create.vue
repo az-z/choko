@@ -13,6 +13,13 @@
       :rules="priceRules"
       name="price"
     )
+    v-select(
+      v-model="form.payment"
+      :items="items"
+      item-text="state"
+      item-value="abbr"
+      label="Типо оплаты"
+    )
     v-textarea(
       v-model="form.description"
       label="Описание"
@@ -64,9 +71,14 @@ export default {
       folder: null,
       price: null,
       images: null,
-      activity: false
+      activity: false,
+      payment: null
     },
     gConfig: null,
+    items: [
+      { state: 'Наличными', abbr: 'cash' },
+      { state: 'На карту', abbr: 'liqpay' }
+    ],
   }},
   methods: {
     ...mapActions({
@@ -84,7 +96,7 @@ export default {
       this.loadingFiles = true
       console.log('Files: ', this.files);
       const fd = new FormData()
-      this.files.forEach(function (file) {
+      if (this.files) this.files.forEach(function (file) {
         fd.append('images', file, file.name)
       })
       try {

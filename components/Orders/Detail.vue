@@ -85,7 +85,6 @@ span
             )
               v-text-field(
                 v-model="form.name"
-                :rules="nameRules"
                 :label="$t('forms.orders.name')"
                 required
               )

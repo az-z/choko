@@ -13,7 +13,7 @@ v-list(
       color="teal"
     )
       v-img(
-        v-if="gallery.images"
+        v-if="gallery.images && gallery.images.length > 0"
         :src="gallery.images[0].path.original"
       )
       span( v-else class="white--text headline" ) {{ gallery.title.substr(0,1) }}

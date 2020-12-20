@@ -14,6 +14,13 @@
       v-model="gallery.price"
       :label="$t('forms.galleries.price')"
     )
+    v-select(
+      v-model="gallery.payment"
+      :items="items"
+      item-text="state"
+      item-value="abbr"
+      label="Типо оплаты"
+    )
     v-textarea(
       v-model="gallery.description"
       :label="$t('forms.galleries.description')"
@@ -78,7 +85,11 @@ export default {
     loadingFiles: false,
     files: null,
     gallery: null,
-    valid: null
+    valid: null,
+    items: [
+      { state: 'Наличными', abbr: 'cash' },
+      { state: 'На карту', abbr: 'liqpay' }
+    ]
   }},
   computed: {
     ...mapGetters({
