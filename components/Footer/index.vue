@@ -20,10 +20,14 @@ v-footer(
       v-btn(
         color="white" 
         text
+        nuxt
+        to="/about"
       ) О нас
       v-btn(
         color="white" 
         text
+        nuxt
+        to="/contacts"
       ) Контакты
     v-col( cols="12" )
       v-btn(

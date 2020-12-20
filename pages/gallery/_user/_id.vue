@@ -56,6 +56,16 @@
           v-card-title Оплатить онлайн
           v-card-text
             div(v-html="htmlPayment" )
+        v-card( v-else-if="gallery.payment === 'cash' && payed" )
+          v-card-title Спасибо за заказ
+          v-card-text {{ gallery.creator.payment.cashText }}
+          v-card-actions
+            v-spacer
+            v-btn(
+              color="blue darken-1"
+              text
+              @click="dialog = false; payed = false"
+            ) {{ $t('buttons.close') }}
         v-card( v-else )
           v-card-title
             span.headline {{ $t('forms.placingOrder.title') }}
@@ -143,7 +153,8 @@ export default {
       v => !!v || this.$t('forms.placingOrder.validate.emailReq'),
       v => /.+@.+\..+/.test(v) || this.$t('forms.placingOrder.validate.emailInvalid')
     ],
-    htmlPayment: null
+    htmlPayment: null,
+    payed: false
   }},
   mounted: function () {
     this.$axios.get(`/gallery/get/public/${this.$route.params.id}`).then(response => {
@@ -189,7 +200,7 @@ export default {
           title: 'System',
           text: response.msg
         })
-        this.dialog = this.gallery.payment === 'liqpay' ? true : false
+        this.payed = true
       } catch (error) {
         this.$notify({
           group: 'foo',
