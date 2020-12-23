@@ -41,6 +41,7 @@
       prepend-icon="mdi-camera"
       accept=".jpg, .jpeg, .png"
       :loading="loadingFiles"
+      :rules="rules.images"
     )
     v-btn(
       :disabled="!valid"
@@ -79,6 +80,9 @@ export default {
       { state: 'Наличными', abbr: 'cash' },
       { state: 'На карту', abbr: 'liqpay' }
     ],
+    rules: [
+      images => !value || value.size < 100000000 || 'Images size should be less than 100 MB!',
+    ]
   }},
   methods: {
     ...mapActions({
