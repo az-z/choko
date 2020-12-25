@@ -34,15 +34,9 @@ export default {
     })
   },
   methods: {
-    ...mapActions({
-      updateGalleries: 'Galleries/updateGalleries'
-    }),
     changeComponent: function (component) {
       this.currentComponent = component
     }
-  },
-  mounted: function () {
-    this.updateGalleries()
   }
 }
 </script>

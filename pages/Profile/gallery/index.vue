@@ -14,12 +14,13 @@
   Galleries
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import ModalWindowAddGallery from '~/components/Profile/Gallery/Modals/AddGallery'
 import ModalWindowChangeGallery from '~/components/Profile/Gallery/Modals/ChangeModal'
 import Galleries from '~/components/Profile/Gallery/Galleries'
 import Statistics from '~/components/Profile/Gallery/Statistics'
 export default {
+  name: 'ProfileGalleryPage',
   components: {
     ModalWindowAddGallery,
     ModalWindowChangeGallery,
@@ -40,6 +41,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      updateGalleries: 'Galleries/updateGalleries'
+    }),
     needActivate: function () {
       this.$notify({
         group: 'foo',
@@ -48,6 +52,9 @@ export default {
         text: 'Ваш статус неактивет перейдите во вкладку статус для оплаты'
       })
     }
+  },
+  created: function () {
+    this.updateGalleries()
   }
 }
 </script>

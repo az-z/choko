@@ -13,7 +13,7 @@ v-app( color="light" )
   v-footer(
     app
   )
-    span &copy; {{ new Date().getFullYear() }}
+    span &copy; {{ new Date().getFullYear() }} - vue-mashins
   notifications(group="foo" position="right bottom")
     template(slot="body" slot-scope="props")
       v-alert(
@@ -23,15 +23,18 @@ v-app( color="light" )
         .title {{props.item.title}}
         div(v-html="props.item.text")
   vue-confirm-dialog
+  ProgressGallery
 </template>
 <script>
 import SideBar from '~/components/Profile/SideBar'
 import Navbar from '~/components/Profile/Navbar'
+import ProgressGallery from '@/components/Profile/Gallery/Modals/ProgressCreateGallery'
 export default {
   middleware: 'verify',
   components: {
     SideBar,
-    Navbar
+    Navbar,
+    ProgressGallery
   },
   data: () => ({
     miniVariant: false

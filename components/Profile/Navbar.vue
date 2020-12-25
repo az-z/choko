@@ -34,6 +34,7 @@ v-app-bar(
 <script>
 import { mapGetters } from 'vuex'
 import LanguageSwitcher from '~/components/LangSwitcher'
+import Logo from '@/components/NavigateBar/Logo'
 export default {
   name: 'ProfileNavigateBar',
   props: {
@@ -47,7 +48,8 @@ export default {
     }
   },
   components: {
-    LanguageSwitcher
+    LanguageSwitcher,
+    Logo
   },
   computed: {
     ...mapGetters({

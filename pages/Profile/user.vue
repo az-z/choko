@@ -75,6 +75,7 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
   layout: 'profile',
+  name: 'ProfileUser',
   data: function () {return{
     valid: false,
     loading: false,
