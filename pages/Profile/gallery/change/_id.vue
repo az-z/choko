@@ -1,26 +1,36 @@
 <template lang="pug">
 .change-gallery-page(v-if="gallery")
-  h1.change-gallery-page__title {{ $t('galleries.change.title') }}
+  v-row
+    v-col( cols="auto" )
+      v-btn( to="/profile/gallery" icon nuxt )
+        v-icon mdi-arrow-left
+    v-spacer
+    v-col( cols="auto" )
+      h1.change-gallery-page__title {{ $t('galleries.change.title') }}
   v-row( class="align-center"  )
     v-col( cols="auto" ) Ссылка
     v-col( cols="auto" )
       v-btn( nuxt text :href="`${pathLink}gallery/${user.login}/${gallery._id}`" ) {{ `${pathLink}gallery/${user.login}/${gallery._id}` }}
   v-form(v-model="valid" @submit.prevent="changeUser")
-    v-text-field(
-      v-model="gallery.title"
-      :label="$t('forms.galleries.title')"
-    )
-    v-text-field(
-      v-model="gallery.price"
-      :label="$t('forms.galleries.price')"
-    )
-    v-select(
-      v-model="gallery.payment"
-      :items="items"
-      item-text="state"
-      item-value="abbr"
-      label="Типо оплаты"
-    )
+    v-row( class="align-center"  )
+      v-col( cols="12" )
+        v-text-field(
+          v-model="gallery.title"
+          :label="$t('forms.galleries.title')"
+        )
+      v-col( cols="12" md="6" )
+        v-text-field(
+          v-model="gallery.price"
+          :label="$t('forms.galleries.price')"
+        )
+      v-col( cols="12" md="6" )
+        v-select(
+          v-model="gallery.payment"
+          :items="items"
+          item-text="state"
+          item-value="abbr"
+          label="Типо оплаты"
+        )
     v-textarea(
       v-model="gallery.description"
       :label="$t('forms.galleries.description')"
@@ -37,7 +47,6 @@
       truncate-length="15"
       v-model="files"
       prepend-icon="mdi-camera"
-      @change="uploadFiles"
     )
     v-row
       v-col(
@@ -100,6 +109,15 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      updateGalleryForChange: 'Galleries/CreateGallery/UPDATE_GALLEERY',
+      updateImages: 'Galleries/CreateGallery/UPDATE_IMAGES',
+      updateImagesCopy: 'Galleries/CreateGallery/UPDATE_IMAGES_COPY',
+      uploadImages: 'Galleries/CreateGallery/UPLOAD_IMAGES',
+      changeGallery: 'Galleries/CreateGallery/CHANGE_GALLERY',
+      showModal: 'Galleries/CreateGallery/SHOW_MODAL',
+      updateMainTitle: 'Galleries/CreateGallery/UPDATE_MAIN_TITLE'
+    }),
     delete: function () {
       this.$axios.delete(`/gallery/delete/${this.$route.params.id}`).then(response => {
         this.$notify({
@@ -134,52 +152,17 @@ export default {
       })
     },
     change: function () {
-      this.loading = true
-      this.$axios.put(`/gallery/change/${this.$route.params.id}`, this.gallery).then(response => {
-        this.$notify({
-          group: 'foo',
-          title: 'System',
-          text: response.data.msg,
-          type: 'success'
-        })
-        this.loading = false
-        this.$router.push('/profile/gallery')
-      }).catch(error => {
-        this.$notify({
-          group: 'foo',
-          title: 'System',
-          text: error.response.data.msg,
-          type: 'error'
-        })
-        this.loading = false
-        console.error(error)
-      })
-    },
-    uploadFiles: function () {
-      this.loadingFiles = true
-      console.log('Files: ', this.files);
-      const fd = new FormData()
-      this.files.forEach(function (file) {
-        fd.append('images', file, file.name)
-      })
-      this.$axios.post('/gallery/add-images', fd).then(response => {
-        this.loadingFiles = false
-        this.$notify({
-          group: 'foo',
-          title: 'System',
-          text: response.data.msg,
-          type: 'success'
-        })
-        this.gallery.images = this.gallery.images.concat(response.data.images)
-      }).catch(error => {
-        this.loadingFiles = false
-        this.$notify({
-          group: 'foo',
-          title: 'System',
-          text: error.response.data.msg,
-          type: 'error'
-        })
-      })
+      this.$router.push('/profile/gallery')
+      this.updateGalleryForChange(this.gallery)
+      if (this.files) {
+        this.updateImages(this.files)
+        this.updateImagesCopy(this.files)
+        this.uploadImages()
+        this.updateMainTitle('Редактирование папки')
+        this.showModal()
+      } else {
+        this.changeGallery()
+      }
     },
     removeImage: function (id) {
       this.$axios.delete(`/gallery/remove/file/${this.$route.params.id}/${id}`).then(response => {
@@ -204,13 +187,13 @@ export default {
     this.$axios.get(`/gallery/get/${this.$route.params.id}`).then(response => {
       this.gallery = response.data.gallery
     }).catch(error => {
+      console.error(error)
       this.$notify({
         group: 'foo',
         title: 'System',
         text: error.response.data.msg,
         type: 'error'
       })
-      console.error(error)
     })
   },
 }

@@ -3,10 +3,10 @@
   v-row.gallery__first-block
     v-col.col-auto.gallery__block-create-gallery
       v-btn(
-        dark                                                                                                                                                            
-        color="primary"                                                                                                                                                
-        :to="user.active.status ? `/profile/gallery/create` : ''"                                                                                                                                        
-        nuxt
+        dark nuxt
+        color="primary"
+        :to="user.active.status ? `/profile/gallery/create` : ''"
+        :disabled="!!gallery"
         @click="!user.active.status ? needActivate() : ''"
       ) {{ $t('buttons.createNewGallery') }}
     v-col
@@ -37,7 +37,8 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      user: 'Auth/getUser'
+      user: 'Auth/getUser',
+      gallery: 'Galleries/CreateGallery/GET_GALLERY'
     })
   },
   methods: {

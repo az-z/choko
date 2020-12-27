@@ -36,40 +36,54 @@
         span( v-if="!user.active.status" ) Не активе
   .user__edite
     v-form(v-model="valid" @submit.prevent="changeUser")
-      v-textarea(
-        v-model="form.description"
-        :label="$t('forms.user.about')"
-      )
-      v-text-field(
-        v-model="form.login"
-        @input="checkLogin"
-        :error="!loginPermit"
-        :messages="loginMsg"
-        :label="$t('forms.user.login')"
-      )
-      v-text-field(
-        v-model="form.site"
-        :label="$t('forms.user.site')"
-      )
-      v-text-field(
-        v-model="form.facebook"
-        label="Facebook"
-      )
-      v-text-field(
-        v-model="form.instagram"
-        label="Instagram"
-      )
-      v-text-field(
-        v-model="form.phoneNumber"
-        :label="$t('forms.user.phone')"
-        v-mask="'+38 (###) ###-##-##'"
-      )
-      v-btn(
-        @click="changeUser"
-        :loading="loading"
-        :disabled ="!valid"
-        color="success darken-2" 
-      ) {{ $t('buttons.save') }}
+      v-row
+        v-col( cols="12" )
+          v-textarea(
+            v-model="form.description"
+            :label="$t('forms.user.about')"
+          )
+        v-col( cols="12" )
+          v-text-field(
+            v-model="form.login"
+            @input="checkLogin"
+            :error="!loginPermit"
+            :messages="loginMsg"
+            :label="$t('forms.user.login')"
+          )
+        v-col(
+          cols="12" md="4"
+        )
+          v-text-field(
+            v-model="form.site"
+            :label="$t('forms.user.site')"
+          )
+        v-col(
+          cols="12" md="4"
+        )
+          v-text-field(
+            v-model="form.facebook"
+            label="Facebook"
+          )
+        v-col(
+          cols="12" md="4"
+        )
+          v-text-field(
+            v-model="form.instagram"
+            label="Instagram"
+          )
+        v-col( cols="12" )
+          v-text-field(
+            v-model="form.phoneNumber"
+            :label="$t('forms.user.phone')"
+            v-mask="'+38 (###) ###-##-##'"
+          )
+        v-col( cols="12" )
+          v-btn(
+            @click="changeUser"
+            :loading="loading"
+            :disabled="!valid"
+            color="success darken-2" 
+          ) {{ $t('buttons.save') }}
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'

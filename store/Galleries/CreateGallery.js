@@ -1,11 +1,12 @@
 export const state = () => ({
-  _IMAGES: null,
-  _IMAGES_COPY: null,
+  _IMAGES: [],
+  _IMAGES_COPY: [],
   _GALLERY: null,
   _SHOW_MODAL: false,
   _PROGRESS: 0,
   _PROGRESS_SUBTITLE: 'Создаем галерею',
-  _UPLOADED_IMAGES: []
+  _UPLOADED_IMAGES: [],
+  _MAIN_TITLE: null
 })
 
 export const getters = {
@@ -15,7 +16,8 @@ export const getters = {
   GET_SHOW_GALLERY: state => state._SHOW_MODAL,
   GET_PROGRESS: state => state._PROGRESS,
   GET_PROGRESS_SUBTITLE: state => state._PROGRESS_SUBTITLE,
-  GET_UPLOADED_IMAGES: state => state._UPLOADED_IMAGES
+  GET_UPLOADED_IMAGES: state => state._UPLOADED_IMAGES,
+  GET_MAIN_TITLE: state => state._MAIN_TITLE
 }
 
 export const mutations = {
@@ -27,10 +29,11 @@ export const mutations = {
   UPDATE_PROGRESS_SUBTITLE: (state, text) => state._PROGRESS_SUBTITLE = text,
   UPDATE_UPLOADED_IMAGES: (state, array) => {
     state._UPLOADED_IMAGES = state._UPLOADED_IMAGES.concat(array)
-    state._GALLERY.images = state._UPLOADED_IMAGES
+    state._GALLERY.images = state._GALLERY.images ? state._GALLERY.images.concat(array): state._UPLOADED_IMAGES
   },
   CLEAR_UPLOADED_IMAGES: state => state._UPLOADED_IMAGES = [],
-  UPDATE_PROGRES: (state, progress) => state._PROGRESS = progress
+  UPDATE_PROGRES: (state, progress) => state._PROGRESS = progress,
+  UPDATE_MAIN_TITLE: (state, title) => state._MAIN_TITLE = title
 }
 
 export const actions = {
@@ -60,7 +63,7 @@ export const actions = {
           text: error.response ? error.response.data.msg : 'Что-то пошло не так'
         })
       })
-    },
+  },
   UPLOAD_IMAGES: async function ({ commit, getters, dispatch }) {
     commit('UPDATE_PROGRESS_SUBTITLE', 'Загружаем файлы')    
     const uploadImageNumber = 1
@@ -75,8 +78,8 @@ export const actions = {
     commit('UPDATE_PROGRES', progress)
     if (imagesLength === 0) {
       commit('UPDATE_GALLEERY', null)
-      commit('UPDATE_IMAGES', null)
-      commit('UPDATE_IMAGES_COPY', null)
+      commit('UPDATE_IMAGES', [])
+      commit('UPDATE_IMAGES_COPY', [])
       commit('UPDATE_PROGRESS_SUBTITLE', 'Создаем галерею')    
       commit('UPDATE_PROGRES', 0)
       commit('CLEAR_UPLOADED_IMAGES')
@@ -100,7 +103,7 @@ export const actions = {
       })
     })
   },
-  CHANGE_GALLERY: async function ({ commit, getters, dispatch }) {
+  CHANGE_GALLERY: async function ({ getters, dispatch }) {
     const gallery = getters['GET_GALLERY']
     this.$axios.put(`/gallery/change/${gallery._id}`, gallery).then(response => {
       dispatch('UPLOAD_IMAGES')
@@ -113,5 +116,6 @@ export const actions = {
         text: error.response ? error.response.data.msg : 'Что-то пошло не так'
       })
     })
-  }
+  },
+  UPDATE_MAIN_TITLE: ({ commit }, title) => commit('UPDATE_MAIN_TITLE', title)
 }

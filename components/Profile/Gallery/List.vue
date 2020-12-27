@@ -1,8 +1,8 @@
 <template lang="pug">
 v-list(
-  two-line
-  subheader
+  two-line subheader
   v-if="galleries && galleries.length > 0"
+  class="pb-0"
 )
   v-list-item(
     v-for="(gallery, index) in galleries" :key="index"

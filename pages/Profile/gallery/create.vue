@@ -108,7 +108,8 @@ export default {
       showModalCreateGallery: 'Galleries/CreateGallery/SHOW_MODAL',
       createGallery: 'Galleries/CreateGallery/CREATE_GALLERY',
       updateImages: 'Galleries/CreateGallery/UPDATE_IMAGES',
-      updateImagesCopy: 'Galleries/CreateGallery/UPDATE_IMAGES_COPY'
+      updateImagesCopy: 'Galleries/CreateGallery/UPDATE_IMAGES_COPY',
+      updateMainTitle: 'Galleries/CreateGallery/UPDATE_MAIN_TITLE'
     }),
     create: function () {
       this.$router.push('/profile/gallery')
@@ -116,6 +117,7 @@ export default {
       this.updateImages(this.files)
       this.updateImagesCopy(this.files)
       this.createGallery(this.form)
+      this.updateMainTitle('Создание папки')
     },
   }
 }
