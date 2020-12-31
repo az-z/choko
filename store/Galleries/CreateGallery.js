@@ -84,6 +84,8 @@ export const actions = {
       commit('UPDATE_PROGRES', 0)
       commit('CLEAR_UPLOADED_IMAGES')
       commit('HIDE_MODAL')
+      console.log(this);
+      this._vm.$cookies.remove('upload')
       return console.log('ready')
     }
     const arrayForUpload = images.splice(0 , uploadImageNumber)

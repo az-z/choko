@@ -31,59 +31,67 @@
           item-value="abbr"
           label="Типо оплаты"
         )
-    v-textarea(
-      v-model="gallery.description"
-      :label="$t('forms.galleries.description')"
-    )
-    v-switch(
-      v-model="gallery.activity"
-      :label="$t('forms.galleries.public')"
-    )
-    v-file-input(
-      counter
-      multiple
-      show-size
-      small-chips
-      truncate-length="15"
-      v-model="files"
-      prepend-icon="mdi-camera"
-    )
-    v-row
-      v-col(
-        v-for="(img, index) in gallery.images" :key="index"
-        sm="4"
-        md="2"
-        lg="1"
-      )
-        v-hover( v-slot="{ hover }" )
-          v-card
-            v-img(
-              v-if="img.path"
-              :src="img.path.original"
-              height="100"
-            )
-              v-app-bar(
-                flat
-                color="rgba(0, 0, 0, 0)"
-              )
-               v-spacer
-               v-btn(
-                 color="red"
-                 icon
-                 @click="removeImage(img._id)"
-               )
-                v-icon mdi-delete       
-    v-btn(
-      color="green"
-      @click="change"
-      :loading="loading"
-      class="white--text" 
-    ) {{ $t('buttons.save') }}
-    v-btn(
-      color="red"
-      @click="remove"
-      class="white--text" 
-    ).ml-2 {{ $t('buttons.delete') }}
+      v-col( cols="12" )
+        v-textarea(
+          v-model="gallery.description"
+          :label="$t('forms.galleries.description')"
+        )
+      v-col( cols="12" )
+        v-file-input(
+          multiple show-size
+          label="Фото"
+          truncate-length="15"
+          v-model="files"
+          prepend-icon="mdi-image"
+        )
+      v-col( cols="12" )
+        v-switch(
+          v-model="gallery.activity"
+          :label="$t('forms.galleries.public')"
+        )
+      v-col( cols="12" )
+        v-expansion-panels
+          v-expansion-panel
+            v-expansion-panel-header Фото
+            v-expansion-panel-content
+              v-row
+                v-col(
+                  v-for="(img, index) in gallery.images" :key="index"
+                  sm="4"
+                  md="2"
+                )
+                  v-card
+                    v-img(
+                      v-if="img.path"
+                      :src="img.path.original"
+                      height="150"
+                    )
+                      v-app-bar(
+                        flat
+                        color="rgba(0, 0, 0, 0)"
+                      )
+                        v-spacer
+                        v-btn(
+                          color="red" icon small
+                          @click="removeImage(img._id)"
+                        )
+                          v-icon mdi-delete
+                    v-card-text
+                      small {{ img.originalName }}  
+      v-col( cols="12" )
+        v-btn(
+          color="green"
+          @click="change"
+          :loading="loading"
+          :disabled="upload"
+          class="white--text" 
+        ) {{ $t('buttons.save') }}
+        v-btn(
+          color="red"
+          @click="remove"
+          class="white--text" 
+        ).ml-2 {{ $t('buttons.delete') }}
+              
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
@@ -95,6 +103,7 @@ export default {
     files: null,
     gallery: null,
     valid: null,
+    upload: false,
     items: [
       { state: 'Наличными', abbr: 'cash' },
       { state: 'На карту', abbr: 'liqpay' }
@@ -184,6 +193,7 @@ export default {
     }
   },
   mounted: function () {
+    this.upload = Boolean(this.$cookies.get('upload'))
     this.$axios.get(`/gallery/get/${this.$route.params.id}`).then(response => {
       this.gallery = response.data.gallery
     }).catch(error => {

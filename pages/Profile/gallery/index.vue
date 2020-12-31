@@ -6,7 +6,7 @@
         dark nuxt
         color="primary"
         :to="user.active.status ? `/profile/gallery/create` : ''"
-        :disabled="!!gallery"
+        :disabled="upload"
         @click="!user.active.status ? needActivate() : ''"
       ) {{ $t('buttons.createNewGallery') }}
     v-col
@@ -31,9 +31,10 @@ export default {
     toggles: {
       windows: {
         add: false,
-        change: false
+        change: false,
       }
-    }
+    },
+    upload: true
   }),
   computed: {
     ...mapGetters({
@@ -53,6 +54,9 @@ export default {
         text: 'Ваш статус неактивет перейдите во вкладку статус для оплаты'
       })
     }
+  },
+  mounted: function () {
+    this.upload = Boolean(this.$cookies.get('upload'))
   },
   created: function () {
     this.updateGalleries()

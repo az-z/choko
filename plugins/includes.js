@@ -31,3 +31,7 @@ Vue.component('vue-core-image-upload', VueCoreImageUpload )
 
 import VueFilterDateFormat from '@vuejs-community/vue-filter-date-format';
 Vue.use(VueFilterDateFormat);
+
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+Vue.$cookies.config('7d')

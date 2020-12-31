@@ -118,6 +118,7 @@ export default {
       this.updateImagesCopy(this.files)
       this.createGallery(this.form)
       this.updateMainTitle('Создание папки')
+      this.$cookies.set('upload', true)
     },
   }
 }
