@@ -12,23 +12,23 @@ v-footer(
       v-btn(
         color="white" 
         text
-      ) Условия эксплуатации
+      ) {{ $t('footer.buttons.use_policy') }} 
       v-btn(
         color="white" 
         text
-      ) Политика конфедициальности
+      ) {{ $t('footer.buttons.privacy_policy') }}  
       v-btn(
         color="white" 
         text
         nuxt
         to="/about"
-      ) О нас
+      ) {{ $t('footer.buttons.about') }}  
       v-btn(
         color="white" 
         text
         nuxt
         to="/contacts"
-      ) Контакты
+      ) {{ $t('footer.buttons.contacts') }}  
     v-col( cols="12" )
       v-btn(
         v-for="link in links" :key="link"

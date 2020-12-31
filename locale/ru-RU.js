@@ -1,13 +1,27 @@
 export default {
+	admin: {
+		sidebar: {
+			users : "Пользователи"
+		}
+	},
+	footer: {
+		buttons: {
+			use_policy : "Условия эксплуатации",
+			privacy_policy : "Политика конфедициальности",
+			about : "О нас",
+			contacts : "Контакты"
+		}
+	},	
   navigateBar: {
     mainPage: {
       capabilities: "Возможности",
       prices: "Цены",
-      enter: "Вход"
+      enter: "Вход",
+      login: "Вход"
     }
   },
   sidebar: {
-    galleries: "Галерея",
+    galleries: "Папка",
     orders: "Заказы",
     status: "Статусы",
     exit: "Выход"
@@ -17,7 +31,7 @@ export default {
     save: "Сохранить",
     delete: "Удалить",
     link: "Ссылка",
-    createNewGallery: "Создать новую галерею",
+    createNewGallery: "Создать новую папку",
     open: "Открыть",
     add: "Добавить",
     remove: "Убрать",
@@ -29,10 +43,10 @@ export default {
   galleries: {
     title: "Галереи",
     statistics: {
-      allGalleries: "Всего галерей:"
+      allGalleries: "Всего папок:"
     },
     change: {
-      title: "Редактирование галереи"
+      title: "Редактирование папки"
     }
   },
   orders: {
@@ -41,7 +55,7 @@ export default {
       preview: "Превью",
       status: "Статус",
       date: "Оформление",
-      summ: "Сумма(грн)",
+      summ: "Сумма",
       customer: "Заказчик",
       actions: "Действия"
     },
@@ -63,7 +77,13 @@ export default {
       date: "Заказ оформлен:",
       smallInner: "фото, цена за фото:",
       summ: "Сумма заказа:"
-    }
+    },
+    currency : "грн",
+    rules: {
+		name : "Имя обязательно",
+		email: "E-mail обязателен",
+		incorrectEmail: "Введите правильный E-mail"
+	}
   },
   profile: {
     buttons: {
@@ -94,13 +114,13 @@ export default {
       name: "Ваше имя",
       lastName: "Ваша фамилия",
       phone: "Ваш номер телефона",
-      description: "После оформления и оплаты заказ вам прейдет ссылка на орегеналы фотографий",
+      description: "Ссылку на оригинальные фотографии вы получите после оплаты заказа.",
       photos: "фото в заказе",
       validate: {
-        length: "Для оформления заказа добавте хотябы одну фотографию*",
+        length: "В заказе должно быть хотя бы одно фото.*",
         nameReq: "Имя обязательно",
         emailReq: "E-mail обязателен",
-        emailInvalid: "Введите коректный E-mail"
+        emailInvalid: "Введите корректный E-mail"
       }
     }
   },
@@ -126,9 +146,30 @@ export default {
     },
     opportunities: {
       title: "Возможности"
+      trial: {
+		  title: "Пробный период",
+		  price: "0",
+		  description: "<ul><li class=\"green--text\">14 дней бесплатно</li><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li></ul>"
+	  },
+	  package1: {
+		  title: "Месяц",
+		  price: "990",
+		  description: "<ul><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li><li>Приоритетная поддержка</li></ul>"
+	  }.
+	  package2: {
+		  title: "Год",
+		  price: "9700",
+		  description: "<ul><li>Безлимитные галереи</li><li>Прямые платежи</li><li>Никакой комиссии</li><li>Приоритетная поддержка</li></ul>"
+	  }	  
     },
     prices: {
       title: "Цены"
     }
   }
-}
+},
+	msg : {
+		OK: " OK",
+		error: "Что-то пошло не так",
+		info : "Information error",
+		URLadded : "Ссылка добавлена в буфер обмена"
+	}
