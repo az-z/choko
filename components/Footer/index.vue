@@ -12,7 +12,7 @@ v-footer(
       v-btn(
         color="white" 
         text
-      ) Условия эксплуатауии
+      ) Условия эксплуатации
       v-btn(
         color="white" 
         text
