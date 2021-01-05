@@ -15,7 +15,7 @@ v-navigation-drawer(app v-model="model"  clipped permanent)
     )
       v-list-item-icon
         v-icon mdi-account-group
-      v-list-item-content Пользователи
+      v-list-item-content {{ $t('admin.sidebar.users') }} 
     //- v-list-item(
     //-   link
     //- )

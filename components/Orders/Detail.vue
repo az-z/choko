@@ -75,7 +75,7 @@ span
                   reverse-transition="fade-transition"
                   transition="fade-transition"
                 )
-            small {{ order.images.length }} {{ $t('orders.modal.smallInner') }} {{ order.summ / order.images.length }} грн
+            small {{ order.images.length }} {{ $t('orders.modal.smallInner') }} {{ order.summ / order.images.length }} {{ $t('orders.currency') }} 
           v-col(
             cols="12" 
           )
@@ -113,9 +113,9 @@ span
           v-col(
             cols="12"
           )
-            strong {{ $t('orders.modal.summ') }} {{ order.summ }} грн
+            strong {{ $t('orders.modal.summ') }} {{ order.summ }} {{ $t('orders.currency') }} 
           v-col( cols="12" )
-            v-btn( nuxt :href="`${pathLink}gallery/${user.login}/${this.order.gallery}`" target="_blank" ) Папка
+            v-btn( nuxt :href="`${pathLink}gallery/${user.login}/${this.order.gallery}`" target="_blank" ) {{ $t('galleries.title') }} 
           v-col(
             v-for="(image, index) in order.images" :key="index"
             cols="12" md="2"
@@ -143,11 +143,11 @@ export default {
     valid: false,
     form: null,
     nameRules: [
-      v => !!v || 'Name is required',
+      v => !!v || {{ $t('orders.rules.name') }} ,
     ],
     emailRules: [
-      v => !!v || 'E-mail обязателен',
-      v => /.+@.+\..+/.test(v) || 'Введите коректный E-mail',
+      v => !!v || {{ $t('orders.rules.email') }},
+      v => /.+@.+\..+/.test(v) || {{ $t('orders.rules.incorrectEmail') }},
     ],
   }},
   computed: {
@@ -185,7 +185,7 @@ export default {
           group: 'foo',
           type: 'error',
           title: 'System',
-          text: error.response ? error.response.data.msg : 'Что-то пошло не так'
+          text: error.response ? error.response.data.msg : {{ $t('msg.error') }} 
         })
       }
     },
@@ -198,7 +198,7 @@ export default {
       copyText.type = 'hidden'
       this.$notify({
         title: 'System',
-        text: 'Ссылка добавлена в буфер обмена',
+        text: {{ $t('msg.URLadded') }}
         group: 'foo',
         type: 'success'
       })
