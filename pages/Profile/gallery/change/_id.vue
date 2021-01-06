@@ -169,6 +169,7 @@ export default {
         this.uploadImages()
         this.updateMainTitle('Редактирование папки')
         this.showModal()
+        this.$cookies.set('upload', true)
       } else {
         this.changeGallery()
       }

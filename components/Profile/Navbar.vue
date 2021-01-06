@@ -15,7 +15,9 @@ v-app-bar(
   v-chip(
     :color="user.active.status ? 'success' : 'error'"
     outlined
-    class="ml-4" 
+    class="ml-4"
+    :to="localePath('/profile/statuses')"
+    nuxt
   )
     span( v-if="user.active.status && !user.active.trial" ) Активен
     span( v-if="user.active.status && user.active.trial" ) Триал

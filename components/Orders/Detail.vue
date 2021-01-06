@@ -60,23 +60,7 @@ span
             cols="12"
           )
             .subtitle-1 {{ $t('orders.modal.date') }} {{ new Date(order.date) | dateFormat('DD.MM.YYYY') }}
-          //- v-col(
-            cols="12"
-            sm="6"
-            md="4"
-          //- )
-            v-card
-              v-carousel(
-                height="300"
-              )
-                v-carousel-item(
-                  v-for="(slide, index) in order.images" :key="index"
-                  :src="slide.path.original"
-                  reverse-transition="fade-transition"
-                  transition="fade-transition"
-                )
-            small {{ order.images.length }} {{ $t('orders.modal.smallInner') }} {{ order.summ / order.images.length }} {{ $t('orders.currency') }} 
-          v-col(
+            v-col(
             cols="12" 
           )
             v-form(
@@ -143,11 +127,11 @@ export default {
     valid: false,
     form: null,
     nameRules: [
-      v => !!v || {{ $t('orders.rules.name') }} ,
+      v => !!v || this.$t('orders.rules.name'),
     ],
     emailRules: [
-      v => !!v || {{ $t('orders.rules.email') }},
-      v => /.+@.+\..+/.test(v) || {{ $t('orders.rules.incorrectEmail') }},
+      v => !!v || this.$t('orders.rules.email'),
+      v => /.+@.+\..+/.test(v) || this.$t('orders.rules.incorrectEmail'),
     ],
   }},
   computed: {
@@ -185,7 +169,7 @@ export default {
           group: 'foo',
           type: 'error',
           title: 'System',
-          text: error.response ? error.response.data.msg : {{ $t('msg.error') }} 
+          text: error.response ? error.response.data.msg : this.$t('msg.error') 
         })
       }
     },
@@ -198,7 +182,7 @@ export default {
       copyText.type = 'hidden'
       this.$notify({
         title: 'System',
-        text: {{ $t('msg.URLadded') }}
+        text: this.$t('msg.URLadded'),
         group: 'foo',
         type: 'success'
       })
@@ -209,5 +193,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>

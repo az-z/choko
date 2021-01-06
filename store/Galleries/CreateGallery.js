@@ -64,6 +64,16 @@ export const actions = {
         })
       })
   },
+  STOP_UPLOAD: function ({ commit }) {
+    this._vm.$cookies.remove('upload')
+    commit('UPDATE_GALLEERY', null)
+    commit('UPDATE_IMAGES', [])
+    commit('UPDATE_IMAGES_COPY', [])
+    commit('UPDATE_PROGRESS_SUBTITLE', 'Создаем галерею')    
+    commit('UPDATE_PROGRES', 0)
+    commit('CLEAR_UPLOADED_IMAGES')
+    commit('HIDE_MODAL')
+  },
   UPLOAD_IMAGES: async function ({ commit, getters, dispatch }) {
     commit('UPDATE_PROGRESS_SUBTITLE', 'Загружаем файлы')    
     const uploadImageNumber = 1
@@ -76,27 +86,16 @@ export const actions = {
     // const cycleLength = Math.ceil(imagesLength / 10)
     const progress = Number(100 / imagesLengthLength * uploadedImagesLength).toFixed(0)
     commit('UPDATE_PROGRES', progress)
-    if (imagesLength === 0) {
-      commit('UPDATE_GALLEERY', null)
-      commit('UPDATE_IMAGES', [])
-      commit('UPDATE_IMAGES_COPY', [])
-      commit('UPDATE_PROGRESS_SUBTITLE', 'Создаем галерею')    
-      commit('UPDATE_PROGRES', 0)
-      commit('CLEAR_UPLOADED_IMAGES')
-      commit('HIDE_MODAL')
-      console.log(this);
-      this._vm.$cookies.remove('upload')
-      return console.log('ready')
-    }
+    if (imagesLength === 0) return dispatch('STOP_UPLOAD')
     const arrayForUpload = images.splice(0 , uploadImageNumber)
     const fd = new FormData()
     if (arrayForUpload) arrayForUpload.forEach(file => fd.append('images', file, file.name))
-
     this.$axios.post('/gallery/add-images', fd).then(response => {
       commit('UPDATE_UPLOADED_IMAGES', response.data.images)
       dispatch('CHANGE_GALLERY')
     }).catch(error => {
       console.error(error)
+      dispatch('STOP_UPLOAD')
       this._vm.$notify({
         group: 'foo',
         type: 'error',
