@@ -64,7 +64,6 @@
           prepend-icon="mdi-camera"
           accept=".jpg, .jpeg"
           :loading="loadingFiles"
-          :rules="rules.images"
         )
       v-col( cols="12" )
         v-btn(
