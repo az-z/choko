@@ -38,7 +38,7 @@ export default {
           color: 'purple'
         },
         html: {
-          ru: this.$t('landing.opportunities.description'),
+          ru: this.$t('landing.opportunities.trial.description'),
           ua: '<ul><li class="green--text">14 днів безкоштовно</li><li>Безлімітні галереї</li><li>Прямі платежі</li><li>Ніякої комісії</li></ul>'
         },
         color: 'purple',

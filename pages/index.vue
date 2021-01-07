@@ -10,6 +10,7 @@ import Opportunities from '~/components/Opportunities'
 import Prices from '~/components/Prices'
 export default {
   layout: 'indexPage',
+  name: "LandingPage",
   components: {
     Baner,
     Opportunities,

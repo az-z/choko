@@ -10,7 +10,7 @@ export const state = () => ({
 })
 
 export const getters = {
-  GET_IMAGES: state => [...state._IMAGES],
+  GET_IMAGES: state => state._IMAGES ? [...state._IMAGES] : [],
   GET_IMAGES_COPY: state => state._IMAGES_COPY,
   GET_GALLERY: state => state._GALLERY,
   GET_SHOW_GALLERY: state => state._SHOW_MODAL,
@@ -48,8 +48,9 @@ export const actions = {
       .then(response => {
         commit('UPDATE_GALLEERY', response.data.gallery)
         commit('UPDATE_PROGRESS_SUBTITLE', response.data.msg)
-        if (images) dispatch('UPLOAD_IMAGES')
+        if (images && images.length > 0) dispatch('UPLOAD_IMAGES')
         else {
+          this._vm.$cookies.remove('upload')
           commit('HIDE_MODAL')
           commit('UPDATE_PROGRESS_SUBTITLE', 'Создаем галерею')
         }

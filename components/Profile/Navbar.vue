@@ -5,17 +5,17 @@ v-app-bar(
   app
 )
   //- v-app-bar-nav-icon(@click.stop="toggleMiniVariant")
-  v-btn(
-    icon
-    @click.stop="toggleMiniVariant"
-    class="mr-4" 
-  )
-    v-icon mdi-{{ `${miniVariant ? 'menu' : 'close'}` }}
+  //- v-btn(
+  //-   icon
+  //-   @click.stop="toggleMiniVariant"
+  //-   class="mr-4" 
+  //- )
+  //-   v-icon mdi-{{ `${miniVariant ? 'menu' : 'close'}` }}
   Logo
   v-chip(
     :color="user.active.status ? 'success' : 'error'"
     outlined
-    class="ml-4"
+    class="ml-12"
     :to="localePath('/profile/statuses')"
     nuxt
   )
