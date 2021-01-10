@@ -31,7 +31,7 @@ v-navigation-drawer(
       v-list-item-icon
         v-icon.mr-1 mdi-cash-register
       v-list-item-title {{ $t('sidebar.orders') }}
-    v-list-item( :to="localePath('/profile/statuses')" nuxt )
+    //- v-list-item( :to="localePath('/profile/statuses')" nuxt )
       v-list-item-icon
         v-icon.mr-1 mdi-cash
       v-list-item-title {{ $t('sidebar.status') }}

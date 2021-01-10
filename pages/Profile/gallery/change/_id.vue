@@ -1,58 +1,72 @@
 <template lang="pug">
 .change-gallery-page(v-if="gallery")
-  v-row
+  v-row( class="align-center"  )
     v-col( cols="auto" )
       v-btn( to="/profile/gallery" icon nuxt )
         v-icon mdi-arrow-left
-    v-spacer
     v-col( cols="auto" )
       h1.change-gallery-page__title {{ $t('galleries.change.title') }}
-  v-row( class="align-center"  )
-    v-col( cols="auto" ) Ссылка
-    v-col( cols="auto" )
-      v-btn( nuxt text :href="`${pathLink}gallery/${user.login}/${gallery._id}`" ) {{ `${pathLink}gallery/${user.login}/${gallery._id}` }}
   v-form(v-model="valid" @submit.prevent="changeUser")
-    v-row( class="align-center"  )
-      v-col( cols="12" )
-        v-text-field(
-          v-model="gallery.title"
-          :label="$t('forms.galleries.title')"
-        )
-      v-col( cols="12" md="6" )
-        v-text-field(
-          v-model="gallery.price"
-          :label="$t('forms.galleries.price')"
-        )
-      v-col( cols="12" md="6" )
-        v-select(
-          v-model="gallery.payment"
-          :items="items"
-          item-text="state"
-          item-value="abbr"
-          label="Типо оплаты"
-        )
-      v-col( cols="12" )
+    v-row
+      v-col( cols="12"  )
+        v-row( class="align-center"  )
+          v-col( cols="auto" )
+            v-btn(
+              link outlined
+              color="primary" block  
+              :href="`${pathLink}gallery/${user.login}/${gallery._id}`"
+            ) Ссылка
+          v-col
+            v-text-field(
+              block
+              :value="`${pathLink}gallery/${user.login}/${gallery._id}`"
+            )
+      v-col( cols="6" )
+        v-row
+          v-col 
+            v-text-field(
+              v-model="gallery.title"
+              :label="$t('forms.galleries.title')"
+            )
+            v-row
+              v-col( cols="12" md="6" )
+                v-text-field(
+                  v-model="gallery.price"
+                  :label="$t('forms.galleries.price')"
+                )
+              v-col( cols="12" md="6" )
+                v-select(
+                  v-model="gallery.payment"
+                  :items="items"
+                  item-text="state"
+                  item-value="abbr"
+                  label="Типо оплаты"
+                )
+            v-checkbox(
+              v-model="gallery.activity"
+              :label="`Отображать папку в профиле?`"
+            )
+      v-col( cols="6" )
         v-textarea(
           v-model="gallery.description"
           :label="$t('forms.galleries.description')"
+          filled auto-grow
         )
       v-col( cols="12" )
         v-file-input(
           multiple show-size
-          label="Фото"
+          label="Загрузить фото"
           truncate-length="15"
           v-model="files"
           prepend-icon="mdi-image"
+          accept=".jpg, .jpeg"
         )
       v-col( cols="12" )
-        v-switch(
-          v-model="gallery.activity"
-          :label="$t('forms.galleries.public')"
-        )
+        
       v-col( cols="12" )
         v-expansion-panels
-          v-expansion-panel
-            v-expansion-panel-header Фото
+          v-expansion-panel( outlined )
+            v-expansion-panel-header Фото в папке
             v-expansion-panel-content
               v-row
                 v-col(

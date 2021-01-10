@@ -2,7 +2,11 @@
 .gallery(v-if="gallery")
   v-dialog( v-model="showImage" )
     v-card
-      v-img( v-if="showImageItem" :src="showImageItem.path.small" )
+      v-img( 
+        v-if="showImageItem" 
+        :src="showImageItem.path.small" 
+        max-height="640" 
+      )
   v-container
     .gallery__header
       h1.gallery__title {{ gallery.title }}
