@@ -123,7 +123,7 @@ export default {
       { state: 'На карту', abbr: 'liqpay' }
     ]
   }},
-  computed: {
+  computed: {                                                                                                                                                                                                  
     ...mapGetters({
       user: 'Auth/getUser'
     }),

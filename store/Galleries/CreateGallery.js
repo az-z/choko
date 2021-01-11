@@ -57,6 +57,7 @@ export const actions = {
       })
       .catch(error => {
         console.error(error)
+        this._vm.$cookies.remove('upload')
         this._vm.$notify({
           group: 'foo',
           type: 'error',

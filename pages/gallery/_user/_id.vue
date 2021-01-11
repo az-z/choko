@@ -4,8 +4,7 @@
     v-card
       v-img( 
         v-if="showImageItem" 
-        :src="showImageItem.path.small" 
-        max-height="640" 
+        :src="showImageItem.path.small"
       )
   v-container
     .gallery__header
