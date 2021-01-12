@@ -13,6 +13,93 @@
         .gallery__length.mr-4 {{ order.length }} фото в заказе
         .gallery__price {{ $t('public.gallery.price') }} {{ gallery.price }} грн
         .gallery__summ Сумма: {{ form.summ }} грн
+      .gallery__actions
+        v-container
+          v-dialog(
+            v-model="dialog"
+            persistent
+            max-width="600px" 
+          )
+            template( v-slot:activator="{ on, attrs }" )
+              v-btn(
+                color="green"
+                class="white--text"
+                v-bind="attrs"
+                v-on="on"
+              ) {{ $t('buttons.placing') }}
+            v-card( v-if="htmlPayment" )
+              v-card-title Оплатить онлайн
+              v-card-text
+                div(v-html="htmlPayment" )
+            v-card( v-else-if="gallery.payment === 'cash' && payed" )
+              v-card-title Спасибо за заказ
+              v-card-text {{ gallery.creator.payment.cashText }}
+              v-card-actions
+                v-spacer
+                v-btn(
+                  color="blue darken-1"
+                  text
+                  @click="dialog = false; payed = false"
+                ) {{ $t('buttons.close') }}
+            v-card( v-else )
+              v-card-title
+                span.headline {{ $t('forms.placingOrder.title') }}
+              v-form( v-model="valid" ref="form" )
+                v-card-text
+                  v-container
+                    v-row
+                      v-col(
+                        cols="12"
+                      )
+                        v-text-field(
+                          label="E-mail*"
+                          v-model="form.email"
+                          required
+                          :rules="emailRules"
+                        )
+                      v-col(
+                        cols="12"
+                        sm="6"
+                      )
+                        v-text-field(
+                          :label="$t('forms.placingOrder.name')"
+                          v-model="form.name"
+                        )
+                      v-col(
+                        cols="12"
+                        sm="6"
+                      )
+                        v-text-field(
+                          :label="$t('forms.placingOrder.lastName')"
+                          v-model="form.lastname"
+                        )
+                      v-col(
+                        cols="12"
+                      )
+                        v-text-field(
+                          :label="$t('forms.placingOrder.phone')"
+                          v-model="form.phone"
+                          required
+                          v-mask="'+38 (0##) ##-##-###'"
+                        )
+                  div
+                    small {{ $t('forms.placingOrder.description') }}
+                  div
+                    div( v-if="order.length == 0" ).red--text {{ $t('forms.placingOrder.validate.length') }}
+                    strong( v-else ).green--text {{ order.length }} {{ $t('forms.placingOrder.photos') }}
+                v-card-actions
+                  v-spacer
+                  v-btn(
+                    color="blue darken-1"
+                    text
+                    @click="dialog = false"
+                  ) {{ $t('buttons.close') }}
+                  v-btn(
+                    color="blue darken-1"
+                    text
+                    :disabled="!order.length"
+                    @click="addOrder"
+                  ) {{ $t('buttons.placingOrder') }}
     .gallery__description {{ gallery.description }}
     .gallery__content
       //- h3.gallery__content-title {{ $t('public.gallery.photosTitle') }}
@@ -26,6 +113,7 @@
           v-card
             v-img(
               :src="image.path.small"
+              height="240" 
               @click="showModalImage(image)"
             )
             v-card-text {{ image.originalName }}
@@ -40,94 +128,7 @@
                 span( v-if="!image.picked" ) {{ $t('buttons.add') }}
                 v-icon( left v-show="image.picked" ) mdi-close
                 span( v-if="image.picked" ) {{ $t('buttons.remove') }}
-  .gallery__footer
-    v-container
-      v-dialog(
-        v-model="dialog"
-        persistent
-        max-width="600px" 
-      )
-        template( v-slot:activator="{ on, attrs }" )
-          v-btn(
-            color="green"
-            large
-            class="white--text"
-            v-bind="attrs"
-            v-on="on"
-          ) {{ $t('buttons.placing') }}
-        v-card( v-if="htmlPayment" )
-          v-card-title Оплатить онлайн
-          v-card-text
-            div(v-html="htmlPayment" )
-        v-card( v-else-if="gallery.payment === 'cash' && payed" )
-          v-card-title Спасибо за заказ
-          v-card-text {{ gallery.creator.payment.cashText }}
-          v-card-actions
-            v-spacer
-            v-btn(
-              color="blue darken-1"
-              text
-              @click="dialog = false; payed = false"
-            ) {{ $t('buttons.close') }}
-        v-card( v-else )
-          v-card-title
-            span.headline {{ $t('forms.placingOrder.title') }}
-          v-form( v-model="valid" ref="form" )
-            v-card-text
-              v-container
-                v-row
-                  v-col(
-                    cols="12"
-                  )
-                    v-text-field(
-                      label="E-mail*"
-                      v-model="form.email"
-                      required
-                      :rules="emailRules"
-                    )
-                  v-col(
-                    cols="12"
-                    sm="6"
-                  )
-                    v-text-field(
-                      :label="$t('forms.placingOrder.name')"
-                      v-model="form.name"
-                    )
-                  v-col(
-                    cols="12"
-                    sm="6"
-                  )
-                    v-text-field(
-                      :label="$t('forms.placingOrder.lastName')"
-                      v-model="form.lastname"
-                    )
-                  v-col(
-                    cols="12"
-                  )
-                    v-text-field(
-                      :label="$t('forms.placingOrder.phone')"
-                      v-model="form.phone"
-                      required
-                      v-mask="'+38 (0##) ##-##-###'"
-                    )
-              div
-                small {{ $t('forms.placingOrder.description') }}
-              div
-                div( v-if="order.length == 0" ).red--text {{ $t('forms.placingOrder.validate.length') }}
-                strong( v-else ).green--text {{ order.length }} {{ $t('forms.placingOrder.photos') }}
-            v-card-actions
-              v-spacer
-              v-btn(
-                color="blue darken-1"
-                text
-                @click="dialog = false"
-              ) {{ $t('buttons.close') }}
-              v-btn(
-                color="blue darken-1"
-                text
-                :disabled="!order.length"
-                @click="addOrder"
-              ) {{ $t('buttons.placingOrder') }}
+  //- .gallery__footer
 v-container( v-else )
   .h2 {{ msg }}
 </template>
