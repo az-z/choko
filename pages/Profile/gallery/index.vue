@@ -42,6 +42,11 @@ export default {
       gallery: 'Galleries/CreateGallery/GET_GALLERY'
     })
   },
+  watch: {
+    gallery: function () {
+      this.upload = Boolean(this.$cookies.get('upload'))
+    }
+  },
   methods: {
     ...mapActions({
       updateGalleries: 'Galleries/updateGalleries'

@@ -26,16 +26,19 @@
           v-col 
             v-text-field(
               v-model="gallery.title"
+              :rules="rules.title"
               :label="$t('forms.galleries.title')"
             )
             v-row
               v-col( cols="12" md="6" )
                 v-text-field(
                   v-model="gallery.price"
+                  :rules="rules.price"
                   :label="$t('forms.galleries.price')"
                 )
               v-col( cols="12" md="6" )
                 v-select(
+                  :rules="rules.payment"
                   v-model="gallery.payment"
                   :items="items"
                   item-text="state"
@@ -54,6 +57,7 @@
         )
       v-col( cols="12" )
         v-file-input(
+          :rules="rules.images"
           multiple show-size
           label="Загрузить фото"
           truncate-length="15"
@@ -108,6 +112,15 @@
               
 </template>
 <script>
+function formatBytes(bytes, decimals = 2) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
 import { mapGetters, mapActions } from 'vuex'
 export default {
   layout: 'profile',
@@ -121,7 +134,26 @@ export default {
     items: [
       { state: 'Наличными', abbr: 'cash' },
       { state: 'На карту', abbr: 'liqpay' }
-    ]
+    ],
+    rules: {
+      price: [
+        value => !!value || 'Цена обязвтельна',
+        value => /^[0-9]+$/.test(value) || 'Только цифры'
+      ],
+      images:  [
+        value => {
+          let fullSize = 0
+          if (value) value.forEach(element => fullSize = fullSize + element.size) 
+          return !value || fullSize < (this.user.storage.limit - this.user.storage.usage) || `Привышен лимит на диске: ${ formatBytes(fullSize) } / ${formatBytes(this.user.storage.limit - this.user.storage.usage)}`
+        }
+      ],
+      title: [
+        value => !!value || 'Название обязательно'
+      ],
+      payment: [
+        value => !!value || 'Выберите тип оплаты'
+      ]
+    }
   }},
   computed: {                                                                                                                                                                                                  
     ...mapGetters({

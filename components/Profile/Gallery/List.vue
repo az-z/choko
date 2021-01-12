@@ -3,6 +3,7 @@ v-list(
   two-line subheader
   v-if="galleries && galleries.length > 0"
   class="pb-0"
+  :disabled="disabled"
 )
   v-list-item(
     v-for="(gallery, index) in galleries" :key="index"
@@ -52,12 +53,21 @@ export default {
       required: true
     }
   },
+  data: function () {return{
+    disabled: true
+  }},
   computed: {
     ...mapGetters({
-      user: 'Auth/getUser'
+      user: 'Auth/getUser',
+      gallery: 'Galleries/CreateGallery/GET_GALLERY'
     }),
     pathLink: function () {
       return `${window.location.protocol}//${window.location.host}/`
+    }
+  },
+  watch: {
+    gallery: function () {
+      this.disabled = Boolean(this.$cookies.get('upload'))
     }
   },
   methods: {
@@ -111,6 +121,9 @@ export default {
         type: 'success'
       })
     }
+  },
+  mounted: function () {
+    this.disabled = Boolean(this.$cookies.get('upload'))
   }
 }
 </script>

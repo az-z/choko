@@ -58,11 +58,12 @@
       v-col( cols="12" )
         v-file-input(
           counter multiple
-          show-size truncate-length="15"
+          truncate-length="15"
           v-model="files"
           name="photos"
           prepend-icon="mdi-camera"
           accept=".jpg, .jpeg"
+          :rules="rules.images"
           :loading="loadingFiles"
         )
       v-col( cols="12" )
@@ -75,7 +76,15 @@
         ) Создать
 </template>
 <script>
-import { mapActions } from 'vuex'
+function formatBytes(bytes, decimals = 2) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+import { mapGetters, mapActions } from 'vuex'
 import FilePickerButton from 'vue-google-picker'
 export default {
   layout: 'profile',
@@ -93,7 +102,11 @@ export default {
         value => /^[0-9]+$/.test(value) || 'Только цифры'
       ],
       images:  [
-        value => !value || value.size < 100000000 || 'Images size should be less than 100 MB!'
+        value => {
+          let fullSize = 0
+          if (value) value.forEach(element => fullSize = fullSize + element.size) 
+          return !value || fullSize < (this.user.storage.limit - this.user.storage.usage) || `Привышен лимит на диске: ${ formatBytes(fullSize) } / ${formatBytes(this.user.storage.limit - this.user.storage.usage)}`
+        }
       ],
       title: [
         value => !!value || 'Название обязательно'
@@ -118,6 +131,11 @@ export default {
       { state: 'На карту', abbr: 'liqpay' }
     ],
   }},
+  computed: {
+    ...mapGetters({
+      user: 'Auth/getUser'
+    })
+  },
   methods: {
     ...mapActions({
       addGallery: 'Galleries/addGallery',
