@@ -80,6 +80,7 @@ export const actions = {
     commit('UPDATE_PROGRESS_SUBTITLE', 'Загружаем файлы')    
     const uploadImageNumber = 1
     const images = getters['GET_IMAGES']
+    const gallery = getters['GET_GALLERY']
     const imagesLength = images.length
     const imagesCopy = getters['GET_IMAGES_COPY']
     const imagesLengthLength = imagesCopy.length
@@ -91,9 +92,10 @@ export const actions = {
     if (imagesLength === 0) return dispatch('STOP_UPLOAD')
     const arrayForUpload = images.splice(0 , uploadImageNumber)
     const fd = new FormData()
+    fd.append('gallery', gallery._id)
     if (arrayForUpload) arrayForUpload.forEach(file => fd.append('images', file, file.name))
     this.$axios.post('/gallery/add-images', fd).then(response => {
-      commit('UPDATE_UPLOADED_IMAGES', response.data.images)
+      if (response.status == 200) commit('UPDATE_UPLOADED_IMAGES', response.data.images)
       dispatch('CHANGE_GALLERY')
     }).catch(error => {
       console.error(error)

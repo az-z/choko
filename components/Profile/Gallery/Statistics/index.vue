@@ -1,25 +1,31 @@
 <template lang="pug">
 v-card(color="light")
-  v-card-text.py-0(v-if="galleries && galleries.length > 0")
+  v-card-text.py-0
     v-row
-      v-col.font-weight-bold.py-2(cols="auto")
-        | {{ $t('galleries.statistics.allGalleries') }}
-        | {{ galleries.length }}
-      v-col.py-2(cols="auto")
+      v-col.py-2(cols="auto" lg="2")
+        span {{ $t('galleries.statistics.allGalleries') }}
+        strong( v-if="galleries && galleries.length" )  {{ galleries.length }}
+        strong( v-else )  0
+      v-col.py-2(cols="auto" lg="4")
         span Хранилище:
-        span {{ user.storage.limit | formatStorage }}
+        strong  {{ user.storage.limit | formatStorage }}
         span.ml-4 Занято:
-        span {{ user.storage.usage | formatStorage }}
-      v-col( md="12" ).py-2
+        strong  {{ user.storage.usage | formatStorage }}
+      v-col( md="12" lg="6" ).py-2
         v-progress-linear(
           :value="(100 / user.storage.limit) * user.storage.usage",
-          height="22px",
-          color="success"
+          height="22px"
+          :color="returnColor((100 / user.storage.limit) * user.storage.usage)"
+          rounded
         )
+          template( v-slot:default="{ value }" )
+            div.white--text
+              span.ml-4 Сободно:
+              span  {{ user.storage.limit - user.storage.usage | formatStorage }}
 </v-card>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "vuex"
 export default {
   computed: {
     ...mapGetters({
@@ -41,6 +47,13 @@ export default {
       return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
     },
   },
+  methods: {
+    returnColor: function (num) {
+      if (num > 85) return 'error'
+      if (num > 45) return 'warning'
+      return 'success'
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
