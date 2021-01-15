@@ -16,7 +16,7 @@ v-card(color="light")
           :value="(100 / user.storage.limit) * user.storage.usage",
           height="22px"
           :color="returnColor((100 / user.storage.limit) * user.storage.usage)"
-          rounded
+          rounded outlined 
         )
           template( v-slot:default="{ value }" )
             div.white--text

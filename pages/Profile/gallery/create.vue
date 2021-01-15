@@ -156,6 +156,11 @@ export default {
       this.updateMainTitle('Создание папки')
       this.$cookies.set('upload', true)
     },
+  },
+  watch: {
+    files: function (to, from) {
+      debugger
+    }
   }
 }
 </script>
