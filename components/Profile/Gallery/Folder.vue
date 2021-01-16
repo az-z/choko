@@ -5,7 +5,7 @@
     .folder__mainfoldershadow
       .folder__header
         .folder__title {{ gallery.title }}
-        nuxt-link(:to="`/profile/gallery/change/${gallery._id}`").folder__button-change Редактировать
+        nuxt-link(:to="`/profile/gallery/change/${gallery._id}`").folder__button-change {{ $t('profile.gallery.edit') }} 
       .folder__calash
         img(
           src="/images/photo.jpg"
@@ -13,7 +13,7 @@
         ).folder__img
       button(@click="copy").folder__button-wrapper
         svg-icon(name="link-2").folder__icon
-        span.folder__button Ссылка
+        span.folder__button  {{ $t('buttons.url') }} 
         input(type="hidden" v-model="link" id="link-to-copy")
     .folder__bookmarkfolder
     .folder__contentfolder
@@ -46,7 +46,7 @@ export default {
       copyText.type = 'hidden'
       this.$notify({
         title: 'System',
-        text: 'Ссылка добавлена в буфер обмена',
+        text: ` {{$t('msg.URLadded')}},
         group: 'foo',
         type: 'success'
       })
