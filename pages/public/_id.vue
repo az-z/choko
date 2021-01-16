@@ -25,7 +25,7 @@
             ) {{ $t('public.profile.buttons.site') }}
             v-btn(
               color="blue"
-              :href="`http://facebook.com/${user.facebook}`"
+              :href="user.facebook"
               target="blank" 
               nuxt
             )
@@ -33,7 +33,7 @@
               span.white--text Facebook 
             v-btn(
               color="purple"
-              :href="`http://instagram.com/${user.instagram}`"
+              :href="user.instagram"
               target="blank" 
               nuxt
             )
