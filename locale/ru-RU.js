@@ -38,11 +38,10 @@ export default {
     placing: "Заказать",
     close: "Закрыть",
     placingOrder: "Оформить заказ",
-    try: "Попробовать",
-    url : "Ссылка"
+    try: "Попробовать"
   },
   galleries: {
-    title: "Папки",
+    title: "Галереи",
     statistics: {
       allGalleries: "Всего папок:"
     },
@@ -89,22 +88,7 @@ export default {
   profile: {
     buttons: {
       publicPage: "Публичная страница"
-    },
-    gallery: {
-		edit : "Редактировать",
-		create: "Создание папки",
-		name : "Название",
-		price : "Цена за фото",
-		payment_type: "Тип оплаты",
-		public : "Папка общедоступна",
-		desc : "Описание",
-		price_rule: "Цена обязательна",
-		digits_rule: "Только цифры",
-		space_rule : "Превышен лимит на диске",
-		title_rule : "Название обязательно",
-		payment_cash : "Наличными",
-		payment_card : "На карту"
-	}
+    }
   },
   forms: {
     galleries: {
@@ -152,9 +136,7 @@ export default {
     },
     gallery: {
       price: "Цена за фото:",
-      photosTitle: "Фотографии",
-      currency : "грн",
-      no_gallery_msg : "Нет папки"
+      photosTitle: "Фотографии"
     }
   },
   landing: {
@@ -188,7 +170,6 @@ export default {
     OK: "OK",
     error: "Что-то пошло не так",
     info: "Information error",
-    URLadded: "Ссылка добавлена в буфер обмена",
-    added : "
+    URLadded: "Ссылка добавлена в буфер обмена"
   }
 }

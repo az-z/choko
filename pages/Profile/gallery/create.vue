@@ -9,7 +9,7 @@
       )
         v-icon mdi-arrow-left
     v-col( cols="auto" )
-      h1 `{{ $t('profile.gallery.create') }}`
+      h1 Создание галереи
   v-form(
     ref="form"
     v-model="valid"
@@ -21,14 +21,14 @@
           v-col( cols="12" )
             v-text-field(
               v-model="form.title"
-              label= `{{ $t('profile.gallery.name') }}`
+              label="Название"
               name="title"
               :rules="rules.title"
             )
           v-col( cols="6" )
             v-text-field(
               v-model="form.price"
-              label=`{{ $t('profile.gallery.price') }}`
+              label="Цена за фото"
               :rules="rules.price"
               name="price"
             )
@@ -38,13 +38,13 @@
               :items="items"
               item-text="state"
               item-value="abbr"
-              label=`{{ $t('profile.gallery.payment_type') }}`
+              label="Типо оплаты"
               :rules="rules.payment"
             )
           v-col( cols="12" )
             v-checkbox(
               v-model="form.activity"
-              :label=`{{ $t('profile.gallery.public') }}`
+              :label="`Отображать папку в профиле?`"
               name="public"
             )
       v-col( cols="12" lg="6" )
@@ -53,7 +53,7 @@
             v-textarea(
               filled auto-grow
               v-model="form.description"
-              label= `{{ $t('profile.gallery.desc') }}`  name="description"
+              label="Описание" name="description"
             )
       v-col( cols="12" )
         v-file-input(
@@ -98,21 +98,21 @@ export default {
     loadingFiles: false,
     rules: {
       price: [
-        value => !!value || `{{ $t('profile.gallery.price_rule') }}`,
-        value => /^[0-9]+$/.test(value) || `{{ $t('profile.gallery.digits_rule') }}`
+        value => !!value || 'Цена обязвтельна',
+        value => /^[0-9]+$/.test(value) || 'Только цифры'
       ],
       images:  [
         value => {
           let fullSize = 0
           if (value) value.forEach(element => fullSize = fullSize + element.size) 
-          return !value || fullSize < (this.user.storage.limit - this.user.storage.usage) || `{{ $t('profile.gallery.space_rule') }} : ${ formatBytes(fullSize) } / ${formatBytes(this.user.storage.limit - this.user.storage.usage)}`
+          return !value || fullSize < (this.user.storage.limit - this.user.storage.usage) || `Привышен лимит на диске: ${ formatBytes(fullSize) } / ${formatBytes(this.user.storage.limit - this.user.storage.usage)}`
         }
       ],
       title: [
-        value => !!value || `{{ $t('profile.gallery.title_rule') }}` 
+        value => !!value || 'Название обязательно'
       ],
       payment: [
-        value => !!value || `{{ $t('profile.gallery.payment_type') }} `
+        value => !!value || 'Выберите тип оплаты'
       ]
     },
     files: null,
@@ -127,8 +127,8 @@ export default {
     },
     gConfig: null,
     items: [
-      { state: `{{ $t('profile.gallery.payment_cash') }}`, abbr: 'cash' },
-      { state: `{{ $t('profile.gallery.payment_card') }}`, abbr: 'liqpay' }
+      { state: 'Наличными', abbr: 'cash' },
+      { state: 'На карту', abbr: 'liqpay' }
     ],
   }},
   computed: {
@@ -153,7 +153,7 @@ export default {
       this.updateImages(this.files)
       this.updateImagesCopy(this.files)
       this.createGallery(this.form)
-      this.updateMainTitle(`{{ $t('profile.gallery.create') }}`)
+      this.updateMainTitle('Создание папки')
       this.$cookies.set('upload', true)
     },
   },
