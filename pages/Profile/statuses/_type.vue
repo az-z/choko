@@ -5,7 +5,7 @@ v-container
       span( v-if="$route.params.type === 'month'" ) Месячная
       span( v-else ) Годовая
       span.ml-1 подписка
-    v-card-text Вы оформляете подписку на месяц
+    v-card-text Вы оформляете подписку на год
     v-card-actions
       div( v-html="$route.params.type === 'month' ? response.first : response.second" )
 </template>

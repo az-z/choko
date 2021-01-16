@@ -16,7 +16,7 @@ v-row(v-if="galleries && galleries.length > 0")
         )
       v-card-title {{ gallery.title }}
       v-card-text
-        .subtitle-1 {{ gallery.price }} грн
+        .subtitle-1 {{ gallery.price }} {{ $t('profile.gallery.currency') }} 
         div {{ gallery.description }}
       v-card-actions
         input(
@@ -36,7 +36,7 @@ v-row(v-if="galleries && galleries.length > 0")
           nuxt
           @click="copy(index)"
         ) {{ $t('buttons.link') }}
-.overline(v-else) Нет галерей
+.overline(v-else) {{ $t('profile.gallery.no_gallery_msg') }}
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -65,7 +65,7 @@ export default {
       copyText.type = 'hidden'
       this.$notify({
         title: 'System',
-        text: 'Ссылка добавлена в буфер обмена',
+        text: `{{ $t('msg.URLadded' }}`,
         group: 'foo',
         type: 'success'
       })
