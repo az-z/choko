@@ -36,6 +36,9 @@ export default {
     Navbar,
     ProgressGallery
   },
+  head: function () {return{
+    title: 'Keytophoto | Лучший фото сервис'
+  }},
   data: () => ({
     miniVariant: false
   }),

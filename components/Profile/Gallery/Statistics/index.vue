@@ -20,7 +20,7 @@ v-card(color="light")
         )
           template( v-slot:default="{ value }" )
             div.white--text
-              span.ml-4 Сободно:
+              span.ml-4 Свободно:
               span  {{ user.storage.limit - user.storage.usage | formatStorage }}
 </v-card>
 </template>

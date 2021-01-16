@@ -43,7 +43,7 @@
                   :items="items"
                   item-text="state"
                   item-value="abbr"
-                  label="Типо оплаты"
+                  label="Тип оплаты"
                 )
             v-checkbox(
               v-model="gallery.activity"

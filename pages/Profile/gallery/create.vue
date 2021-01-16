@@ -38,7 +38,7 @@
               :items="items"
               item-text="state"
               item-value="abbr"
-              label="Типо оплаты"
+              label="Тип оплаты"
               :rules="rules.payment"
             )
           v-col( cols="12" )
@@ -156,11 +156,6 @@ export default {
       this.updateMainTitle('Создание папки')
       this.$cookies.set('upload', true)
     },
-  },
-  watch: {
-    files: function (to, from) {
-      debugger
-    }
   }
 }
 </script>
