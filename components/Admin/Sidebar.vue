@@ -15,25 +15,7 @@ v-navigation-drawer(app v-model="model"  clipped permanent)
     )
       v-list-item-icon
         v-icon mdi-account-group
-      v-list-item-content Пользователи
-    //- v-list-item(
-    //-   link
-    //- )
-    //-   v-list-item-icon
-    //-     v-icon mdi-image-multiple
-    //-   v-list-item-content Фото
-    //- v-list-item(
-    //-   link
-    //- )
-    //-   v-list-item-icon
-    //-     v-icon mdi-folder-multiple-image
-    //-   v-list-item-content Галереи
-    //- v-list-item(
-    //-   link
-    //- )
-    //-   v-list-item-icon
-    //-     v-icon mdi-cash-register
-    //-   v-list-item-content Заказы
+      v-list-item-content {{ $t('admin.sidebar.users') }} 
 </template>
 <script>
 export default {

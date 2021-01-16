@@ -1,77 +1,94 @@
 <template lang="pug">
 .create-gallery-page
-  v-row
+  v-row.align-center
     v-col( cols="auto" )
       v-btn(
-        icon nuxt
+        nuxt icon
+        :ripple="false"
         to="/profile/gallery"
       )
         v-icon mdi-arrow-left
-    v-spacer
     v-col( cols="auto" )
-      h2 Создание галереи
-  v-form(v-model="valid" @submit.prevent="changeUser")
+      h1 Создание галереи
+  v-form(
+    ref="form"
+    v-model="valid"
+    lazy-validation  
+  )
     v-row
-      v-col( cols="12" )
-        v-text-field(
-          v-model="form.title"
-          label="Название"
-          name="title"
-        )
-      v-col( cols="6" )
-        v-text-field(
-          v-model="form.price"
-          label="Цена за фото"
-          :rules="priceRules"
-          name="price"
-        )
-      v-col( cols="6" )
-        v-select(
-          v-model="form.payment"
-          :items="items"
-          item-text="state"
-          item-value="abbr"
-          label="Типо оплаты"
-        )
-      v-col( cols="12" )
-        v-textarea(
-          v-model="form.description"
-          label="Описание"
-          name="description"
-        )
+      v-col( cols="12" lg="6" )
+        v-row
+          v-col( cols="12" )
+            v-text-field(
+              v-model="form.title"
+              label="Название"
+              name="title"
+              :rules="rules.title"
+            )
+          v-col( cols="6" )
+            v-text-field(
+              v-model="form.price"
+              label="Цена за фото"
+              :rules="rules.price"
+              name="price"
+            )
+          v-col( cols="6" )
+            v-select(
+              v-model="form.payment"
+              :items="items"
+              item-text="state"
+              item-value="abbr"
+              label="Типо оплаты"
+              :rules="rules.payment"
+            )
+          v-col( cols="12" )
+            v-checkbox(
+              v-model="form.activity"
+              :label="`Отображать папку в профиле?`"
+              name="public"
+            )
+      v-col( cols="12" lg="6" )
+        v-row
+          v-col( cols="12" )
+            v-textarea(
+              filled auto-grow
+              v-model="form.description"
+              label="Описание" name="description"
+            )
       v-col( cols="12" )
         v-file-input(
-          counter
-          multiple
-          show-size
-          small-chips
+          counter multiple
           truncate-length="15"
           v-model="files"
           name="photos"
           prepend-icon="mdi-camera"
-          accept=".jpg, .jpeg, .png"
-          :loading="loadingFiles"
+          accept=".jpg, .jpeg"
           :rules="rules.images"
+          :loading="loadingFiles"
         )
-      v-col( cols="12" )
-        v-switch(
-          v-model="form.activity"
-          :label="`Отображать папку в профиле?`"
-          name="public"
-        )
-        .subtitle-2 
       v-col( cols="12" )
         v-btn(
-          :disabled="!valid"
+          large
+          color="primary"
           @click="create"
+          :disabled="!valid"
           :loading="loading || loadingFiles"
         ) Создать
 </template>
 <script>
-import { mapActions } from 'vuex'
+function formatBytes(bytes, decimals = 2) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+import { mapGetters, mapActions } from 'vuex'
 import FilePickerButton from 'vue-google-picker'
 export default {
   layout: 'profile',
+  name: 'CreateFolder',
   components: {
     FilePickerButton
   },
@@ -79,10 +96,25 @@ export default {
     valid: false,
     loading: false,
     loadingFiles: false,
-    priceRules: [
-      value => !!value || 'Цена обязвтельна',
-      value => /^[0-9]+$/.test(value) || 'Только цифры'
-    ],
+    rules: {
+      price: [
+        value => !!value || 'Цена обязвтельна',
+        value => /^[0-9]+$/.test(value) || 'Только цифры'
+      ],
+      images:  [
+        value => {
+          let fullSize = 0
+          if (value) value.forEach(element => fullSize = fullSize + element.size) 
+          return !value || fullSize < (this.user.storage.limit - this.user.storage.usage) || `Привышен лимит на диске: ${ formatBytes(fullSize) } / ${formatBytes(this.user.storage.limit - this.user.storage.usage)}`
+        }
+      ],
+      title: [
+        value => !!value || 'Название обязательно'
+      ],
+      payment: [
+        value => !!value || 'Выберите тип оплаты'
+      ]
+    },
     files: null,
     form: {
       title: null,
@@ -98,10 +130,12 @@ export default {
       { state: 'Наличными', abbr: 'cash' },
       { state: 'На карту', abbr: 'liqpay' }
     ],
-    rules: [
-      images => !value || value.size < 100000000 || 'Images size should be less than 100 MB!',
-    ]
   }},
+  computed: {
+    ...mapGetters({
+      user: 'Auth/getUser'
+    })
+  },
   methods: {
     ...mapActions({
       addGallery: 'Galleries/addGallery',
@@ -111,14 +145,22 @@ export default {
       updateImagesCopy: 'Galleries/CreateGallery/UPDATE_IMAGES_COPY',
       updateMainTitle: 'Galleries/CreateGallery/UPDATE_MAIN_TITLE'
     }),
-    create: function () {
+    create: async function () {
+      await this.$refs.form.validate()
+      if (!this.valid) return;
       this.$router.push('/profile/gallery')
       this.showModalCreateGallery()
       this.updateImages(this.files)
       this.updateImagesCopy(this.files)
       this.createGallery(this.form)
       this.updateMainTitle('Создание папки')
+      this.$cookies.set('upload', true)
     },
+  },
+  watch: {
+    files: function (to, from) {
+      debugger
+    }
   }
 }
 </script>

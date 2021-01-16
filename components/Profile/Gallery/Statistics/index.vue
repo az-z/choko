@@ -1,37 +1,60 @@
 <template lang="pug">
-v-card(
-  color="light"
-)
-  v-card-text(
-    v-if="galleries && galleries.length > 0"
-  ).py-0
+v-card(color="light")
+  v-card-text.py-0
     v-row
-      v-col( cols="auto" ).font-weight-bold.py-2
-        | {{ $t('galleries.statistics.allGalleries') }}
-        | {{ galleries.length }}
-      v-col( cols="auto" ).py-2
+      v-col.py-2(cols="auto" lg="2")
+        span {{ $t('galleries.statistics.allGalleries') }}
+        strong( v-if="galleries && galleries.length" )  {{ galleries.length }}
+        strong( v-else )  0
+      v-col.py-2(cols="auto" lg="4")
         span Хранилище:
-        span {{ user.storage.limit }}
+        strong  {{ user.storage.limit | formatStorage }}
         span.ml-4 Занято:
-        span {{ user.storage.usage }}
-      v-col.py-2
+        strong  {{ user.storage.usage | formatStorage }}
+      v-col( md="12" lg="6" ).py-2
         v-progress-linear(
-          :value="100 / user.storage.limit * user.storage.usage"
+          :value="(100 / user.storage.limit) * user.storage.usage",
           height="22px"
-          color="success" 
+          :color="returnColor((100 / user.storage.limit) * user.storage.usage)"
+          rounded outlined 
         )
+          template( v-slot:default="{ value }" )
+            div.white--text
+              span.ml-4 Сободно:
+              span  {{ user.storage.limit - user.storage.usage | formatStorage }}
 </v-card>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex"
 export default {
   computed: {
     ...mapGetters({
-      galleries: 'Galleries/getGalleries',
-      user: 'Auth/getUser'
-    })
+      galleries: "Galleries/getGalleries",
+      user: "Auth/getUser",
+    }),
+  },
+  filters: {
+    formatStorage: function formatBytes(bytes) {
+      const decimals = 2
+      if (bytes === 0) return "0 Bytes";
+
+      const k = 1024;
+      const dm = decimals < 0 ? 0 : decimals;
+      const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+    },
+  },
+  methods: {
+    returnColor: function (num) {
+      if (num > 85) return 'error'
+      if (num > 45) return 'warning'
+      return 'success'
+    }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .storage {

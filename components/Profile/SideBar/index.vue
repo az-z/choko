@@ -31,7 +31,7 @@ v-navigation-drawer(
       v-list-item-icon
         v-icon.mr-1 mdi-cash-register
       v-list-item-title {{ $t('sidebar.orders') }}
-    v-list-item( :to="localePath('/profile/statuses')" nuxt )
+    //- v-list-item( :to="localePath('/profile/statuses')" nuxt )
       v-list-item-icon
         v-icon.mr-1 mdi-cash
       v-list-item-title {{ $t('sidebar.status') }}
@@ -50,15 +50,19 @@ v-navigation-drawer(
         v-list-item-icon
           v-icon mdi-credit-card-outline
         v-list-item-title На карту
-  template(v-slot:append)
-    v-list(
-      nav
-      dance
+  template( v-slot:append )
+    v-list-item(
+      disabled  
+      @click.stop="toggleMiniVariant"
     )
-      v-list-item(@click="logout")
-        v-list-item-icon
-          v-icon.mr-1 mdi-exit-to-app
-          v-list-item-title {{ $t('sidebar.exit') }}
+      v-list-item-icon
+        v-icon mdi-close
+      v-list-item-title Свернуть
+      //- v-list-item-subtitle Soon
+    v-list-item( @click="logout" )
+      v-list-item-icon
+        v-icon mdi-exit-to-app
+      v-list-item-title {{ $t('sidebar.exit') }}
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'

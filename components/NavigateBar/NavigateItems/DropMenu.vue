@@ -2,9 +2,9 @@
 .drop-menu(:class="{'show': showDropMenu}")
   .drop-menu__body(v-click-outside="hide")
     .drop-menu__items
-      .drop-menu__item(@click="scrollTo('opportunities')") Возможности
-      .drop-menu__item(@click="scrollTo('prices')") Цены
-      .drop-menu__item(@click="scrollTo('baner')") Войти
+      .drop-menu__item(@click="scrollTo('opportunities')") {{ $t('navigateBar.mainPage.capabilities') }} 
+      .drop-menu__item(@click="scrollTo('prices')") {{ $t('navigateBar.mainPage.prices') }}
+      .drop-menu__item(@click="scrollTo('baner')") {{ $t('navigateBar.mainPage.login') }} 
 </template>
 <script>
 import ClickOutside from 'vue-click-outside'

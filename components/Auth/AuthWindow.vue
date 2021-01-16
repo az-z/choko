@@ -1,7 +1,6 @@
 <template lang="pug">
-v-card
-  GoogleAuth
-  
+v-card lol
+  GoogleAuth  
 </template>
 <script>
 import GoogleAuth from './Socials/Google'
@@ -11,6 +10,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-
-</style>

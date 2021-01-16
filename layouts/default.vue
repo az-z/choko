@@ -43,6 +43,14 @@ export default {
     toggleMiniVariant: function () {
       this.miniVariant = !this.miniVariant
     }
+  },
+  mounted: function () {
+    const date = new Date()
+    if (date.getHours() > 19 || date.getHours() < 6 ) this.$vuetify.theme.dark = true
+  },
+  updated: function () {
+    const date = new Date()
+    if (date.getHours() > 19 || date.getHours() < 6 ) this.$vuetify.theme.dark = true
   }
 }
 </script>

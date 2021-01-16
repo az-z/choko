@@ -6,12 +6,6 @@ v-btn(
   color="orange"
 )
   svg-icon(name="google").google-auth__icon
-  //- .google-auth__text.white--text
-    span.text-main-1 o
-    span.text-google o
-    span.text-main-3 g
-    span.text-main-2 l
-    span.text-main-1 e
 </template>
 <script>
 import MixinAuth from '~/mixins/auth'
