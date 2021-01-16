@@ -17,7 +17,7 @@ kinesis-container.baner#baner
         div( v-else )
           v-list-item.three-line
             v-list-item-content
-              div( class="overline mb-4" ) Добро пожаловать
+              div( class="overline mb-4" ) {{ $t('landing.authBlock.greeting') }}
               v-list-item-title( class="headline mb-1"  ) {{ user.login }}
               v-list-item-subtitle {{ user.email }}
             v-list-item-avatar(
