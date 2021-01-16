@@ -161,7 +161,8 @@ export default {
   landing: {
     authBlock: {
       title: "Работа с фото? Легко!",
-      subTitle: "Все в пешей доступности"
+      subTitle: "Все в пешей доступности",
+      greeting: "Добро пожаловать"
     },
     opportunities: {
       title: "Возможности",
