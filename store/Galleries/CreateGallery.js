@@ -65,9 +65,15 @@ export const actions = {
           text: error.response ? error.response.data.msg : 'Что-то пошло не так'
         })
       })
-  },
+    },
   STOP_UPLOAD: function ({ commit }) {
     this._vm.$cookies.remove('upload')
+    this._vm.$notify({
+      group: 'foo',
+      type: 'success',
+      title: 'System',
+      text: `Фото загружены успешно`
+    })
     commit('UPDATE_GALLEERY', null)
     commit('UPDATE_IMAGES', [])
     commit('UPDATE_IMAGES_COPY', [])
@@ -93,7 +99,21 @@ export const actions = {
     const arrayForUpload = images.splice(0 , uploadImageNumber)
     const fd = new FormData()
     fd.append('gallery', gallery._id)
-    if (arrayForUpload) arrayForUpload.forEach(file => fd.append('images', file, file.name))
+    console.log(arrayForUpload[0].name);
+    let next = true
+    if (gallery.images && gallery.images.length > 0) gallery.images.map(element => { 
+      if (next) next = element.originalName == arrayForUpload[0].name ? false : true
+    })
+    if (!next) {
+      this._vm.$notify({
+        group: 'foo',
+        type: 'warning',
+        title: 'System',
+        text: `Фото ${arrayForUpload[0].name} уже было загружено`
+      })
+      return dispatch('UPLOAD_IMAGES')
+    }
+    if (arrayForUpload && arrayForUpload.length > 0) fd.append('images', arrayForUpload[0], arrayForUpload[0].name)
     this.$axios.post('/gallery/add-images', fd).then(response => {
       if (response.status == 200) commit('UPDATE_UPLOADED_IMAGES', response.data.images)
       dispatch('CHANGE_GALLERY')

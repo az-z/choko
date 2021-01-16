@@ -1,11 +1,15 @@
 <template lang="pug">
 .gallery(v-if="gallery")
-  v-dialog( v-model="showImage" )
+  v-dialog( v-model="showImage" max-width="640px"  )
     v-card
-      v-img( 
-        v-if="showImageItem" 
-        :src="showImageItem.path.small"
-      )
+      v-card-text( class="pa-0"  )
+        v-img( 
+          v-if="showImageItem" 
+          :src="showImageItem.path.small"
+          :lazy-src="showImageItem.path.xs"
+          contain
+          max-height="640"
+        )
   v-container
     .gallery__header
       h1.gallery__title {{ gallery.title }}
@@ -113,7 +117,8 @@
           v-card
             v-img(
               :src="image.path.small"
-              height="240" 
+              :lazy-src="image.path.xs" 
+              height="240"
               @click="showModalImage(image)"
             )
             v-card-text {{ image.originalName }}

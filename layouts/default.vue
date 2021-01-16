@@ -26,6 +26,7 @@ v-app( color="light" )
   ProgressGallery
 </template>
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import SideBar from '~/components/Profile/SideBar'
 import Navbar from '~/components/Profile/Navbar'
 import ProgressGallery from '@/components/Profile/Gallery/Modals/ProgressCreateGallery'
@@ -43,17 +44,42 @@ export default {
     miniVariant: false
   }),
   methods: {
+    ...mapActions({
+      updateGallery: 'Galleries/CreateGallery/UPDATE_GALLEERY'
+    }),
     toggleMiniVariant: function () {
       this.miniVariant = !this.miniVariant
+    }
+  },
+  computed: {
+    ...mapGetters({
+      gallery: 'Galleries/CreateGallery/GET_GALLERY'
+    })
+  },
+  beforeMount: function () {
+    if (!this.gallery) {
+      this.$cookies.remove('upload')
+      this.updateGallery({})
+      this.updateGallery(null)
     }
   },
   mounted: function () {
     const date = new Date()
     if (date.getHours() > 19 || date.getHours() < 6 ) this.$vuetify.theme.dark = true
+    if (!this.gallery) {
+      this.$cookies.remove('upload')
+      this.updateGallery({})
+      this.updateGallery(null)
+    }
   },
   updated: function () {
     const date = new Date()
     if (date.getHours() > 19 || date.getHours() < 6 ) this.$vuetify.theme.dark = true
+    if (!this.gallery) {
+      this.$cookies.remove('upload')
+      this.updateGallery({})
+      this.updateGallery(null)
+    }
   }
 }
 </script>

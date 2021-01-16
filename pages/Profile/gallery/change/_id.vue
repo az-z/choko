@@ -45,6 +45,7 @@
                   item-value="abbr"
                   label="Тип оплаты"
                 )
+              v-col( cols="12" md="6" )
             v-checkbox(
               v-model="gallery.activity"
               :label="`Отображать папку в профиле?`"
@@ -80,8 +81,7 @@
                 )
                   v-card
                     v-img(
-                      v-if="img.path"
-                      :src="img.path.original"
+                      :src="img.path.xs"
                       height="150"
                     )
                       v-app-bar(
@@ -124,6 +124,7 @@ function formatBytes(bytes, decimals = 2) {
 import { mapGetters, mapActions } from 'vuex'
 export default {
   layout: 'profile',
+  name: "ChangeFolder",
   data: function () {return{
     loading: false,
     loadingFiles: false,
@@ -210,12 +211,12 @@ export default {
       this.$router.push('/profile/gallery')
       this.updateGalleryForChange(this.gallery)
       if (this.files) {
+        this.showModal()
+        this.$cookies.set('upload', true)
         this.updateImages(this.files)
         this.updateImagesCopy(this.files)
         this.uploadImages()
         this.updateMainTitle('Редактирование папки')
-        this.showModal()
-        this.$cookies.set('upload', true)
       } else {
         this.changeGallery()
       }

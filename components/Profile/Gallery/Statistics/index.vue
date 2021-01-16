@@ -11,7 +11,7 @@ v-card(color="light")
         strong  {{ user.storage.limit | formatStorage }}
         span.ml-4 Занято:
         strong  {{ user.storage.usage | formatStorage }}
-      v-col( md="12" lg="6" ).py-2
+      v-col( cols="12" xl="12" ).py-2
         v-progress-linear(
           :value="(100 / user.storage.limit) * user.storage.usage",
           height="22px"

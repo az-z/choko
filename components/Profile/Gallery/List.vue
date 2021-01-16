@@ -15,7 +15,7 @@ v-list(
     )
       v-img(
         v-if="gallery.images && gallery.images.length > 0"
-        :src="gallery.images[0].path.original"
+        :src="gallery.images[0].path.xs"
       )
       span( v-else class="white--text headline" ) {{ gallery.title.substr(0,1) }}
     v-list-item-content
